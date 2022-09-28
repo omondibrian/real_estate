@@ -16,15 +16,17 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 
-export const Primary = Template.bind({});
+export const Expanded = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  label: ' horizontal Card',
+Expanded.args = {
+  label: ' Expanded Card',
+  expanded: true
 };
 
-export const Vertical = Template.bind({});
-Vertical.args = {
-  label: ' vertical Card',
+export const Normal = Template.bind({});
+Normal.args = {
+  label: ' Normal Card',
+  expanded: false
 };
 
 

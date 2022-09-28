@@ -1,7 +1,7 @@
 import React from "react";
-import { OccupiedBadge, PillIcon } from "./styles";
+import { OccupiedBadge } from "./styles";
 import Image from "next/image";
-import Calender from "../../../public/assets/icons/calender.png";
+import Calender from "../../../public/assets/icons/calendar.svg";
 
 export interface PillProps {
   /**
@@ -26,7 +26,7 @@ export function PillTab(props: PillProps) {
   return (
     <OccupiedBadge backgroundColor={props.backgroundColor}>
       {props.icon && (
-        <Image src="/assets/icons/calender.png" height="30px" width="30px" layout="intrinsic" />
+        <Image src={Calender} height="30px" width="30px"  layout="intrinsic" />
       )}
       {props.labelText}
     </OccupiedBadge>

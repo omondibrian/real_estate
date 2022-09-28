@@ -12,9 +12,9 @@
   ],
   "plugins": [
     // "xwind/babel",
-    "@emotion/babel-plugin",
     ["styled-components", { "ssr": true }],
     ["babel-plugin-twin", { "debug": false }],
-    "babel-plugin-macros"
+    "babel-plugin-macros",
+    "@emotion/babel-plugin"
   ]
 }

@@ -1,16 +1,20 @@
 import React from "react";
 import {
-  BaseCard,
-  CardArc,
-  CardArcPath,
-  CardDescription,
-  CardHeader,
-  CardImage,
-  CardOverlay,
-  CardStatus,
-  CardThumbNail,
-  CardTitle,
+  HorizontalCard,
+  HorizontalCardBody,
+  HorizontalCardContent,
+  HorizontalCardImage,
+  HorizontalCardText,
+  HorizontalCardTextContent,
+  HorizontalCardTitle,
 } from "./styles";
+
+import Image from "next/image";
+import info from "../../../public/assets/icons/information.svg";
+import people from "../../../public/assets/icons/people.svg";
+import home from "../../../public/assets/icons/home.svg";
+import point from "../../../public/assets/icons/point.svg";
+import { PillTab } from "../pill";
 
 interface CardProps {
   backgroundColor?: string;
@@ -26,31 +30,88 @@ interface CardProps {
    * Optional click handler
    */
   onClick?: () => void;
+  /**
+   * dictates the state of the  card
+   */
+  expanded: boolean;
 }
 
 /**
  * card component
  */
-export const Card = ({ label }: CardProps) => {
+
+export const Card = ({ label, expanded }: CardProps) => {
   return (
-    <BaseCard>
-      <CardImage src="https://i.imgur.com/oYiTqum.jpg" alt="property-listing" />
-      <CardOverlay>
-        <CardHeader>
-          <CardArc xmlns="http://www.w3.org/2000/svg">
-            <CardArcPath/>
-          </CardArc>
-          <CardThumbNail src="https://i.imgur.com/7D7I6dI.png" alt="property listing" />
-          <div className="card-header-text">
-            <CardTitle>Jessica Parker</CardTitle>
-            <CardStatus>1 hour ago </CardStatus>
-          </div>
-        </CardHeader>
-        <CardDescription>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-          similique eius nobis.
-        </CardDescription>
-      </CardOverlay>
-    </BaseCard>
+    <HorizontalCard>
+      <div
+        className={
+          !expanded
+            ? "bg-white shadow-md  rounded-3xl p-4 "
+            : "bg-white shadow-md  rounded-3xl pr-2 pl-0 py-0"
+        }
+      >
+        <HorizontalCardBody>
+          <HorizontalCardImage>
+            {expanded ? (
+              <Image
+                src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
+                alt="salama properties"
+                className=" object-scale-down lg:object-cover  lg:h-48 rounded-2xl rounded-r-none "
+                width={"350px"}
+                height={"350px"}
+              />
+            ) : (
+              <Image
+                src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
+                alt="salama properties"
+                className=" object-scale-down lg:object-cover lg:h-48 rounded-2xl  "
+                width={"75px"}
+                height={"75px"}
+              />
+            )}
+          </HorizontalCardImage>
+          <HorizontalCardContent>
+            <div className="w-16 md:w-32 lg:w-96">
+              <div className="flex flex-wrap ">
+                <HorizontalCardTitle>
+                  Salama Properties ThornBridge Cir,Syrance,conecticut 3564
+                </HorizontalCardTitle>
+              </div>
+            </div>
+            <p className="mt-2"></p>
+            <div className="flex  text-sm text-gray-500">
+              {expanded && <CardInfo info={"Open on Maps"} Icon={point} />}
+            </div>
+            <div className="flex pt-2 pb-2  text-sm text-gray-500">
+              <CardInfo info={"32 properties"} Icon={home} />
+              <CardInfo info={"10 Tenants"} Icon={people} />
+              {expanded && <CardInfo info={"8 Requests"} Icon={info} />}
+            </div>
+            <div className="flex pb-2  text-sm text-gray-500">
+              {expanded && (
+                <PillTab
+                  backgroundColor="#7480fb"
+                  labelText="Show property calender"
+                  icon={true}
+                />
+              )}
+            </div>
+          </HorizontalCardContent>
+        </HorizontalCardBody>
+      </div>
+    </HorizontalCard>
+  );
+};
+
+interface CardInfoProps {
+  info: string;
+  Icon: any;
+}
+const CardInfo = ({ info, Icon }: CardInfoProps) => {
+  return (
+    <div className="flex-1 inline-flex items-center">
+      <Image src={Icon} layout="intrinsic" />
+      <p className="mr-1">{info}</p>
+    </div>
   );
 };

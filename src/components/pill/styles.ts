@@ -18,7 +18,7 @@ export const Pill = styled.div<{ backgroundColor?: string }>`
   height: auto;
   justify-content: center;
   line-height: 1.5;
-  padding: 6px 20px;
+  padding: 3px 20px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -45,17 +45,18 @@ $: hover{
 export const OccupiedBadge = styled.button<{ backgroundColor: string }>`
   background-color: ${(props) => props.backgroundColor};
   border-radius: 100px;
-
+  display: flex;
   color: white;
   cursor: pointer;
-  display: inline-block;
+  align-items: center;
+  gap: 0.5rem;
   font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
-  padding: 10px 20px;
+  padding: 4px 10px;
   text-align: center;
   text-decoration: none;
   transition: all 250ms;
   border: 0;
-  font-size: 16px;
+  font-size: 12px;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;

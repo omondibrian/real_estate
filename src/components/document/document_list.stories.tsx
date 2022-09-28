@@ -22,9 +22,6 @@ Primary.args = {
   label: ' horizontal Document',
 };
 
-export const Vertical = Template.bind({});
-Vertical.args = {
-  label: ' vertical Document',
-};
+
 
 

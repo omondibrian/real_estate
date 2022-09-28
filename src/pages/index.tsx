@@ -72,7 +72,10 @@ const Home: NextPage = () => {
       <PillTab backgroundColor = ' #59b73d'   labelText = 'occupied' />
       <footer className="flex h-24 w-full items-center justify-center border-t">
         <a
-          className="flex items-center justify-center gap-2"
+          className="flex items-center justify-center gap-2 
+         focus:bg-white 
+  focus:border-indigo-600
+          "
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
