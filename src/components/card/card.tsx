@@ -53,25 +53,23 @@ export const Card = ({ label, expanded }: CardProps) => {
         <HorizontalCardBody>
           <HorizontalCardImage>
             {expanded ? (
-              <Image
+              <img
                 src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
                 alt="salama properties"
-                className=" object-scale-down lg:object-cover  lg:h-48 rounded-2xl rounded-r-none "
-                width={"350px"}
-                height={"350px"}
+                className=" object-scale-down lg:object-cover  rounded-2xl rounded-r-none "
+               
               />
             ) : (
-              <Image
+              <img
                 src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
                 alt="salama properties"
-                className=" object-scale-down lg:object-cover lg:h-48 rounded-2xl  "
-                width={"75px"}
-                height={"75px"}
+                className=" object-scale-down lg:object-cover  rounded-2xl  "
+                
               />
             )}
           </HorizontalCardImage>
           <HorizontalCardContent>
-            <div className="w-16 md:w-32 lg:w-96">
+            <div className="">
               <div className="flex flex-wrap ">
                 <HorizontalCardTitle>
                   Salama Properties ThornBridge Cir,Syrance,conecticut 3564

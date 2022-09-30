@@ -8,7 +8,7 @@ export interface NavProps {
 }
 export default function NavBar(props:NavProps) {
   return (
-    <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-0 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full  top-0 left-0 border-b border-gray-200 dark:border-gray-600">
       <div className="container flex flex-wrap flex-row-reverse  items-end  mx-auto">
         <div className="flex ">
           <div className="mr-4">

@@ -2,21 +2,21 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 export const HorizontalCard = styled.div`
-  ${tw`flex flex-col `};
+  ${tw`flex `};
 
 `;
 export const HorizontalCardImage = styled.div`
-  ${tw` h-full w-full lg:h-48 lg:w-48   lg:mb-0 mb-3`}
+  ${tw` h-full w-full  lg:w-48   lg:mb-0 mb-3 mr-2`}
 `;
 
 export const HorizontalCardBody = styled.div`
-  ${tw` flex-none lg:flex  `}
+  ${tw` flex-none lg:flex items-center `}
 `;
 
 
 export const HorizontalCardContent = styled.div`
   ${tw`
-  flex-auto ml-3 justify-evenly py-1
+  flex-auto  justify-evenly py-1
   `}
 `;
 
