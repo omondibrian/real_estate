@@ -2,10 +2,6 @@ import React from "react";
 
 interface DocumentProps {
   /**
-   * document title contents
-   */
-  label: string;
-  /**
    * Optional click handler
    */
   onClick?: () => void;
@@ -14,7 +10,7 @@ interface DocumentProps {
  * document component
  * shows the list of documents btwn tenant and the home owner
  */
-export const Document = ({ label }: DocumentProps) => {
+export const Document = ({}: DocumentProps) => {
   return (
     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
       <ul
@@ -39,6 +35,7 @@ export const Document = ({ label }: DocumentProps) => {
             </svg>
 
             <span className="ml-2 w-0 flex-1 truncate">receipts</span>
+            <DocType type='PDF' styles="text-indigo-800  bg-indigo-200"/>
           </div>
           <div className="ml-4 flex-shrink-0">
             <a
@@ -82,9 +79,8 @@ export const Document = ({ label }: DocumentProps) => {
             <span className="ml-2 w-0 flex-1 truncate">
               transcation history
             </span>
-            <span className="inline-flex items-center justify-center w-6 h-3 p-3 ml-2 text-sm font-medium text-purple-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">
-              pdf
-            </span>
+            <DocType type='xls' styles="text-green-800 bg-green-200"/>
+            
           </div>
           <div className="ml-4 flex-shrink-0">
             <a
@@ -112,3 +108,19 @@ export const Document = ({ label }: DocumentProps) => {
     </dd>
   );
 };
+
+interface IDocTypeProps{
+  styles: string,type: string
+}
+
+export default function DocType(props:IDocTypeProps) {
+  return (
+    <div
+    style={{ paddingTop: " 0.1em", paddingBottom: "0.1rem" }}
+    className={"text-xs px-3 py-2  rounded-full "+ props.styles}
+  >
+    {props.type}
+  </div>
+  )
+}
+
