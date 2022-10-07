@@ -56,7 +56,7 @@ function Chart() {
     scales: {
       yAxes: {
         ticks: {
-          color: "rgba(255, 255, 255, 1)",
+          color: "rgba(0,0,0, 1)",
         },
         grid: {
           display: false,
@@ -66,7 +66,7 @@ function Chart() {
 
       xAxes: {
         ticks: {
-          color: "rgba(255, 255, 255, 1)",
+          color: "rgba(0,0,0, 1)",
         },
         grid: {
           circular: true,
