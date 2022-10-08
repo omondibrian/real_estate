@@ -5,6 +5,12 @@ interface TenantProps {
    * Optional click handler
    */
   onClick?: () => void;
+  name: string;
+  profileUrl: string;
+  status: "Active" | "InActive";
+  placementDate: string;
+  contact: string;
+  pricePerMonth: string;
 }
 /**
  * display current tenant information
@@ -19,14 +25,14 @@ export const TenantInfo = (props: TenantProps) => {
             height={"60px"}
             width={"60px"}
             alt="avatar"
-            src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+            src={props.profileUrl}
             className="rounded-full w-full h-full object-cover "
           />
           <div></div>
         </div>
         <div className="space-y-2">
           <div className="flex space-x-2 items-center">
-            <h2 className="text-base font-bold"> Janie william </h2>
+            <h2 className="text-base font-bold"> {props.name} </h2>
             <svg
               className="h-4 w-4 text-blue-500"
               fill="none"
@@ -40,7 +46,7 @@ export const TenantInfo = (props: TenantProps) => {
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <div className="  text-xs text-slate-400">Active</div>
+            <div className="  text-xs text-slate-400">{props.status}</div>
           </div>
           <p className=" text-xs text-slate-400">Tenant</p>
         </div>
@@ -51,25 +57,29 @@ export const TenantInfo = (props: TenantProps) => {
           Placement Date
         </div>
         <div className=" text-base text-gray-400 font-normal">
-          6 August 2022
+          {props.placementDate}
         </div>
       </div>
       <div className="flex justify-between text-center">
         <div className=" text-base text-gray-400 font-normal ">Contact</div>
         <div className=" text-base text-gray-400 font-normal">
-          (254) 555-101
+          {props.contact}
         </div>
       </div>
 
       <div className="flex justify-between text-center">
         <div className=" text-base text-gray-400 font-normal ">Price/month</div>
-        <div className=" text-base text-white  font-bold"> $291.23</div>
+        <div className=" text-base text-white  font-bold">
+          {" "}
+          {props.pricePerMonth}
+        </div>
       </div>
 
       <div className="flex justify-center pt-1">
         <button
           type="submit"
           className="w-full flex justify-center bg-indigo-600  hover:bg-purple-200 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500"
+          onClick={props.onClick}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

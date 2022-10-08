@@ -20,4 +20,7 @@ const Template: ComponentStory<typeof Document> = (args) => (
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {};
+Primary.args = {
+  contractUrl:"#",
+  receiptsUrl:"#"
+};

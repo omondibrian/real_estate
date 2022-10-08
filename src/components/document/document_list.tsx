@@ -5,12 +5,14 @@ interface DocumentProps {
    * Optional click handler
    */
   onClick?: () => void;
+  contractUrl:string;
+  receiptsUrl:string;
 }
 /**
  * document component
  * shows the list of documents btwn tenant and the home owner
  */
-export const Document = ({}: DocumentProps) => {
+export const Document = ({contractUrl,receiptsUrl}: DocumentProps) => {
   return (
     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
       <ul
@@ -39,7 +41,7 @@ export const Document = ({}: DocumentProps) => {
           </div>
           <div className="ml-4 flex-shrink-0">
             <a
-              href="#"
+              href={contractUrl}
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               <svg
@@ -84,7 +86,7 @@ export const Document = ({}: DocumentProps) => {
           </div>
           <div className="ml-4 flex-shrink-0">
             <a
-              href="#"
+              href={receiptsUrl}
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
               <svg
