@@ -8,7 +8,7 @@ export interface ItemProps {
 }
 function TranscationItem(props: ItemProps) {
   return (
-    <div className="flex flex-row border border-gray-200 shadow-md max-w-sm p-2 ml-2">
+    <div className="flex flex-row border border-gray-200 shadow-md max-w-[337px] p-2 ml-2">
       <Image
         width={"35px"}
         height="35px"
