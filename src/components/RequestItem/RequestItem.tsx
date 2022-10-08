@@ -3,7 +3,7 @@ import Image from "next/image";
 import { OccupiedBadge } from "../pill/styles";
 import {
   CheckBadgeIcon,
-  AdjustmentsHorizontalIcon,
+  EllipsisHorizontalIcon,
 } from "@heroicons/react/20/solid";
 import DocType from "../document/document_list";
 export interface ItemProps {
@@ -45,7 +45,7 @@ function RequestItem(props: ItemProps) {
               #125
             </span>
           </div>
-          <AdjustmentsHorizontalIcon
+          <EllipsisHorizontalIcon
             height={"20px"}
             width="20px"
             className="ml-auto mb-4"
