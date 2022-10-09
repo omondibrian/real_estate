@@ -22,10 +22,7 @@ interface CardProps {
    * How large should the button be?
    */
   orientation?: "horizontal" | "vetical";
-  /**
-   * Button contents
-   */
-  label: string;
+ 
   /**
    * Optional click handler
    */
@@ -34,37 +31,40 @@ interface CardProps {
    * dictates the state of the  card
    */
   expanded: boolean;
+  imageUrl: string;
+  propertyTitle: string;
+  noRequest: string;
+  noTenants: string;
+  noProperties:string;
 }
 
 /**
  * card component
  */
 
-export const Card = ({ label, expanded }: CardProps) => {
+export const Card = (props: CardProps) => {
   return (
     <HorizontalCard>
       <div
         className={
-          !expanded
+          !props.expanded
             ? "bg-white shadow-md  rounded-3xl p-4 "
             : "bg-white shadow-md  rounded-3xl pr-2 pl-0 py-0"
         }
       >
         <HorizontalCardBody>
           <HorizontalCardImage>
-            {expanded ? (
+            {props.expanded ? (
               <img
                 src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
                 alt="salama properties"
                 className=" object-scale-down lg:object-cover  rounded-2xl rounded-r-none "
-               
               />
             ) : (
               <img
                 src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
                 alt="salama properties"
                 className=" object-scale-down lg:object-cover  rounded-2xl  "
-                
               />
             )}
           </HorizontalCardImage>
@@ -72,21 +72,21 @@ export const Card = ({ label, expanded }: CardProps) => {
             <div className="">
               <div className="flex flex-wrap ">
                 <HorizontalCardTitle>
-                  Salama Properties ThornBridge Cir,Syrance,conecticut 3564
+                  {props.propertyTitle}
                 </HorizontalCardTitle>
               </div>
             </div>
             <p className="mt-2"></p>
             <div className="flex  text-sm text-gray-500">
-              {expanded && <CardInfo info={"Open on Maps"} Icon={point} />}
+              {props.expanded && <CardInfo info={"Open on Maps"} Icon={point} />}
             </div>
             <div className="flex pt-2 pb-2  text-sm text-gray-500">
-              <CardInfo info={"32 properties"} Icon={home} />
-              <CardInfo info={"10 Tenants"} Icon={people} />
-              {expanded && <CardInfo info={"8 Requests"} Icon={info} />}
+              <CardInfo info={props.noProperties + " properties"} Icon={home} />
+              <CardInfo info={props.noTenants + " Tenants"} Icon={people} />
+              {props.expanded && <CardInfo info={props.noRequest + " Requests"} Icon={info} />}
             </div>
             <div className="flex pb-2  text-sm text-gray-500">
-              {expanded && (
+              {props.expanded && (
                 <PillTab
                   backgroundColor="#7480fb"
                   labelText="Show property calender"

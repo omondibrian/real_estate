@@ -5,6 +5,7 @@ interface ListProps {
    * Optional click handler
    */
   onClick?: () => void;
+  propertyList:Array<ItemProps>
 }
 /**
  * shows filters for the proprty search
@@ -12,52 +13,14 @@ interface ListProps {
 export const ListItem = (props: ListProps) => {
   return (
     <ul className="md:w-96  bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-      {data.map((p) => (
+      {props.propertyList.map((p) => (
         <Item {...p} />
       ))}
     </ul>
   );
 };
 
-const data = [
-  {
-    room: "1th Floor,left,room ",
-    pill: {
-      color: "#59b73d",
-      label: "Occupied",
-    },
-    customerName: "John Doe",
-    livingSpace: "112 sq m",
-  },
-  {
-    room: "2th Floor,left,room ",
-    pill: {
-      color: "#463587",
-      label: "Vacant",
-    },
-    customerName: "No tenant",
-    livingSpace: "112 sq m",
-  },
-  {
-    room: "3th Floor,left,room ",
-    pill: {
-      color: "#474861",
-      label: "Request",
-    },
-    customerName: "No tenant",
 
-    livingSpace: "118 sq m",
-  },
-  {
-    room: "4th Floor,left,room ",
-    pill: {
-      color: "#f16a2e",
-      label: "Maintenance",
-    },
-    customerName: "Courtney Henry",
-    livingSpace: "118 sq m",
-  },
-];
 
 export interface ItemProps {
   room: string;

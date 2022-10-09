@@ -19,14 +19,23 @@ const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 export const Expanded = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Expanded.args = {
-  label: ' Expanded Card',
-  expanded: true
+  
+  expanded: true,
+  imageUrl:"https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
+  noProperties:"32",
+  noRequest:"8",
+  noTenants:"10",
+  propertyTitle:"Salama Properties ThornBridge Cir,Syrance,conecticut 3564"
 };
 
 export const Normal = Template.bind({});
 Normal.args = {
-  label: ' Normal Card',
-  expanded: false
+  expanded: false,
+  imageUrl:"https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
+  noProperties:"32",
+  noRequest:"8",
+  noTenants:"10",
+  propertyTitle:"Salama Properties ThornBridge Cir,Syrance,conecticut 3564"
 };
 
 
