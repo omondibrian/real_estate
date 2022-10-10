@@ -18,24 +18,12 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { UrlWithStringQuery } from "url";
 
-const info = {
-  stockFullName: "SW Limited.",
-  stockShortName: "ASX:SFW",
-  price: {
-    current: 2.32,
-    open: 2.23,
-    low: 2.215,
-    high: 2.325,
-    cap: 93765011,
-    ratio: 20.1,
-    dividend: 1.67,
-  },
-  chartData: {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    data: [200, 230, 270, 295, 345, 327, 218, 219],
-  },
-};
+interface IChartProps {
+  income: AnalyticalData;
+  expenses: AnalyticalData;
+}
 
 ChartJS.register(
   CategoryScale,
@@ -45,7 +33,14 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+const displayRange = [{ name: "Monthly" }, { name: "Yearly" }];
 function Chart() {
+  //state flags
+  const [showIncome, toggleIncome] = React.useState(true);
+  const [showExpenses, toggleExpenses] = React.useState(false);
+  const [range, setRange] = React.useState<{ name: string }>(displayRange[0]);
+
   const options = {
     responsive: true,
     plugins: {
@@ -83,7 +78,7 @@ function Chart() {
     },
   };
 
-  const data = buildData(info);
+  const data = buildData(chartData, showIncome, showExpenses, range);
 
   return (
     <div className="  p-6 max-w-2xl  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -92,18 +87,29 @@ function Chart() {
         <Toggle
           style="peer-focus:ring-purple-400 peer-checked:bg-purple-600"
           lable="income"
+          onClick={() => toggleIncome(!showIncome)}
+          enabled={showIncome}
         />
 
         <Toggle
           style="peer-focus:ring-green-300 peer-checked:bg-green-600"
-          lable="Express"
+          lable="Expenses"
+          onClick={() => toggleExpenses(!showExpenses)}
+          enabled={showExpenses}
         />
-        <RangeSelector />
+        <RangeSelector selected={range} setSelected={setRange} />
       </div>
       <hr className="my-3" />
       <div className=" flex flex-row  ml-2 text-sm text-gray-400 items-center  font-medium">
         <CalendarDaysIcon height={"20px"} width="20px" />
-        <div className="ml-2"> Jan 1,2022 - Dec 31,2022</div>
+        <div className="ml-2">
+          {" "}
+          {range.name === "Monthly"
+            ? chartData.income.monthly.rangeInfo
+            : range.name === "Yearly"
+            ? chartData.income.yearly.rangeInfo
+            : "Invalid Date range"}
+        </div>
       </div>
       <div className="flex flex-row">
         <div className="flex-col grow-[2]">
@@ -112,7 +118,13 @@ function Chart() {
         <div className="flex-col grow-0 ">
           <RevenueStats
             label="Avg monthly income"
-            value="$ 4,328.30"
+            value={
+              range.name === "Monthly"
+                ? "$ " + chartData.income.monthly.avgMonthlyIncome
+                : range.name === "Yearly"
+                ? "$ " + chartData.income.yearly.avgYearlyIncome
+                : "invalid data"
+            }
             styles="bg-purple-600"
           >
             <CurrencyDollarIcon />
@@ -120,7 +132,13 @@ function Chart() {
 
           <RevenueStats
             label="Total income "
-            value="$ 85,328.30"
+            value={
+              range.name === "Monthly"
+                ? "$ " + chartData.income.monthly.totalMonthlyIncome
+                : range.name === "Yearly"
+                ? "$ " + chartData.income.yearly.totalYearlyIncome
+                : "invalid data"
+            }
             styles="bg-green-400"
           >
             <WalletIcon />
@@ -128,7 +146,13 @@ function Chart() {
 
           <RevenueStats
             label="Total Expenses "
-            value=" $ 4,328.30"
+            value={
+              range.name === "Monthly"
+                ? "$ " + chartData.income.monthly.totalMonthlyExpenses
+                : range.name === "Yearly"
+                ? "$ " + chartData.income.yearly.totalYearlyExpenses
+                : "invalid data"
+            }
             styles="bg-orange-400"
           >
             <EnvelopeIcon />
@@ -141,28 +165,87 @@ function Chart() {
 
 export default Chart;
 interface params {
-  chartData: { labels: any; data: any };
+  labels: Array<string>;
+  data: Array<number>;
 }
-const buildData = ({ chartData }: params) => ({
-  labels: chartData.labels,
-  datasets: [
-    {
-      label: "",
-      data: chartData.data,
-      backgroundColor: "rgba(147,51,234, 1)",
-      // borderColor: "rgba(255, 255, 255, 1)",
-      // pointBackgroundColor: "rgba(255, 255, 255, 1)",
-      // fill: "start",
-      // tension: 0.4,
-    },
-  ],
-});
 
-const displayRange = [{ name: "Monthly" }, { name: "Yearly" }];
+const buildData = (
+  chartData: IChartProps,
+  showIncome: boolean,
+  showExpenses: boolean,
+  range: { name: string }
+) => {
+  let finalResults: ChartInfo = {
+    labels: [],
+    datasets: [
+      {
+        label: "",
+        data: [0],
+        backgroundColor: "",
+      },
+    ],
+  };
 
-function RangeSelector() {
-  const [selected, setSelected] = useState(displayRange[0]);
+  if (showIncome && showExpenses) {
+    const income = displayIncomeDataSet();
+    const expenses = displayExpenseDataSet();
+    income.datasets.push(expenses.datasets[0]);
+    finalResults = income;
+  } else if (showIncome) {
+    finalResults = displayIncomeDataSet();
+  } else if (showExpenses) {
+    finalResults = displayExpenseDataSet();
+  }
+  return finalResults;
 
+  function displayIncomeDataSet(): ChartInfo {
+    const labels =
+      range.name === "Monthly"
+        ? chartData.income.monthly.stats.labels
+        : chartData.income.yearly.stats.labels;
+    const data =
+      range.name === "Monthly"
+        ? chartData.income.monthly.stats.data
+        : chartData.income.yearly.stats.data;
+    return {
+      labels,
+      datasets: [
+        {
+          label: "",
+          data,
+          backgroundColor: "rgba(147,51,234, 1)",
+        },
+      ],
+    };
+  }
+
+  function displayExpenseDataSet(): ChartInfo {
+    const labels =
+      range.name === "Monthly"
+        ? chartData.expenses.monthly.stats.labels
+        : chartData.expenses.yearly.stats.labels;
+    const data =
+      range.name === "Monthly"
+        ? chartData.expenses.monthly.stats.data
+        : chartData.expenses.yearly.stats.data;
+    return {
+      labels,
+      datasets: [
+        {
+          label: "",
+          data,
+          backgroundColor: "rgba(63, 195, 128,1)",
+        },
+      ],
+    };
+  }
+};
+
+interface IRangeProps {
+  selected: { name: string };
+  setSelected: React.Dispatch<React.SetStateAction<{ name: string }>>;
+}
+function RangeSelector({ selected, setSelected }: IRangeProps) {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative ">
@@ -220,24 +303,22 @@ function RangeSelector() {
 interface ToggleProps {
   style: string;
   lable: string;
+  onClick: () => void;
+  enabled: boolean;
 }
 
 function Toggle(props: ToggleProps) {
-  const [enabled, setEnabled] = useState(false);
-
   return (
     <div className="flex ml-8 py-2">
       <label className="inline-flex  relative items-center mr-5 cursor-pointer">
         <input
           type="checkbox"
           className="sr-only peer "
-          checked={enabled}
+          checked={props.enabled}
           readOnly
         />
         <div
-          onClick={() => {
-            setEnabled(!enabled);
-          }}
+          onClick={props.onClick}
           className={
             "w-11 h-6  bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all " +
             props.style
@@ -261,7 +342,6 @@ function RevenueStats(props: RevenueProps) {
   return (
     <div className="flex  items-end  mr-0">
       <div className="flex mt-3 ">
-        
         <div
           className={
             "rounded-full w-8 h-8 text-center text-white p-1 mr-3 " +
@@ -280,3 +360,97 @@ function RevenueStats(props: RevenueProps) {
     </div>
   );
 }
+
+const chartData: IChartProps = {
+  income: {
+    monthly: {
+      stats: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+        ],
+        data: [200, 230, 270, 295, 345, 327, 218, 219],
+      },
+      rangeInfo: "Jan 1,2022 - Dec 32,2022",
+      avgMonthlyIncome: "4,328.30",
+      totalMonthlyIncome: "85,328.30",
+      totalMonthlyExpenses: "4,328.30",
+    },
+    yearly: {
+      stats: {
+        labels: ["2020", "2021", "2022"],
+        data: [85, 328.3, 90, 328.3, 120, 328.3],
+      },
+      rangeInfo: "Jan 1,2020 - Dec 31,2022",
+      avgYearlyIncome: "4,328.30",
+      totalYearlyIncome: "285,328.30",
+      totalYearlyExpenses: "16,328.30",
+    },
+  },
+  expenses: {
+    monthly: {
+      stats: {
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+        ],
+        data: [200, 230, 270, 295, 345, 327, 218, 219],
+      },
+      rangeInfo: "Jan 1,2022 - Dec 31,2022",
+      avgMonthlyIncome: "4,328.30",
+      totalMonthlyIncome: "85,328.30",
+      totalMonthlyExpenses: "4,328.30",
+    },
+    yearly: {
+      stats: {
+        labels: ["2020", "2021", "2022"],
+        data: [85, 328.3, 90, 328.3, 120, 328.3],
+      },
+      rangeInfo: "Jan 1,2020 - Dec 31,2022",
+      avgYearlyIncome: "4,328.30",
+      totalYearlyIncome: "85,328.30",
+      totalYearlyExpenses: "4,328.30",
+    },
+  },
+};
+
+type AnalyticalData = {
+  monthly: {
+    stats: {
+      labels: string[];
+      data: number[];
+    };
+    rangeInfo: string;
+    avgMonthlyIncome: string;
+    totalMonthlyIncome: string;
+    totalMonthlyExpenses: string;
+  };
+  yearly: {
+    stats: {
+      labels: string[];
+      data: number[];
+    };
+    rangeInfo: string;
+    avgYearlyIncome: string;
+    totalYearlyIncome: string;
+    totalYearlyExpenses: string;
+  };
+};
+type ChartInfo = {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+  }[];
+};

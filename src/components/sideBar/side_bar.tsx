@@ -16,10 +16,10 @@ interface SideBarProps {
 export const SideBar = (props: SideBarProps) => {
   return (
     <div
-      className="max-w-2xl sm:max-w-sm   z-10 "
+      className="max-w-2xl sm:max-w-sm   z-10  "
       style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
     >
-      <aside className="w-48" aria-label="Sidebar">
+      <aside  aria-label="Sidebar">
         <div className="px-3 py-4 overflow-y-auto rounded h-screen bg-white dark:bg-gray-800">
           <ul className="space-y-2">
             <li>
@@ -36,7 +36,7 @@ export const SideBar = (props: SideBarProps) => {
                   <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                   <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
                 </svg>
-                <span className="ml-3">Dashboard</span>
+                <span className="ml-3 hidden md:block">Dashboard</span>
               </a>
             </li>
             <li>
@@ -53,7 +53,7 @@ export const SideBar = (props: SideBarProps) => {
                 >
                   <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Requests</span>
+                <span className="flex-1 ml-3 whitespace-nowrap hidden md:block">Requests</span>
                 <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
                   3
                 </span>
@@ -74,7 +74,7 @@ export const SideBar = (props: SideBarProps) => {
                   <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
                   <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Inbox</span>
+                <span className="flex-1 ml-3 whitespace-nowrap hidden md:block">Inbox</span>
                 <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">
                   3
                 </span>
@@ -97,7 +97,7 @@ export const SideBar = (props: SideBarProps) => {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Listings</span>
+                <span className="flex-1 ml-3 whitespace-nowrap hidden md:block">Listings</span>
               </a>
             </li>
             <li>
@@ -117,7 +117,7 @@ export const SideBar = (props: SideBarProps) => {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Tenants</span>
+                <span className="flex-1 ml-3 whitespace-nowrap hidden md:block">Tenants</span>
               </a>
             </li>
             <li>
@@ -137,7 +137,7 @@ export const SideBar = (props: SideBarProps) => {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign In</span>
+                <span className="flex-1 ml-3 whitespace-nowrap hidden md:block">Sign In</span>
               </a>
             </li>
             <li>
@@ -157,7 +157,7 @@ export const SideBar = (props: SideBarProps) => {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
+                <span className="flex-1 ml-3 whitespace-nowrap hidden md:block">Sign Up</span>
               </a>
             </li>
           </ul>

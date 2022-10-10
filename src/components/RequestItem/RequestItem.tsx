@@ -4,6 +4,7 @@ import { OccupiedBadge } from "../pill/styles";
 import {
   CheckBadgeIcon,
   EllipsisHorizontalIcon,
+  FlagIcon,
 } from "@heroicons/react/20/solid";
 import DocType from "../document/document_list";
 export interface ItemProps {
@@ -11,6 +12,12 @@ export interface ItemProps {
   timestamp: string;
   amount: string;
   profileImage: string;
+  statusLable: string;
+  taskId: string;
+  taskName: string;
+  taskLabel: string;
+  state: boolean;
+  color?: string;
 }
 function RequestItem(props: ItemProps) {
   return (
@@ -22,9 +29,13 @@ function RequestItem(props: ItemProps) {
           alt={props.name}
         />
         <div className="ml-2">
-          <TaskStatus color="bg-green-400">
-            <CheckBadgeIcon height={"20px"} width="20px" />
-            Task completed
+          <TaskStatus color={props.color || "bg-green-400"}>
+            {props.state ? (
+              <CheckBadgeIcon height={"20px"} width="20px" />
+            ) : (
+              <FlagIcon height={"20px"} width="20px" />
+            )}
+            {props.statusLable}
           </TaskStatus>
         </div>
 
@@ -34,15 +45,17 @@ function RequestItem(props: ItemProps) {
       </div>
       <div className="flex flex-row justify-end mr-3    text-sm text-gray-400  font-medium ">
         <span className="text-gray-800 font-semibold mr-1">{props.name}</span>
-        completed task
-        <span className="text-gray-800 font-semibold ml-1">#125</span>
+        {props.state ? "completed task" : "create new task No"}
+        <span className="text-gray-800 font-semibold ml-1">
+          #{props.taskId}
+        </span>
       </div>
       <div className="border border-gray-200 h-20 p-2 mr-2 ml-auto my-3 lg:ml-16">
-        <div className="flex flex-row " >
+        <div className="flex flex-row ">
           <div className="text-gray-800 font-semibold mr-1 mb-2 ">
-            Office Equipment
+            {props.taskName}
             <span className="text-sm text-gray-400  ml-auto font-medium ">
-              #125
+              #{props.taskId}
             </span>
           </div>
           <EllipsisHorizontalIcon
@@ -53,8 +66,12 @@ function RequestItem(props: ItemProps) {
         </div>
         <div className="flex flex-row ">
           <DocType
-            type="Office Equipment"
-            styles="text-green-800 bg-green-100"
+            type={props.taskLabel}
+            styles={
+              props.state
+                ? "text-green-800 bg-green-100"
+                : "text-orange-800 bg-orange-100"
+            }
           />
         </div>
       </div>

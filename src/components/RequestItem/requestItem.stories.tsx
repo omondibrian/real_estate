@@ -22,7 +22,14 @@ PrimaryRequestItem.args = {
     amount:"$ 275.43",
     name: "Bessie Copper",
     profileImage: "https://randomuser.me/api/portraits/thumb/men/75.jpg",
-    timestamp:"Today,8:09 PM"
+    timestamp:"Today,8:09 PM",
+    statusLable: "Task completed",
+    taskId:"126",
+    taskLabel:"Office Equipment",
+    taskName:"Office Equipment",
+    // color:"bg-orange-400",
+    state:true
+
 
 };
 
