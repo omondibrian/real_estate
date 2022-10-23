@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext } from "react";
 import { Bar } from "react-chartjs-2";
 import { Listbox, Transition } from "@headlessui/react";
 import {
@@ -18,24 +18,20 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { UrlWithStringQuery } from "url";
+import { ApplicationStateContext } from "../../state/context";
+import { AnalyticalData } from "../../state/types";
 
 interface IChartProps {
   income: AnalyticalData;
   expenses: AnalyticalData;
 }
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const displayRange = [{ name: "Monthly" }, { name: "Yearly" }];
 function Chart() {
+  const { state, dispatch } = useContext(ApplicationStateContext);
+ 
   //state flags
   const [showIncome, toggleIncome] = React.useState(true);
   const [showExpenses, toggleExpenses] = React.useState(false);
@@ -78,7 +74,7 @@ function Chart() {
     },
   };
 
-  const data = buildData(chartData, showIncome, showExpenses, range);
+  const data = buildData(state.analytics, showIncome, showExpenses, range);
 
   return (
     <div className="  p-6 max-w-2xl  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -105,9 +101,9 @@ function Chart() {
         <div className="ml-2">
           {" "}
           {range.name === "Monthly"
-            ? chartData.income.monthly.rangeInfo
+            ? state.analytics.income.monthly.rangeInfo
             : range.name === "Yearly"
-            ? chartData.income.yearly.rangeInfo
+            ? state.analytics.income.yearly.rangeInfo
             : "Invalid Date range"}
         </div>
       </div>
@@ -120,9 +116,9 @@ function Chart() {
             label="Avg monthly income"
             value={
               range.name === "Monthly"
-                ? "$ " + chartData.income.monthly.avgMonthlyIncome
+                ? "$ " + state.analytics.income.monthly.avgMonthlyIncome
                 : range.name === "Yearly"
-                ? "$ " + chartData.income.yearly.avgYearlyIncome
+                ? "$ " + state.analytics.income.yearly.avgYearlyIncome
                 : "invalid data"
             }
             styles="bg-purple-600"
@@ -134,9 +130,9 @@ function Chart() {
             label="Total income "
             value={
               range.name === "Monthly"
-                ? "$ " + chartData.income.monthly.totalMonthlyIncome
+                ? "$ " + state.analytics.income.monthly.totalMonthlyIncome
                 : range.name === "Yearly"
-                ? "$ " + chartData.income.yearly.totalYearlyIncome
+                ? "$ " + state.analytics.income.yearly.totalYearlyIncome
                 : "invalid data"
             }
             styles="bg-green-400"
@@ -148,9 +144,9 @@ function Chart() {
             label="Total Expenses "
             value={
               range.name === "Monthly"
-                ? "$ " + chartData.income.monthly.totalMonthlyExpenses
+                ? "$ " + state.analytics.income.monthly.totalMonthlyExpenses
                 : range.name === "Yearly"
-                ? "$ " + chartData.income.yearly.totalYearlyExpenses
+                ? "$ " + state.analytics.income.yearly.totalYearlyExpenses
                 : "invalid data"
             }
             styles="bg-orange-400"
@@ -164,13 +160,10 @@ function Chart() {
 }
 
 export default Chart;
-interface params {
-  labels: Array<string>;
-  data: Array<number>;
-}
+
 
 const buildData = (
-  chartData: IChartProps,
+ chartData: IChartProps,
   showIncome: boolean,
   showExpenses: boolean,
   range: { name: string }
@@ -187,26 +180,26 @@ const buildData = (
   };
 
   if (showIncome && showExpenses) {
-    const income = displayIncomeDataSet();
-    const expenses = displayExpenseDataSet();
+    const income = displayIncomeDataSet(chartData);
+    const expenses = displayExpenseDataSet(chartData);
     income.datasets.push(expenses.datasets[0]);
     finalResults = income;
   } else if (showIncome) {
-    finalResults = displayIncomeDataSet();
+    finalResults = displayIncomeDataSet(chartData);
   } else if (showExpenses) {
-    finalResults = displayExpenseDataSet();
+    finalResults = displayExpenseDataSet(chartData);
   }
   return finalResults;
 
-  function displayIncomeDataSet(): ChartInfo {
+  function displayIncomeDataSet(chartData:IChartProps): ChartInfo {
     const labels =
       range.name === "Monthly"
-        ? chartData.income.monthly.stats.labels
-        : chartData.income.yearly.stats.labels;
+        ?chartData.income.monthly.stats.labels
+        :chartData.income.yearly.stats.labels;
     const data =
       range.name === "Monthly"
-        ? chartData.income.monthly.stats.data
-        : chartData.income.yearly.stats.data;
+        ?chartData.income.monthly.stats.data
+        :chartData.income.yearly.stats.data;
     return {
       labels,
       datasets: [
@@ -219,15 +212,15 @@ const buildData = (
     };
   }
 
-  function displayExpenseDataSet(): ChartInfo {
+  function displayExpenseDataSet(chartData:IChartProps): ChartInfo {
     const labels =
       range.name === "Monthly"
-        ? chartData.expenses.monthly.stats.labels
-        : chartData.expenses.yearly.stats.labels;
+        ?chartData.expenses.monthly.stats.labels
+        :chartData.expenses.yearly.stats.labels;
     const data =
       range.name === "Monthly"
-        ? chartData.expenses.monthly.stats.data
-        : chartData.expenses.yearly.stats.data;
+        ?chartData.expenses.monthly.stats.data
+        :chartData.expenses.yearly.stats.data;
     return {
       labels,
       datasets: [
@@ -361,91 +354,6 @@ function RevenueStats(props: RevenueProps) {
   );
 }
 
-const chartData: IChartProps = {
-  income: {
-    monthly: {
-      stats: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
-        data: [200, 230, 270, 295, 345, 327, 218, 219],
-      },
-      rangeInfo: "Jan 1,2022 - Dec 32,2022",
-      avgMonthlyIncome: "4,328.30",
-      totalMonthlyIncome: "85,328.30",
-      totalMonthlyExpenses: "4,328.30",
-    },
-    yearly: {
-      stats: {
-        labels: ["2020", "2021", "2022"],
-        data: [85, 328.3, 90, 328.3, 120, 328.3],
-      },
-      rangeInfo: "Jan 1,2020 - Dec 31,2022",
-      avgYearlyIncome: "4,328.30",
-      totalYearlyIncome: "285,328.30",
-      totalYearlyExpenses: "16,328.30",
-    },
-  },
-  expenses: {
-    monthly: {
-      stats: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
-        data: [200, 230, 270, 295, 345, 327, 218, 219],
-      },
-      rangeInfo: "Jan 1,2022 - Dec 31,2022",
-      avgMonthlyIncome: "4,328.30",
-      totalMonthlyIncome: "85,328.30",
-      totalMonthlyExpenses: "4,328.30",
-    },
-    yearly: {
-      stats: {
-        labels: ["2020", "2021", "2022"],
-        data: [85, 328.3, 90, 328.3, 120, 328.3],
-      },
-      rangeInfo: "Jan 1,2020 - Dec 31,2022",
-      avgYearlyIncome: "4,328.30",
-      totalYearlyIncome: "85,328.30",
-      totalYearlyExpenses: "4,328.30",
-    },
-  },
-};
-
-type AnalyticalData = {
-  monthly: {
-    stats: {
-      labels: string[];
-      data: number[];
-    };
-    rangeInfo: string;
-    avgMonthlyIncome: string;
-    totalMonthlyIncome: string;
-    totalMonthlyExpenses: string;
-  };
-  yearly: {
-    stats: {
-      labels: string[];
-      data: number[];
-    };
-    rangeInfo: string;
-    avgYearlyIncome: string;
-    totalYearlyIncome: string;
-    totalYearlyExpenses: string;
-  };
-};
 type ChartInfo = {
   labels: string[];
   datasets: {

@@ -6,11 +6,11 @@ export const HorizontalCard = styled.div`
 
 `;
 export const HorizontalCardImage = styled.div`
-  ${tw` h-full w-full  lg:w-48   lg:mb-0 mb-3 mr-2`}
+  ${tw` w-full  lg:w-48   lg:mb-0  mr-2 `}
 `;
 
 export const HorizontalCardBody = styled.div`
-  ${tw` flex-none lg:flex items-center `}
+  ${tw` flex-none lg:flex items-stretch `}
 `;
 
 

@@ -48,8 +48,8 @@ export const Card = (props: CardProps) => {
       <div
         className={
           !props.expanded
-            ? "bg-white shadow-md  rounded-3xl p-4 "
-            : "bg-white shadow-md  rounded-3xl pr-2 pl-0 py-0"
+            ? "bg-white shadow-md rounded-lg p-4 "
+            : "bg-white shadow-md  rounded-lg pr-2 pl-0 py-0"
         }
       >
         <HorizontalCardBody>
@@ -58,13 +58,13 @@ export const Card = (props: CardProps) => {
               <img
                 src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
                 alt="salama properties"
-                className=" object-scale-down lg:object-cover  rounded-2xl rounded-r-none "
+                className=" object-scale-down lg:object-cover h-full rounded-lg rounded-r-none "
               />
             ) : (
               <img
                 src="https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg"
                 alt="salama properties"
-                className=" object-scale-down lg:object-cover  rounded-2xl  "
+                className=" object-scale-down lg:object-cover h-full rounded-lg  "
               />
             )}
           </HorizontalCardImage>

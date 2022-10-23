@@ -1,8 +1,12 @@
 export class User {
+  public get email(): string {
+    return this._email;
+  }
   private _profileImageFile?: File | undefined;
 
   constructor(
     private readonly _name: string,
+    private readonly _email: string,
     private readonly _profileImage: string,
     private readonly _phoneNumber: string,
     private readonly _role: string,

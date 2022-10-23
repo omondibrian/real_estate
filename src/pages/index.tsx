@@ -3,8 +3,16 @@ import Head from "next/head";
 import Image from "next/image";
 import tw from "twin.macro";
 import { PillTab } from "../components/pill";
-
+import { ApplicationStateContext } from "../state/context";
+import React,{useContext, useEffect} from 'react'
 const Home: NextPage = () => {
+  // const service = useContext<any>(ApplicationStateContext);
+  // useEffect(() => {
+    
+  //   console.log(service.appService.state.current)
+   
+  // }, [])
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>

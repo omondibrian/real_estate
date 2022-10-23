@@ -9,10 +9,10 @@ export interface MainLayoutProps {
 }
 function MainLayout(props: MainLayoutProps) {
   return (
-    <div className=" w-full flex  h-screen overflow-hidden  bg-red-600 ">
+    <div className=" w-full flex  h-screen overflow-hidden  ">
       <NavBar {...navData} />
       <SideBar />
-      <div className="h-screen overflow-hidden z-10">{props.children}</div>
+      <div className="h-screen flex-1 overflow-hidden z-10 w-[100%] ">{props.children}</div>
     </div>
   );
 }

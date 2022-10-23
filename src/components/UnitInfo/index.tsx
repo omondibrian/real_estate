@@ -20,8 +20,8 @@ interface UnitInfoProps {
 }
 function UnitInfo(props: UnitInfoProps) {
   return (
-    <div className=" flex gap-2 p-6 max-w-3xl  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex-col max-w-sm">
+    <div className=" flex p-6 mt-2 w-full bg-white rounded-lg border border-gray-200 shadow-md">
+      <div className="flex-col ">
         <div className="flex  justify-start justify-items-center ">
           <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
             {props.roomName}
@@ -77,7 +77,7 @@ function UnitInfo(props: UnitInfoProps) {
           ))}
         </div>
       </div>
-      <div className="flex-col w-14">
+      <div className="flex-col w-[60%]">
         <TenantInfo {...props.tenantInfo} />
         <div className=" w-[20rem] pt-6 ">
           <Document {...props.documents}/>

@@ -8,14 +8,15 @@ export interface ItemProps {
 }
 function TranscationItem(props: ItemProps) {
   return (
-    <div className="flex flex-row border border-gray-200 shadow-md max-w-[337px] p-2 ml-2">
-      <Image
-        width={"35px"}
-        height="35px"
-        src={props.profileImage}
-        className="mr-3 h-6 sm:h-9 rounded-full"
-        alt={props.name}
-      />
+    <div className="flex  flex-row bg-white border border-gray-200 shadow-md  p-2 ml-2">
+        <Image
+          width={"35px"}
+          height="35px"
+          src={props.profileImage}
+          className="mr-3 h-6 sm:h-9 rounded-full"
+          alt={props.name}
+        />
+   
       <div className="ml-3">
         <div className="text-sm text-gray-700  font-bold ">{props.name}</div>
         <div className="text-sm text-gray-400  font-medium ">
@@ -23,8 +24,8 @@ function TranscationItem(props: ItemProps) {
         </div>
       </div>
       <div className="text-sm text-green-400 ml-auto font-medium ">
-          {props.amount}
-        </div>
+        {props.amount}
+      </div>
     </div>
   );
 }

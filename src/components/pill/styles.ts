@@ -49,9 +49,8 @@ export const OccupiedBadge = styled.button<{ backgroundColor: string }>`
   color: white;
   cursor: pointer;
   align-items: center;
-  gap: 0.5rem;
   font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
-  padding: 4px 10px;
+  padding: 4px 0;
   text-align: center;
   text-decoration: none;
   transition: all 250ms;
