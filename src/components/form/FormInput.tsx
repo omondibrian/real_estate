@@ -3,38 +3,46 @@ import React from "react";
 interface InputProps {
   labelStr: string;
   placeHolder: string;
-  name:string;
+  name: string;
   error?: string;
   type: string;
-  // handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  focus?: React.FocusEventHandler<HTMLInputElement> | undefined;
+  change?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  blur?:React.FocusEventHandler<HTMLInputElement> | undefined;
 }
+
 const FormInput = React.forwardRef<HTMLInputElement, InputProps>(
-  (props, ref) => {
+  (
+    { labelStr, type, name, placeHolder, error, focus, change,blur, ...rest },
+    ref
+  ) => {
     return (
       <div className="flex flex-wrap -mx-3  w-full mb-6">
         <div className="w-full px-3">
           <label
             className="block font-semibold text-sm mb-2"
-            htmlFor={props.labelStr}
+            htmlFor={labelStr}
           >
-            {props.labelStr}
+            {labelStr}
           </label>
           <input
             ref={ref}
-            type={props.type}
-            id={props.name}
-            name={props.name}
-            placeholder={props.placeHolder}
+            onChange={change}
+            type={type}
+            id={name}
+            name={name}
+            onFocus={focus}
+            onBlur={blur}
+            placeholder={placeHolder}
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
-            aria-invalid={props.error ? "true" : "false"}
+            aria-invalid={error ? "true" : "false"}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            {...rest}
           />
-          {props.error && (
-            <p className="mt-2 text-xs text-red-500">{props.error}</p>
-          )}
+          {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
         </div>
       </div>
     );
@@ -73,8 +81,8 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, ITextAreaProps>(
           </button>
         </div>
         {props.error && (
-            <p className="mt-2 text-xs text-red-500">{props.error}</p>
-          )}
+          <p className="mt-2 text-xs text-red-500">{props.error}</p>
+        )}
       </section>
     );
   }

@@ -1,13 +1,13 @@
-import React, { InputHTMLAttributes, useState } from 'react';
-import Link from '../Link';
-import { Eye } from '../icons/eye-icon';
-import { EyeOff } from '../icons/eye-off-icon';
-import { cn } from '../utils';
+import React, { InputHTMLAttributes, useState } from "react";
+import Link from "../Link";
+import { Eye } from "../icons/eye-icon";
+import { EyeOff } from "../icons/eye-off-icon";
+import { cn } from "../utils";
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    /**
-     * @desc custom styles to  be passed to the root element
-     */
+  /**
+   * @desc custom styles to  be passed to the root element
+   */
   className?: string;
   inputClassName?: string;
   label: string;
@@ -17,22 +17,23 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
    */
   forgotPageLink?: string;
   shadow?: boolean;
-  variant?: 'normal' | 'solid' | 'outline';
+  variant?: "normal" | "solid" | "outline";
   error: string | undefined;
   /**
-   * @desc action to perform on forgot password 
+   * @desc action to perform on forgot password
    */
   forgotPageRouteOnClick?: () => void;
+  focus?: React.FocusEventHandler<HTMLInputElement> | undefined;
+  change?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  blur?: React.FocusEventHandler<HTMLInputElement> | undefined;
 }
-
-
 
 const variantClasses = {
   normal:
-    'bg-gray-100 border border-border-base focus:shadow focus:bg-light focus:border-accent',
+    "bg-gray-100 border border-border-base focus:shadow focus:bg-light focus:border-accent",
   solid:
-    'bg-gray-100 border border-border-100 focus:bg-light focus:border-accent',
-  outline: 'border border-border-base focus:border-accent',
+    "bg-gray-100 border border-border-100 focus:bg-light focus:border-accent",
+  outline: "border border-border-base focus:border-accent",
 };
 
 const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
@@ -44,11 +45,13 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
       name,
       error,
       children,
-      variant = 'normal',
+      variant = "normal",
       shadow = false,
-      type = 'text',
-      forgotPageLink = '',
+      type = "text",
+      forgotPageLink = "",
       forgotPageRouteOnClick,
+      focus,
+      blur,
       ...rest
     },
     ref
@@ -67,7 +70,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
               href={forgotPageLink}
               className="text-xs text-accent transition-colors duration-200 focus:outline-none focus:text-accent-700 focus:font-semibold hover:text-accent-hover"
             >
-                forgot password
+              forgot password
             </Link>
           )}
           {forgotPageRouteOnClick && (
@@ -76,7 +79,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
               type="button"
               className="text-xs text-accent transition-colors duration-200 focus:outline-none focus:text-accent-700 focus:font-semibold hover:text-accent-hover"
             >
-                forgot password
+              forgot password
             </button>
           )}
         </div>
@@ -84,14 +87,16 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
           <input
             id={name}
             name={name}
-            type={show ? 'text' : 'password'}
+            type={show ? "text" : "password"}
             ref={ref}
             className={cn(
-              'py-3 ltr:pl-4 rtl:pr-4 ltr:pr-11 rtl:pl-11 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0',
-              shadow && 'focus:shadow',
+              "py-3 ltr:pl-4 rtl:pr-4 ltr:pr-11 rtl:pl-11 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0",
+              shadow && "focus:shadow",
               variantClasses[variant],
               inputClassName
             )}
+            onFocus={focus}
+            onBlur={blur}
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
@@ -115,5 +120,5 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
     );
   }
 );
-PasswordInput.displayName = 'PasswordInput';
+PasswordInput.displayName = "PasswordInput";
 export default PasswordInput;

@@ -9,22 +9,6 @@ import type {
 import { useForm } from "react-hook-form";
 import type { SchemaOf } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-// interface  FormProps{
-//     children: any,
-//     handleSubmit:(e:React.FormEvent<HTMLFormElement>)=>void
-// }
-// function Form(props: FormProps) {
-//   return (
-//     <div>
-//         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={props.handleSubmit}>
-//             {props.children}
-//         </form>
-
-//     </div>
-//   )
-// }
-
-// export default Form
 
 type ServerErrors<T> = {
   [Property in keyof T]: string;
@@ -71,7 +55,10 @@ const Form = <TFormValues extends Record<string, any> = Record<string, any>>({
   }, [resetValues, methods]);
   return (
     <form
-      onSubmit={methods.handleSubmit(onSubmit)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(methods.getValues())
+      }}
       noValidate
       {...props}
       className="p-6 mt-2 w-full bg-white rounded-lg border border-gray-200 shadow-md"

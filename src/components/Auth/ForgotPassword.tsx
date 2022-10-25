@@ -52,7 +52,10 @@ function EmailForm({
       serverError={serverError && serverError}
       className="text-left"
     >
-      {({ register, formState: { errors } }) => (
+      {({ register, formState: { errors ,dirtyFields} }) => {
+        console.log(dirtyFields);
+        
+        return(
         <>
           <FormInput
             labelStr={"Email"}
@@ -71,7 +74,7 @@ function EmailForm({
             <ArrowNextIcon className="ml-2 w-5" />
           </Button>
         </>
-      )}
+      )}}
     </Form>
   );
 }
@@ -180,10 +183,11 @@ function PasswordForm({
 function RenderFormSteps() {
   const { state, dispatch } = useContext(ApplicationStateContext);
   const emailFormHandle: SubmitHandler<Pick<ForgotPasswordUserInput, "email">> =
-    ({ email }) => {
+    (data) => {
+      console.log(data)
       dispatch({
         type: IAppActionTypes.FORGOT_PASSWORD,
-        payload: { email },
+        payload: { email: data.email },
       });
     };
 

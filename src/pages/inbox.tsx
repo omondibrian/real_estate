@@ -13,9 +13,9 @@ import { MessageFilter } from "../components/filter/message_filter";
 const filterMsgs = (msgs: Array<IMessageData>, query: string) => {
   if (query === "all") return msgs;
   const tag =
-    query === "request "
+    query === "request"
       ? TaskLabelTag.request
-      : query === " damage"
+      : query === "damage"
       ? TaskLabelTag.damageReport
       : TaskLabelTag.question;
   return msgs.filter((mb) => mb.messages[mb.messages.length - 1].tag.valueOf() === tag.valueOf());

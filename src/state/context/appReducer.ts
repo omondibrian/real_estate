@@ -24,7 +24,7 @@ export const initialState: AppState = {
       message:""
     },
     errors: null,
-    formStep: "Password",
+    formStep: "Email",
     loading: false,
   },
   requests: [
