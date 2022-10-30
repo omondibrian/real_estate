@@ -34,13 +34,8 @@ const UserTypeDefs = `#graphql
     union SignInResult = SignInResponse | AccountNotActive | InvalidCredentials
     union DefaultResponseResult = DefaultResponse | ApplicationErrors
     union ProfileResults = User | ApplicationErrors
-    type Book {
-      title: String
-      author: String
-    }
-
+   
     type Query {
-      books: [Book]
       fetchProfile:ProfileResults!
       verifyToken(token:String!):VerificationResults!
     }
