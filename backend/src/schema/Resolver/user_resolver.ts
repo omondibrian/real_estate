@@ -18,16 +18,7 @@ const host = {
   password: process.env.SMTP_PASSWORD?.trim() as string,
 };
 const notification = new NotificationService(host);
-const books = [
-  {
-    title: "The Awakening",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    author: "Paul Auster",
-  },
-];
+
 export const UserResolver = {
   Upload: GraphQLUpload,
   SignInResult: {
@@ -81,10 +72,7 @@ export const UserResolver = {
     },
   },
   Query: {
-    books: (_: any, args: any, context: any) => {
-      console.log(args);
-      return books;
-    },
+   
     fetchProfile: async (_: any, args: { id: string }, ctx: MyContext) => {
       console.log(ctx);
       const profile = await repo.findById(ctx.UserId!);
