@@ -10,7 +10,7 @@ export function saveImage(
   const extension = filename.split(".").pop();
   const encryptedName = `${UUiD()}_${Date.now()}.${extension}`;
   const filePath = `/storage/${encryptedName}`;
-  const fullPath = `/home/brian/Desktop/work/final project design concepts/source_code/backend/${filePath}`;
+  const fullPath = `${process.env.STORAGE_PATH}/${filePath}`;
   const stream = createReadStream();
 
   return new Promise((res, rej) => {
