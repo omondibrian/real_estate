@@ -1,5 +1,10 @@
 import { MyContext } from "../..";
-
+import type {
+  PropertyInput,
+  PropertyResults,
+  UnitInput,
+  UnitPayload,
+} from "../../types";
 const books = [
   {
     title: "The Awakening",
@@ -40,17 +45,69 @@ export const PropertyResolver = {
       console.log(args);
       return books;
     },
-    fetchPublicListings: async () => {},
-    myListings: async () => {},
+    fetchPublicListings: async (): Promise<PropertyResults> => {
+      throw new Error("Method not implemented.");
+    },
+    myListings: async (): Promise<PropertyResults> => {
+      throw new Error("Method not implemented.");
+    },
   },
   Mutation: {
-    createPropertyListing: async (_: any, args: any, ctx: MyContext) => {},
-    createUnit: async (_: any, args: any, ctx: MyContext) => {},
-    updateUnit: async (_: any, args: any, ctx: MyContext) => {},
-    updatePropertyListing: async (_: any, args: any, ctx: MyContext) => {},
-    occupyUnit: async (_: any, args: any, ctx: MyContext) => {},
-    leaveUnit: async (_: any, args: any, ctx: MyContext) => {},
-    deleteUnit: async (_: any, args: any, ctx: MyContext) => {},
-    deletePropertyListing: async (_: any, args: any, ctx: MyContext) => {},
+    createPropertyListing: async (
+      _: any,
+      args: PropertyInput,
+      ctx: MyContext
+    ): Promise<PropertyResults> => {
+      throw new Error("Method not implemented.");
+    },
+    createUnit: async (
+      _: any,
+      args: UnitInput,
+      ctx: MyContext
+    ): Promise<UnitPayload> => {
+      throw new Error("Method not implemented.");
+    },
+    updateUnit: async (
+      _: any,
+      args: { room: string },
+      ctx: MyContext
+    ): Promise<UnitPayload> => {
+      throw new Error("Method not implemented.");
+    },
+    updatePropertyListing: async (
+      _: any,
+      args: PropertyInput,
+      ctx: MyContext
+    ): Promise<PropertyResults> => {
+      throw new Error("Method not implemented.");
+    },
+    occupyUnit: async (
+      _: any,
+      args: { unitID: string },
+      ctx: MyContext
+    ): Promise<UnitPayload> => {
+      throw new Error("Method not implemented.");
+    },
+    leaveUnit: async (
+      _: any,
+      args: any,
+      ctx: MyContext
+    ): Promise<UnitPayload> => {
+      throw new Error("Method not implemented.");
+    },
+    deleteUnit: async (
+      _: any,
+      args: { id: string },
+      ctx: MyContext
+    ): Promise<UnitPayload> => {
+      throw new Error("Method not implemented.");
+    },
+    deletePropertyListing: async (
+      _: any,
+      args: { id: string },
+      ctx: MyContext
+    ): Promise<PropertyResults> => {
+      throw new Error("Method not implemented.");
+    },
   },
 };

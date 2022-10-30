@@ -1,5 +1,5 @@
-import { IUser } from "../../types";
-import { DBClient } from "../../utils/PrismaClient";
+import { IUser } from '../../types';
+import { Repository } from '../IRepository';
 
 export interface IUserRepository {
   insert(data: Omit<IUser, "placementDate">): Promise<IUser>;
@@ -19,13 +19,7 @@ export interface IUserRepository {
   ): Promise<{ id?: string | undefined; token?: string; userId?: string }>;
 }
 
-export class UserRepository implements IUserRepository {
-  private client = DBClient.getInstance().prisma;
-
-  private fmtDate(results: Date): string {
-    return `${results.getDay()}-${results.getMonth()}-${results.getFullYear()}`;
-  }
-
+export class UserRepository extends Repository implements IUserRepository {
   private _userProjections = {
     id: true,
     email: true,
