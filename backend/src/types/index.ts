@@ -1,4 +1,4 @@
-import { FileUpload } from 'graphql-upload-ts';
+import { FileUpload } from "graphql-upload-ts";
 
 export const Role = {
   PropertyManager: "PropertyManager",
@@ -95,6 +95,9 @@ export type Unit = {
   state: boolean;
   currentTenant: Tenant;
   livingSpace: string;
+  baths: number;
+  bedrooms: number;
+  ratings: number;
   ammenities: Array<string>;
   propertyId: string;
 };

@@ -72,6 +72,9 @@ model Unit {
   customerName String
   customerId   String
   livingSpace  String
+  bedRooms     Int            @default(1)
+  baths        Int            @default(1)
+  ratings      Int            @default(0)
   ammenities   String[]
   propertyId   String        @db.ObjectId
   createdAt    DateTime      @default(now())
