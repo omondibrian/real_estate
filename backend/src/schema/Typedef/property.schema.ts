@@ -48,13 +48,19 @@ const PropertyTypeDefs = `#graphql
         imageUrl:Upload!
         phoneNumber:String!
         contact:String!  
+        lat:Number!
+        long:Number!
     }
+     
     input UnitInput{
         room:String!
         imageUrl:Upload!
         contact:String! 
         state:Boolean!
         livingSpace:String!
+        type:String!
+        baths:Number!
+        bedrooms:Number!
         ammenities:[String]!
         propertyId:String!
      }
