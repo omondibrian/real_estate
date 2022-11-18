@@ -70,7 +70,6 @@ model Unit {
   id           String        @id @default(auto()) @map("_id") @db.ObjectId
   room         String
   imageUrl     String
-  phoneNumber  String
   contact      String
   state        Boolean       @default(false)
   livingSpace  String

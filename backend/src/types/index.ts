@@ -51,7 +51,7 @@ export type ImagePayload = {
 
 export type PropertyInput = {
   name: string;
-  imageUrl: Promise<FileUpload>;
+  imageUrl: Promise<FileUpload> | string;
   phoneNumber: string;
   contact: string;
   lat: number;
@@ -60,7 +60,7 @@ export type PropertyInput = {
 
 export type UnitInput = {
   room: string;
-  imageUrl: Promise<FileUpload>;
+  imageUrl: Promise<FileUpload>| string;
   contact: string;
   state: boolean;
   bedrooms:number;
@@ -84,14 +84,14 @@ export type OccupyRequestInput = {
 
 export type Tenant = {
   id: string;
-  user: IUser;
+  user: Omit<IUser,'password'| 'placementDate'|'accountStatus'>;
   lat?: number;
   long?: number;
 };
 
 export type PropertyManager = {
   id: string;
-  user: IUser;
+  user: Omit<IUser,'password'| 'placementDate'|'accountStatus'>;
 };
 export  enum UnitType {
   Luxurious="Luxurious",
@@ -104,7 +104,7 @@ export type Unit = {
   imageUrl: string;
   contact: string;
   state: boolean;
-  currentTenant: Tenant;
+  currentTenant: Tenant | null;
   livingSpace: string;
   type:UnitType
   baths: number;
