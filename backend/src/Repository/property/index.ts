@@ -218,30 +218,30 @@ export class PropertyRepository
         };
   };
 
-  fetchPublicListings= async (): Promise<Property[]>=> {
+  fetchPublicListings = async (): Promise<Property[]> => {
     const listings = await this.client.property.findMany({
-      include:{
+      include: {
         manager: {
-          include:{
+          include: {
             user: true,
-          }
+          },
         },
         units: {
-          include:{
-            occupiedBy:{
-              include:{
-                tenant:{
-                  include:{
-                    user:true, 
-                  }
-                }
-              }
-            }
-          }
+          include: {
+            occupiedBy: {
+              include: {
+                tenant: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
         },
-      }
+      },
     });
-    return listings.map((p):Property=>{
+    return listings.map((p): Property => {
       return {
         id: p.id,
         contact: p.contact,
@@ -249,7 +249,7 @@ export class PropertyRepository
         lat: p.lat,
         long: p.long,
         name: p.name,
-        phoneNumber:p.phoneNumber,
+        phoneNumber: p.phoneNumber,
         manager: {
           id: p.manager.id,
           user: {
@@ -258,29 +258,36 @@ export class PropertyRepository
             email: p.manager.user?.email!,
             phoneNumber: p.manager.user?.phoneNumber!,
             profileImage: p.manager.user?.profileImage!,
-            role: p.manager.user?.role!
-          }
+            role: p.manager.user?.role!,
+          },
         },
-        propertyUnits: p.units.map((u):Unit=>{
+        propertyUnits: p.units.map((u): Unit => {
           return {
             ...u,
+            bedrooms: u.bedRooms,
+            type:
+              u.type === "Luxurious"
+                ? UnitType.Luxurious
+                : u.type === "Normal"
+                ? UnitType.Normal
+                : UnitType.budget,
             currentTenant: {
               ...u.occupiedBy,
+              id: u.id,
               user: {
-                id: p.manager.user?.id,
+                id: p.manager.user?.id + "",
                 name: p.manager.user?.name!,
                 email: p.manager.user?.email!,
                 phoneNumber: p.manager.user?.phoneNumber!,
                 profileImage: p.manager.user?.profileImage!,
-                role: p.manager.user?.role!
-              }
-            }
-          }
+                role: p.manager.user?.role!,
+              },
+            },
+          };
         }),
-      }
+      };
     });
-    
-  }
+  };
   fetchPrivateListings(pmId: string): Promise<Property[]> {
     throw new Error("Method not implemented.");
   }

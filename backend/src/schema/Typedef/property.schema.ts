@@ -48,8 +48,8 @@ const PropertyTypeDefs = `#graphql
         imageUrl:Upload!
         phoneNumber:String!
         contact:String!  
-        lat:Number!
-        long:Number!
+        lat:Float!
+        long:Float!
     }
      
     input UnitInput{
@@ -59,8 +59,8 @@ const PropertyTypeDefs = `#graphql
         state:Boolean!
         livingSpace:String!
         type:String!
-        baths:Number!
-        bedrooms:Number!
+        baths:Int!
+        bedrooms:Int!
         ammenities:[String]!
         propertyId:String!
      }
