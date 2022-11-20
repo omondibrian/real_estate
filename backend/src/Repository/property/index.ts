@@ -288,14 +288,197 @@ export class PropertyRepository
       };
     });
   };
-  fetchPrivateListings(pmId: string): Promise<Property[]> {
-    throw new Error("Method not implemented.");
+  fetchPrivateListings = async (pmId: string): Promise<Property[]>  => {
+    const listings = await this.client.property.findMany({
+      include: {
+        manager: {
+          include: {
+            user: true,
+          },
+        },
+        units: {
+          include: {
+            occupiedBy: {
+              include: {
+                tenant: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      where:{
+        managerId:{
+          equals : pmId
+        }
+      }
+    });
+    return listings.map((p): Property => {
+      return {
+        id: p.id,
+        contact: p.contact,
+        imageUrl: p.imageUrl,
+        lat: p.lat,
+        long: p.long,
+        name: p.name,
+        phoneNumber: p.phoneNumber,
+        manager: {
+          id: p.manager.id,
+          user: {
+            id: p.manager.user?.id,
+            name: p.manager.user?.name!,
+            email: p.manager.user?.email!,
+            phoneNumber: p.manager.user?.phoneNumber!,
+            profileImage: p.manager.user?.profileImage!,
+            role: p.manager.user?.role!,
+          },
+        },
+        propertyUnits: p.units.map((u): Unit => {
+          return {
+            ...u,
+            bedrooms: u.bedRooms,
+            type:
+              u.type === "Luxurious"
+                ? UnitType.Luxurious
+                : u.type === "Normal"
+                ? UnitType.Normal
+                : UnitType.budget,
+            currentTenant: {
+              ...u.occupiedBy,
+              id: u.id,
+              user: {
+                id: p.manager.user?.id + "",
+                name: p.manager.user?.name!,
+                email: p.manager.user?.email!,
+                phoneNumber: p.manager.user?.phoneNumber!,
+                profileImage: p.manager.user?.profileImage!,
+                role: p.manager.user?.role!,
+              },
+            },
+          };
+        }),
+      };
+    });
   }
-  updateUnit(unit: Partial<Unit>): Promise<Unit> {
-    throw new Error("Method not implemented.");
+  updateUnit = async (unit: Partial<Unit>): Promise<Unit>=> {
+    const u = await this.client.unit.update(
+      {
+        data: unit,
+        where: {
+          id: unit.id!
+        },
+        include: {
+          occupiedBy: {
+            include: {
+              tenant: {
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
+        },
+      }
+    )
+    return {
+      ...u,
+      bedrooms: u.bedRooms,
+      type:
+        u.type === "Luxurious"
+          ? UnitType.Luxurious
+          : u.type === "Normal"
+          ? UnitType.Normal
+          : UnitType.budget,
+      currentTenant: {
+        ...u.occupiedBy,
+        id: u.id,
+        user: {
+          id: u.occupiedBy?.tenant.user?.id + "",
+          name: u.occupiedBy?.tenant.user?.name!,
+          email: u.occupiedBy?.tenant.user?.email!,
+          phoneNumber: u.occupiedBy?.tenant.user?.phoneNumber!,
+          profileImage: u.occupiedBy?.tenant.user?.profileImage!,
+          role: u.occupiedBy?.tenant.user?.role!,
+        },
+      },
+    };
   }
-  updateProperty(property: Partial<Property>): Promise<Property> {
-    throw new Error("Method not implemented.");
+  updateProperty = async ({manager,...rest}: Partial<Property>): Promise<Property> =>{
+    const listings = await this.client.property.update({
+      include: {
+        manager: {
+          include: {
+            user: true,
+          },
+        },
+        units: {
+          include: {
+            occupiedBy: {
+              include: {
+                tenant: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      where:{
+        id:rest.id!
+      },
+      data: rest,
+      
+    });
+
+    return {
+        id: listings.id,
+        contact: listings.contact,
+        imageUrl: listings.imageUrl,
+        lat: listings.lat,
+        long: listings.long,
+        name: listings.name,
+        phoneNumber: listings.phoneNumber,
+        manager: {
+          id: listings.manager.id,
+          user: {
+            id: listings.manager.user?.id,
+            name: listings.manager.user?.name!,
+            email: listings.manager.user?.email!,
+            phoneNumber: listings.manager.user?.phoneNumber!,
+            profileImage: listings.manager.user?.profileImage!,
+            role: listings.manager.user?.role!,
+          },
+        },
+        propertyUnits: listings.units.map((u): Unit => {
+          return {
+            ...u,
+            bedrooms: u.bedRooms,
+            type:
+              u.type === "Luxurious"
+                ? UnitType.Luxurious
+                : u.type === "Normal"
+                ? UnitType.Normal
+                : UnitType.budget,
+            currentTenant: {
+              ...u.occupiedBy,
+              id: u.id,
+              user: {
+                id: listings.manager.user?.id + "",
+                name: listings.manager.user?.name!,
+                email: listings.manager.user?.email!,
+                phoneNumber: listings.manager.user?.phoneNumber!,
+                profileImage: listings.manager.user?.profileImage!,
+                role: listings.manager.user?.role!,
+              },
+            },
+          };
+        }),
+      };
   }
   deleteUnit = async (id: string): Promise<Unit | null> => {
     const unit = await this.client.unit.delete({
@@ -335,8 +518,76 @@ export class PropertyRepository
           bedrooms: unit.bedRooms,
         };
   };
-  deleteProperty(id: string): Promise<Property> {
-    throw new Error("Method not implemented.");
+  deleteProperty = async (id: string): Promise<Property> =>{
+    const listing = await this.client.property.delete({
+      where:{
+        id
+      },
+      include: {
+        manager: {
+          include: {
+            user: true,
+          },
+        },
+        units: {
+          include: {
+            occupiedBy: {
+              include: {
+                tenant: {
+                  include: {
+                    user: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    })
+    return {
+      id: listing.id,
+      contact: listing.contact,
+      imageUrl: listing.imageUrl,
+      lat: listing.lat,
+      long: listing.long,
+      name: listing.name,
+      phoneNumber: listing.phoneNumber,
+      manager: {
+        id: listing.manager.id,
+        user: {
+          id: listing.manager.user?.id,
+          name: listing.manager.user?.name!,
+          email: listing.manager.user?.email!,
+          phoneNumber: listing.manager.user?.phoneNumber!,
+          profileImage: listing.manager.user?.profileImage!,
+          role: listing.manager.user?.role!,
+        },
+      },
+      propertyUnits: listing.units.map((u): Unit => {
+        return {
+          ...u,
+          bedrooms: u.bedRooms,
+          type:
+            u.type === "Luxurious"
+              ? UnitType.Luxurious
+              : u.type === "Normal"
+              ? UnitType.Normal
+              : UnitType.budget,
+          currentTenant: {
+            ...u.occupiedBy,
+            id: u.id,
+            user: {
+              id: listing.manager.user?.id + "",
+              name: listing.manager.user?.name!,
+              email: listing.manager.user?.email!,
+              phoneNumber: listing.manager.user?.phoneNumber!,
+              profileImage: listing.manager.user?.profileImage!,
+              role: listing.manager.user?.role!,
+            },
+          },
+        };
+      }),
+    };
   }
 }
 
