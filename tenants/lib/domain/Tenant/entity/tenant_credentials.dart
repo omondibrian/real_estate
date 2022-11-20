@@ -21,11 +21,18 @@ class TenantCredentials {
     });
   }
 
+  Map<String, String> toMap() {
+    return {
+      "email": getEmail,
+      "password": getPassword,
+    };
+  }
+
   String get getEmail {
     return _email;
   }
 
-  String get getPassword { 
+  String get getPassword {
     return _password;
   }
 

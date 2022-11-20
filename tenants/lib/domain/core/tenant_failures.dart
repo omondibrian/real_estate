@@ -15,7 +15,7 @@ class TenantFailures with _$TenantFailures {
     required String msg,
   }) = DuplicateEmailAddress;
 
-   const factory TenantFailures.cancelledByUser({
+   const factory TenantFailures.storage({
     required String msg,
-  }) = CancelledByUser;
+  }) = Storage;
 }

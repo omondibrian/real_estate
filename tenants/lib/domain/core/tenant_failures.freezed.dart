@@ -22,7 +22,7 @@ mixin _$TenantFailures {
     required TResult Function(String msg) invalidCredentials,
     required TResult Function(String msg) internalServerError,
     required TResult Function(String msg) duplicateEmailAddress,
-    required TResult Function(String msg) cancelledByUser,
+    required TResult Function(String msg) storage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,7 +30,7 @@ mixin _$TenantFailures {
     TResult? Function(String msg)? invalidCredentials,
     TResult? Function(String msg)? internalServerError,
     TResult? Function(String msg)? duplicateEmailAddress,
-    TResult? Function(String msg)? cancelledByUser,
+    TResult? Function(String msg)? storage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,7 +38,7 @@ mixin _$TenantFailures {
     TResult Function(String msg)? invalidCredentials,
     TResult Function(String msg)? internalServerError,
     TResult Function(String msg)? duplicateEmailAddress,
-    TResult Function(String msg)? cancelledByUser,
+    TResult Function(String msg)? storage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ mixin _$TenantFailures {
     required TResult Function(InternalServerError value) internalServerError,
     required TResult Function(DuplicateEmailAddress value)
         duplicateEmailAddress,
-    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(Storage value) storage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,7 +56,7 @@ mixin _$TenantFailures {
     TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(InternalServerError value)? internalServerError,
     TResult? Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult? Function(CancelledByUser value)? cancelledByUser,
+    TResult? Function(Storage value)? storage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,7 +64,7 @@ mixin _$TenantFailures {
     TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(InternalServerError value)? internalServerError,
     TResult Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(Storage value)? storage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -177,7 +177,7 @@ class _$InvalidCredentials implements InvalidCredentials {
     required TResult Function(String msg) invalidCredentials,
     required TResult Function(String msg) internalServerError,
     required TResult Function(String msg) duplicateEmailAddress,
-    required TResult Function(String msg) cancelledByUser,
+    required TResult Function(String msg) storage,
   }) {
     return invalidCredentials(msg);
   }
@@ -188,7 +188,7 @@ class _$InvalidCredentials implements InvalidCredentials {
     TResult? Function(String msg)? invalidCredentials,
     TResult? Function(String msg)? internalServerError,
     TResult? Function(String msg)? duplicateEmailAddress,
-    TResult? Function(String msg)? cancelledByUser,
+    TResult? Function(String msg)? storage,
   }) {
     return invalidCredentials?.call(msg);
   }
@@ -199,7 +199,7 @@ class _$InvalidCredentials implements InvalidCredentials {
     TResult Function(String msg)? invalidCredentials,
     TResult Function(String msg)? internalServerError,
     TResult Function(String msg)? duplicateEmailAddress,
-    TResult Function(String msg)? cancelledByUser,
+    TResult Function(String msg)? storage,
     required TResult orElse(),
   }) {
     if (invalidCredentials != null) {
@@ -215,7 +215,7 @@ class _$InvalidCredentials implements InvalidCredentials {
     required TResult Function(InternalServerError value) internalServerError,
     required TResult Function(DuplicateEmailAddress value)
         duplicateEmailAddress,
-    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(Storage value) storage,
   }) {
     return invalidCredentials(this);
   }
@@ -226,7 +226,7 @@ class _$InvalidCredentials implements InvalidCredentials {
     TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(InternalServerError value)? internalServerError,
     TResult? Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult? Function(CancelledByUser value)? cancelledByUser,
+    TResult? Function(Storage value)? storage,
   }) {
     return invalidCredentials?.call(this);
   }
@@ -237,7 +237,7 @@ class _$InvalidCredentials implements InvalidCredentials {
     TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(InternalServerError value)? internalServerError,
     TResult Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(Storage value)? storage,
     required TResult orElse(),
   }) {
     if (invalidCredentials != null) {
@@ -329,7 +329,7 @@ class _$InternalServerError implements InternalServerError {
     required TResult Function(String msg) invalidCredentials,
     required TResult Function(String msg) internalServerError,
     required TResult Function(String msg) duplicateEmailAddress,
-    required TResult Function(String msg) cancelledByUser,
+    required TResult Function(String msg) storage,
   }) {
     return internalServerError(msg);
   }
@@ -340,7 +340,7 @@ class _$InternalServerError implements InternalServerError {
     TResult? Function(String msg)? invalidCredentials,
     TResult? Function(String msg)? internalServerError,
     TResult? Function(String msg)? duplicateEmailAddress,
-    TResult? Function(String msg)? cancelledByUser,
+    TResult? Function(String msg)? storage,
   }) {
     return internalServerError?.call(msg);
   }
@@ -351,7 +351,7 @@ class _$InternalServerError implements InternalServerError {
     TResult Function(String msg)? invalidCredentials,
     TResult Function(String msg)? internalServerError,
     TResult Function(String msg)? duplicateEmailAddress,
-    TResult Function(String msg)? cancelledByUser,
+    TResult Function(String msg)? storage,
     required TResult orElse(),
   }) {
     if (internalServerError != null) {
@@ -367,7 +367,7 @@ class _$InternalServerError implements InternalServerError {
     required TResult Function(InternalServerError value) internalServerError,
     required TResult Function(DuplicateEmailAddress value)
         duplicateEmailAddress,
-    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(Storage value) storage,
   }) {
     return internalServerError(this);
   }
@@ -378,7 +378,7 @@ class _$InternalServerError implements InternalServerError {
     TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(InternalServerError value)? internalServerError,
     TResult? Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult? Function(CancelledByUser value)? cancelledByUser,
+    TResult? Function(Storage value)? storage,
   }) {
     return internalServerError?.call(this);
   }
@@ -389,7 +389,7 @@ class _$InternalServerError implements InternalServerError {
     TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(InternalServerError value)? internalServerError,
     TResult Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(Storage value)? storage,
     required TResult orElse(),
   }) {
     if (internalServerError != null) {
@@ -481,7 +481,7 @@ class _$DuplicateEmailAddress implements DuplicateEmailAddress {
     required TResult Function(String msg) invalidCredentials,
     required TResult Function(String msg) internalServerError,
     required TResult Function(String msg) duplicateEmailAddress,
-    required TResult Function(String msg) cancelledByUser,
+    required TResult Function(String msg) storage,
   }) {
     return duplicateEmailAddress(msg);
   }
@@ -492,7 +492,7 @@ class _$DuplicateEmailAddress implements DuplicateEmailAddress {
     TResult? Function(String msg)? invalidCredentials,
     TResult? Function(String msg)? internalServerError,
     TResult? Function(String msg)? duplicateEmailAddress,
-    TResult? Function(String msg)? cancelledByUser,
+    TResult? Function(String msg)? storage,
   }) {
     return duplicateEmailAddress?.call(msg);
   }
@@ -503,7 +503,7 @@ class _$DuplicateEmailAddress implements DuplicateEmailAddress {
     TResult Function(String msg)? invalidCredentials,
     TResult Function(String msg)? internalServerError,
     TResult Function(String msg)? duplicateEmailAddress,
-    TResult Function(String msg)? cancelledByUser,
+    TResult Function(String msg)? storage,
     required TResult orElse(),
   }) {
     if (duplicateEmailAddress != null) {
@@ -519,7 +519,7 @@ class _$DuplicateEmailAddress implements DuplicateEmailAddress {
     required TResult Function(InternalServerError value) internalServerError,
     required TResult Function(DuplicateEmailAddress value)
         duplicateEmailAddress,
-    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(Storage value) storage,
   }) {
     return duplicateEmailAddress(this);
   }
@@ -530,7 +530,7 @@ class _$DuplicateEmailAddress implements DuplicateEmailAddress {
     TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(InternalServerError value)? internalServerError,
     TResult? Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult? Function(CancelledByUser value)? cancelledByUser,
+    TResult? Function(Storage value)? storage,
   }) {
     return duplicateEmailAddress?.call(this);
   }
@@ -541,7 +541,7 @@ class _$DuplicateEmailAddress implements DuplicateEmailAddress {
     TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(InternalServerError value)? internalServerError,
     TResult Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(Storage value)? storage,
     required TResult orElse(),
   }) {
     if (duplicateEmailAddress != null) {
@@ -564,22 +564,20 @@ abstract class DuplicateEmailAddress implements TenantFailures {
 }
 
 /// @nodoc
-abstract class _$$CancelledByUserCopyWith<$Res>
+abstract class _$$StorageCopyWith<$Res>
     implements $TenantFailuresCopyWith<$Res> {
-  factory _$$CancelledByUserCopyWith(
-          _$CancelledByUser value, $Res Function(_$CancelledByUser) then) =
-      __$$CancelledByUserCopyWithImpl<$Res>;
+  factory _$$StorageCopyWith(_$Storage value, $Res Function(_$Storage) then) =
+      __$$StorageCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String msg});
 }
 
 /// @nodoc
-class __$$CancelledByUserCopyWithImpl<$Res>
-    extends _$TenantFailuresCopyWithImpl<$Res, _$CancelledByUser>
-    implements _$$CancelledByUserCopyWith<$Res> {
-  __$$CancelledByUserCopyWithImpl(
-      _$CancelledByUser _value, $Res Function(_$CancelledByUser) _then)
+class __$$StorageCopyWithImpl<$Res>
+    extends _$TenantFailuresCopyWithImpl<$Res, _$Storage>
+    implements _$$StorageCopyWith<$Res> {
+  __$$StorageCopyWithImpl(_$Storage _value, $Res Function(_$Storage) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -587,7 +585,7 @@ class __$$CancelledByUserCopyWithImpl<$Res>
   $Res call({
     Object? msg = null,
   }) {
-    return _then(_$CancelledByUser(
+    return _then(_$Storage(
       msg: null == msg
           ? _value.msg
           : msg // ignore: cast_nullable_to_non_nullable
@@ -598,22 +596,22 @@ class __$$CancelledByUserCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CancelledByUser implements CancelledByUser {
-  const _$CancelledByUser({required this.msg});
+class _$Storage implements Storage {
+  const _$Storage({required this.msg});
 
   @override
   final String msg;
 
   @override
   String toString() {
-    return 'TenantFailures.cancelledByUser(msg: $msg)';
+    return 'TenantFailures.storage(msg: $msg)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CancelledByUser &&
+            other is _$Storage &&
             (identical(other.msg, msg) || other.msg == msg));
   }
 
@@ -623,8 +621,8 @@ class _$CancelledByUser implements CancelledByUser {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CancelledByUserCopyWith<_$CancelledByUser> get copyWith =>
-      __$$CancelledByUserCopyWithImpl<_$CancelledByUser>(this, _$identity);
+  _$$StorageCopyWith<_$Storage> get copyWith =>
+      __$$StorageCopyWithImpl<_$Storage>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -632,9 +630,9 @@ class _$CancelledByUser implements CancelledByUser {
     required TResult Function(String msg) invalidCredentials,
     required TResult Function(String msg) internalServerError,
     required TResult Function(String msg) duplicateEmailAddress,
-    required TResult Function(String msg) cancelledByUser,
+    required TResult Function(String msg) storage,
   }) {
-    return cancelledByUser(msg);
+    return storage(msg);
   }
 
   @override
@@ -643,9 +641,9 @@ class _$CancelledByUser implements CancelledByUser {
     TResult? Function(String msg)? invalidCredentials,
     TResult? Function(String msg)? internalServerError,
     TResult? Function(String msg)? duplicateEmailAddress,
-    TResult? Function(String msg)? cancelledByUser,
+    TResult? Function(String msg)? storage,
   }) {
-    return cancelledByUser?.call(msg);
+    return storage?.call(msg);
   }
 
   @override
@@ -654,11 +652,11 @@ class _$CancelledByUser implements CancelledByUser {
     TResult Function(String msg)? invalidCredentials,
     TResult Function(String msg)? internalServerError,
     TResult Function(String msg)? duplicateEmailAddress,
-    TResult Function(String msg)? cancelledByUser,
+    TResult Function(String msg)? storage,
     required TResult orElse(),
   }) {
-    if (cancelledByUser != null) {
-      return cancelledByUser(msg);
+    if (storage != null) {
+      return storage(msg);
     }
     return orElse();
   }
@@ -670,9 +668,9 @@ class _$CancelledByUser implements CancelledByUser {
     required TResult Function(InternalServerError value) internalServerError,
     required TResult Function(DuplicateEmailAddress value)
         duplicateEmailAddress,
-    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(Storage value) storage,
   }) {
-    return cancelledByUser(this);
+    return storage(this);
   }
 
   @override
@@ -681,9 +679,9 @@ class _$CancelledByUser implements CancelledByUser {
     TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(InternalServerError value)? internalServerError,
     TResult? Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult? Function(CancelledByUser value)? cancelledByUser,
+    TResult? Function(Storage value)? storage,
   }) {
-    return cancelledByUser?.call(this);
+    return storage?.call(this);
   }
 
   @override
@@ -692,24 +690,23 @@ class _$CancelledByUser implements CancelledByUser {
     TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(InternalServerError value)? internalServerError,
     TResult Function(DuplicateEmailAddress value)? duplicateEmailAddress,
-    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(Storage value)? storage,
     required TResult orElse(),
   }) {
-    if (cancelledByUser != null) {
-      return cancelledByUser(this);
+    if (storage != null) {
+      return storage(this);
     }
     return orElse();
   }
 }
 
-abstract class CancelledByUser implements TenantFailures {
-  const factory CancelledByUser({required final String msg}) =
-      _$CancelledByUser;
+abstract class Storage implements TenantFailures {
+  const factory Storage({required final String msg}) = _$Storage;
 
   @override
   String get msg;
   @override
   @JsonKey(ignore: true)
-  _$$CancelledByUserCopyWith<_$CancelledByUser> get copyWith =>
+  _$$StorageCopyWith<_$Storage> get copyWith =>
       throw _privateConstructorUsedError;
 }

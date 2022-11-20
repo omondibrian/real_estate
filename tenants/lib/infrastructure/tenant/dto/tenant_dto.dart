@@ -53,7 +53,17 @@ class TenantDTO {
     );
   }
   String toJson() => json.encode(toMap());
-
+  const TenantDTO.initial({
+    this.id = "",
+    this.name = "",
+    this.email = "",
+    this.password = "",
+    this.phoneNumber = "",
+    this.profileImage = "",
+    this.placementDate = "",
+    this.accountStatus = false,
+    this.role = ""
+  });
   factory TenantDTO.fromJson(String source) {
     return TenantDTO.fromMap(json.decode(source) as Map<String, dynamic>);
   }

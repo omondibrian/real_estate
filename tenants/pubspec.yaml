@@ -37,6 +37,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   dartz: ^0.10.1
   injectable: ^1.5.4
+  flutter_bloc: ^8.1.1
+  shared_preferences: ^2.0.15
+  graphql: ^5.1.1
 
 dev_dependencies:
   flutter_test:

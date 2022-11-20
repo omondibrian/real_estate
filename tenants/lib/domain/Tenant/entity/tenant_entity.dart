@@ -24,7 +24,7 @@ class TenantEntity {
   });
 
   /// returns a default instance of [TenantEntity] class
-  TenantEntity.initial({
+  const TenantEntity.initial({
     this.id = '',
     this.password = '',
     this.accountStatus = false,

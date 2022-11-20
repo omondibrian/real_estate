@@ -33,7 +33,7 @@ abstract class TenantRepository {
   /// performs a password update operation with [Backend] api service.
   /// and returns either [TenantFailures] in case of an [Error]
   /// or [String] to signal a successfull operation
-  Future<Either<TenantFailures, String>> updatePassword(TenantEntity user);
+  Future<Either<TenantFailures, String>> updatePassword(String password);
 
   /// retrives the user's profile info from an appropriate service.
   /// i.e the [Backend] api
@@ -44,12 +44,12 @@ abstract class TenantRepository {
   /// updates the user's profile info to the [Backend] api
   /// and returns either [TenantFailures] in case of an [Error]
   /// or [TenantEntity] to signal a successfull operation
-  Future<Either<TenantFailures, TenantEntity>> updateProfile(TenantEntity user);
+  Future<Either<TenantFailures, TenantEntity>> updateProfile(Map<String,dynamic> userMap);
 
   /// verifys the otp code entered by the user using  an appropriate service.
   /// i.e the [Backend] api
   /// and returns either [TenantFailures] in case of an [Error]
   /// or [String] to signal a successfull operation
   Future<Either<TenantFailures, String>> verifyOTP(
-      String code, String email);
+      String code);
 }
