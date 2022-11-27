@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tenants/presentation/utils.dart';
-import 'package:tenants/presentation/widgets/cards/card_info.dart';
+import 'package:tenants/presentation/widgets/cards/search_result.dart';
+import 'package:tenants/presentation/widgets/search_input.dart';
+import 'package:tenants/presentation/widgets/search_params.dart';
 
-class SavedScreen extends StatelessWidget {
-  const SavedScreen({super.key});
+class SearchResults extends StatelessWidget {
+  const SearchResults({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +25,48 @@ class SavedScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.fromLTRB(
                 20 * fwidth,
+                10 * fwidth,
                 20 * fwidth,
-                20 * fwidth,
-                30 * fwidth,
+                0 * fwidth,
               ),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                      0 * fwidth,
+                      0 * fwidth,
+                      0 * fwidth,
+                      21 * fwidth,
+                    ),
+                    padding: EdgeInsets.fromLTRB(
+                      10 * fwidth,
+                      11 * fwidth,
+                      15 * fwidth,
+                      11 * fwidth,
+                    ),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0x33b1adad)),
+                      color: const Color(0xfff8f8f8),
+                      borderRadius: BorderRadius.circular(
+                        10 * fwidth,
+                      ),
+                    ),
+                    child: SearchInput(
+                      fwidth: fwidth,
+                      query: '2 BHK Residential',
+                    ),
+                  ),
+                  const SearchParams(),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                      0 * fwidth,
+                      0 * fwidth,
+                      0 * fwidth,
+                      20 * fwidth,
+                    ),
                     width: double.infinity,
                     height: 24 * fwidth,
                     child: Row(
@@ -41,11 +76,11 @@ class SavedScreen extends StatelessWidget {
                           margin: EdgeInsets.fromLTRB(
                             0 * fwidth,
                             0 * fwidth,
-                            160 * fwidth,
+                            108 * fwidth,
                             0 * fwidth,
                           ),
                           child: Text(
-                            'Saved Items',
+                            '32 Results Found',
                             style: SafeGoogleFont(
                               'Montserrat',
                               fontSize: 20 * ffwidth,
@@ -67,6 +102,7 @@ class SavedScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
+                                // sortRLP (522:549)
                                 margin: EdgeInsets.fromLTRB(
                                   0 * fwidth,
                                   0 * fwidth,
@@ -99,38 +135,39 @@ class SavedScreen extends StatelessWidget {
                                   height: 10 * fwidth,
                                 ),
                               ),
-                              SizedBox(
-                                height: 30 * fwidth,
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      CardInfo(
-                                        fwidth: fwidth,
-                                        imageUrl:
-                                            "assets/images/livingroom.png",
-                                        pricePerUnit: "Ksh. 30,000",
-                                      ),
-                                      CardInfo(
-                                        fwidth: fwidth,
-                                        imageUrl:
-                                            "assets/images/livingroom.png",
-                                        pricePerUnit: "Ksh. 30,000",
-                                      ),
-                                      CardInfo(
-                                        fwidth: fwidth,
-                                        imageUrl:
-                                            "assets/images/livingroom.png",
-                                        pricePerUnit: "Ksh. 30,000",
-                                      ),
-                                    ]),
-                              )
                             ],
                           ),
                         ),
+                        Container(
+                          padding: EdgeInsets.zero,
+                          margin: EdgeInsets.fromLTRB(
+                            0 * fwidth,
+                            0 * fwidth,
+                            0 * fwidth,
+                            30 * fwidth,
+                          ),
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SearchResultCard(
+                                fwidth: fwidth,
+                                imageUrl: "assets/images/livingroom.png",
+                                pricePerUnit: "Ksh. 30,000",
+                              ),
+                              SearchResultCard(
+                                fwidth: fwidth,
+                                imageUrl: "assets/images/livingroom.png",
+                                pricePerUnit: "Ksh. 30,000",
+                              ),
+                              SearchResultCard(
+                                fwidth: fwidth,
+                                imageUrl: "assets/images/livingroom.png",
+                                pricePerUnit: "Ksh. 30,000",
+                              )
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )
