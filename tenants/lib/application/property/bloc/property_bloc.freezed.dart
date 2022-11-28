@@ -166,42 +166,49 @@ abstract class FetchListings implements PropertyEvent {
 
 /// @nodoc
 mixin _$PropertyState {
-  List<PropertyEntity> get listings => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(bool state) loadingState,
+    required TResult Function(String msg) applicationErrors,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(bool state)? loadingState,
+    TResult? Function(String msg)? applicationErrors,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(bool state)? loadingState,
+    TResult Function(String msg)? applicationErrors,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingState value) loadingState,
+    required TResult Function(ApplicationErrors value) applicationErrors,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingState value)? loadingState,
+    TResult? Function(ApplicationErrors value)? applicationErrors,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(LoadingState value)? loadingState,
+    TResult Function(ApplicationErrors value)? applicationErrors,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $PropertyStateCopyWith<PropertyState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -210,8 +217,6 @@ abstract class $PropertyStateCopyWith<$Res> {
   factory $PropertyStateCopyWith(
           PropertyState value, $Res Function(PropertyState) then) =
       _$PropertyStateCopyWithImpl<$Res, PropertyState>;
-  @useResult
-  $Res call({List<PropertyEntity> listings});
 }
 
 /// @nodoc
@@ -223,28 +228,13 @@ class _$PropertyStateCopyWithImpl<$Res, $Val extends PropertyState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? listings = null,
-  }) {
-    return _then(_value.copyWith(
-      listings: null == listings
-          ? _value.listings
-          : listings // ignore: cast_nullable_to_non_nullable
-              as List<PropertyEntity>,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res>
-    implements $PropertyStateCopyWith<$Res> {
+abstract class _$$_InitialCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({List<PropertyEntity> listings});
 }
@@ -311,6 +301,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(bool state) loadingState,
+    required TResult Function(String msg) applicationErrors,
   }) {
     return initial(listings);
   }
@@ -319,6 +311,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(bool state)? loadingState,
+    TResult? Function(String msg)? applicationErrors,
   }) {
     return initial?.call(listings);
   }
@@ -327,6 +321,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(bool state)? loadingState,
+    TResult Function(String msg)? applicationErrors,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -339,6 +335,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingState value) loadingState,
+    required TResult Function(ApplicationErrors value) applicationErrors,
   }) {
     return initial(this);
   }
@@ -347,6 +345,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingState value)? loadingState,
+    TResult? Function(ApplicationErrors value)? applicationErrors,
   }) {
     return initial?.call(this);
   }
@@ -355,6 +355,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(LoadingState value)? loadingState,
+    TResult Function(ApplicationErrors value)? applicationErrors,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -367,10 +369,288 @@ class _$_Initial implements _Initial {
 abstract class _Initial implements PropertyState {
   const factory _Initial({final List<PropertyEntity> listings}) = _$_Initial;
 
-  @override
   List<PropertyEntity> get listings;
-  @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadingStateCopyWith<$Res> {
+  factory _$$LoadingStateCopyWith(
+          _$LoadingState value, $Res Function(_$LoadingState) then) =
+      __$$LoadingStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool state});
+}
+
+/// @nodoc
+class __$$LoadingStateCopyWithImpl<$Res>
+    extends _$PropertyStateCopyWithImpl<$Res, _$LoadingState>
+    implements _$$LoadingStateCopyWith<$Res> {
+  __$$LoadingStateCopyWithImpl(
+      _$LoadingState _value, $Res Function(_$LoadingState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? state = null,
+  }) {
+    return _then(_$LoadingState(
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LoadingState implements LoadingState {
+  const _$LoadingState({this.state = false});
+
+  @override
+  @JsonKey()
+  final bool state;
+
+  @override
+  String toString() {
+    return 'PropertyState.loadingState(state: $state)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingState &&
+            (identical(other.state, state) || other.state == state));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, state);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadingStateCopyWith<_$LoadingState> get copyWith =>
+      __$$LoadingStateCopyWithImpl<_$LoadingState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(bool state) loadingState,
+    required TResult Function(String msg) applicationErrors,
+  }) {
+    return loadingState(state);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(bool state)? loadingState,
+    TResult? Function(String msg)? applicationErrors,
+  }) {
+    return loadingState?.call(state);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(bool state)? loadingState,
+    TResult Function(String msg)? applicationErrors,
+    required TResult orElse(),
+  }) {
+    if (loadingState != null) {
+      return loadingState(state);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingState value) loadingState,
+    required TResult Function(ApplicationErrors value) applicationErrors,
+  }) {
+    return loadingState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingState value)? loadingState,
+    TResult? Function(ApplicationErrors value)? applicationErrors,
+  }) {
+    return loadingState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoadingState value)? loadingState,
+    TResult Function(ApplicationErrors value)? applicationErrors,
+    required TResult orElse(),
+  }) {
+    if (loadingState != null) {
+      return loadingState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadingState implements PropertyState {
+  const factory LoadingState({final bool state}) = _$LoadingState;
+
+  bool get state;
+  @JsonKey(ignore: true)
+  _$$LoadingStateCopyWith<_$LoadingState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ApplicationErrorsCopyWith<$Res> {
+  factory _$$ApplicationErrorsCopyWith(
+          _$ApplicationErrors value, $Res Function(_$ApplicationErrors) then) =
+      __$$ApplicationErrorsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String msg});
+}
+
+/// @nodoc
+class __$$ApplicationErrorsCopyWithImpl<$Res>
+    extends _$PropertyStateCopyWithImpl<$Res, _$ApplicationErrors>
+    implements _$$ApplicationErrorsCopyWith<$Res> {
+  __$$ApplicationErrorsCopyWithImpl(
+      _$ApplicationErrors _value, $Res Function(_$ApplicationErrors) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? msg = null,
+  }) {
+    return _then(_$ApplicationErrors(
+      msg: null == msg
+          ? _value.msg
+          : msg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ApplicationErrors implements ApplicationErrors {
+  const _$ApplicationErrors({this.msg = ''});
+
+  @override
+  @JsonKey()
+  final String msg;
+
+  @override
+  String toString() {
+    return 'PropertyState.applicationErrors(msg: $msg)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ApplicationErrors &&
+            (identical(other.msg, msg) || other.msg == msg));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, msg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ApplicationErrorsCopyWith<_$ApplicationErrors> get copyWith =>
+      __$$ApplicationErrorsCopyWithImpl<_$ApplicationErrors>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(bool state) loadingState,
+    required TResult Function(String msg) applicationErrors,
+  }) {
+    return applicationErrors(msg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(bool state)? loadingState,
+    TResult? Function(String msg)? applicationErrors,
+  }) {
+    return applicationErrors?.call(msg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(bool state)? loadingState,
+    TResult Function(String msg)? applicationErrors,
+    required TResult orElse(),
+  }) {
+    if (applicationErrors != null) {
+      return applicationErrors(msg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(LoadingState value) loadingState,
+    required TResult Function(ApplicationErrors value) applicationErrors,
+  }) {
+    return applicationErrors(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(LoadingState value)? loadingState,
+    TResult? Function(ApplicationErrors value)? applicationErrors,
+  }) {
+    return applicationErrors?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(LoadingState value)? loadingState,
+    TResult Function(ApplicationErrors value)? applicationErrors,
+    required TResult orElse(),
+  }) {
+    if (applicationErrors != null) {
+      return applicationErrors(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ApplicationErrors implements PropertyState {
+  const factory ApplicationErrors({final String msg}) = _$ApplicationErrors;
+
+  String get msg;
+  @JsonKey(ignore: true)
+  _$$ApplicationErrorsCopyWith<_$ApplicationErrors> get copyWith =>
       throw _privateConstructorUsedError;
 }
