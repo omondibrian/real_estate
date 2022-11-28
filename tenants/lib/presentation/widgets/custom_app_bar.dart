@@ -26,12 +26,12 @@ class CustomAppBar extends StatelessWidget {
           child: const Icon(
             Icons.location_on_outlined,
             color: Colors.red,
-            size: 16,
+            size: 24,
           ),
         ),
         SizedBox(
-          width: 104 * fwidth,
-          height: double.infinity,
+          width: 304 * fwidth,
+          height: 50,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

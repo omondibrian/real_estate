@@ -28,7 +28,7 @@ class CardInfo extends StatelessWidget {
         borderRadius: BorderRadius.circular(10 * fwidth),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(imageUrl),
+          image: AssetImage(imageUrl),
         ),
       ),
       child: Container(

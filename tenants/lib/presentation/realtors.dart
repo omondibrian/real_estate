@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tenants/presentation/screens/alerts.dart';
 import 'package:tenants/presentation/screens/explore.dart';
+import 'package:tenants/presentation/screens/listings.dart';
 import 'package:tenants/presentation/screens/profile.dart';
 import 'package:tenants/presentation/screens/saved.dart';
+import 'package:tenants/presentation/screens/search_screen.dart';
 
 class Realtors extends StatefulWidget {
   const Realtors({super.key});
@@ -45,6 +47,6 @@ class _RealtorsState extends State<Realtors> {
   }
 
   static const List<Widget> _screens = <Widget>[
-    Explore(),SavedScreen(),Alerts(),Profile()
+    Explore(),SavedScreen(),Listing(),SearchResults()
   ];
 }

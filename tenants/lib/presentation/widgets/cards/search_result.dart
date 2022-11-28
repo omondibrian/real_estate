@@ -50,7 +50,7 @@ class SearchResultCard extends StatelessWidget {
                   child: SizedBox(
                     width: 335 * fwidth,
                     height: 140 * fwidth,
-                    child: Image.network(
+                    child: Image.asset(
                       imageUrl,
                       width: 335 * fwidth,
                       height: 140 * fwidth,
@@ -74,7 +74,7 @@ class SearchResultCard extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(
                         0 * fwidth,
                         0 * fwidth,
-                        90 * fwidth,
+                        60 * fwidth,
                         0 * fwidth,
                       ),
                       height: double.infinity,
@@ -142,7 +142,7 @@ class SearchResultCard extends StatelessWidget {
                                   margin: EdgeInsets.fromLTRB(
                                     0.67 * fwidth,
                                     0 * fwidth,
-                                    29 * fwidth,
+                                    10 * fwidth,
                                     0 * fwidth,
                                   ),
                                   width: double.infinity,
@@ -159,11 +159,11 @@ class SearchResultCard extends StatelessWidget {
                                         ),
                                         width: 6.67 * fwidth,
                                         height: 8.33 * fwidth,
-                                        child: Image.network(
-                                          imageUrl,
-                                          width: 6.67 * fwidth,
-                                          height: 8.33 * fwidth,
-                                        ),
+                                        child: const Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.red,
+                              size: 15,
+                            ),
                                       ),
                                       Text(
                                         '252 1st Avenue',
@@ -182,7 +182,7 @@ class SearchResultCard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 5 * fwidth,
+                            width: 3 * fwidth,
                           ),
                           Text(
                             '•',
@@ -195,7 +195,7 @@ class SearchResultCard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 5 * fwidth,
+                            width: 1 * fwidth,
                           ),
                           Text(
                             '2 Bath',

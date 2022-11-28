@@ -26,7 +26,7 @@ class HorizontalInfoCard extends StatelessWidget {
         20 * fwidth,
         0 * fwidth,
       ),
-      width: 180 * fwidth,
+      width: 200 * fwidth,
       height: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,7 @@ class HorizontalInfoCard extends StatelessWidget {
               child: SizedBox(
                 width: 180 * fwidth,
                 height: 140 * fwidth,
-                child: Image.network(
+                child: Image.asset(
                   imageUrl,
                   width: 180 * fwidth,
                   height: 140 * fwidth,
@@ -55,14 +55,9 @@ class HorizontalInfoCard extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.fromLTRB(
-              10 * fwidth,
-              0 * fwidth,
-              0 * fwidth,
-              0 * fwidth,
-            ),
-            width: 112 * fwidth,
+          SizedBox(
+           
+            width: 120 * fwidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -94,7 +89,7 @@ class HorizontalInfoCard extends StatelessWidget {
                           0 * fwidth,
                           0 * fwidth,
                           0 * fwidth,
-                          10 * fwidth,
+                          4 * fwidth,
                         ),
                         child: Text(
                           description,
@@ -107,31 +102,16 @@ class HorizontalInfoCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(
-                          0.67 * fwidth,
-                          0 * fwidth,
-                          25 * fwidth,
-                          0 * fwidth,
-                        ),
+                      SizedBox(
                         width: double.infinity,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(
-                                0 * fwidth,
-                                1 * fwidth,
-                                5.67 * fwidth,
-                                0 * fwidth,
-                              ),
-                              width: 6.67 * fwidth,
-                              height: 8.33 * fwidth,
-                              child: const Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.red,
-                                size: 16,
-                              ),
+                            const Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.red,
+                              size: 15,
                             ),
                             Text(
                               addr,

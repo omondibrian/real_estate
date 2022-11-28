@@ -13,10 +13,10 @@ class SearchBar extends StatelessWidget {
     double ffwidth = fwidth * 0.97;
     return Container(
       margin: EdgeInsets.fromLTRB(
-        0 * fwidth,
+        5 * fwidth,
         0 * fwidth,
         20 * fwidth,
-        40 * fwidth,
+        10 * fwidth,
       ),
       padding: EdgeInsets.fromLTRB(
         15 * fwidth,
@@ -54,7 +54,6 @@ class SearchBar extends StatelessWidget {
             ),
           ),
           Container(
-            // searchsSs (522:726)
             margin: EdgeInsets.fromLTRB(
               0 * fwidth,
               0 * fwidth,
