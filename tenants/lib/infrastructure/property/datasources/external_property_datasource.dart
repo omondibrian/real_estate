@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:graphql/client.dart';
+import 'package:injectable/injectable.dart';
 import 'package:tenants/domain/core/property_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tenants/domain/property/datasources/external_property_datasource.dart';
@@ -8,6 +9,8 @@ import 'package:tenants/infrastructure/core/base_datasource.dart';
 import 'package:tenants/infrastructure/property/datasources/graphql_queries.dart';
 import 'package:tenants/infrastructure/property/dtos/property_dto.dart';
 
+@prod
+@LazySingleton(as: ExternalPropertyDataSource)
 class ExternalPropertyDatasourceImpl extends BaseDataSource
     implements ExternalPropertyDataSource {
   ExternalPropertyDatasourceImpl(super.token);
