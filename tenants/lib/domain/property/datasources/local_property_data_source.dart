@@ -21,4 +21,9 @@ abstract class LocalPropertyDataSource {
   Future<Either<PropertyFailure, bool>> cacheLikedListings(
     List<PropertyEntity> listings,
   );
+
+  /// clear propert listings cache
+  /// and returns either [PropertyFailure] in case of an [Error]
+  /// or [bool] to signal a successfull operation
+  Future<Either<PropertyFailure, bool>> clearPropertyCache();
 }
