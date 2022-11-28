@@ -1,3 +1,6 @@
+import 'package:tenants/domain/property/entity/property_entity.dart';
+import 'package:tenants/infrastructure/property/dtos/property_manager_dto.dart';
+
 class PropertyManager {
   final String? id;
   final String name;
@@ -20,6 +23,17 @@ class PropertyManager {
     this.password,
   });
 
+  const  PropertyManager.initial({
+     this.id = '',
+    this.password = '',
+    this.accountStatus = false,
+    this.placementDate = "",
+    this.email = "",
+    this.name = "",
+    this.phoneNumber = '',
+    this.profileImage = '',
+    this.role = ''
+  });
   PropertyManager copyWith({
     String? id,
     String? name,

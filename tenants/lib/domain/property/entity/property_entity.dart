@@ -23,6 +23,18 @@ class PropertyEntity {
     required this.propertyUnits,
   });
 
+  PropertyEntity.initial({
+    this.id = '',
+    this.lat = 0.0,
+    this.long = 0.0,
+    this.name = '',
+    this.contact = '',
+    this.imageUrl = '',
+    this.phoneNumber = '',
+    this.manager =  const PropertyManager.initial(),
+    this.propertyUnits = const <UnitEntity>[],
+
+  });
   PropertyEntity copyWith({
     String? id,
     String? name,

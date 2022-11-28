@@ -14,6 +14,8 @@ class PropertyDTO {
   final String phoneNumber;
   final PropertyManagerDTO manager;
   final List<UnitDTO> propertyUnits;
+  final String? typename;
+  final String? message;
   PropertyDTO({
     this.id,
     required this.lat,
@@ -24,6 +26,8 @@ class PropertyDTO {
     required this.phoneNumber,
     required this.manager,
     required this.propertyUnits,
+    this.typename,
+    this.message,
   });
   PropertyEntity toEntity() => PropertyEntity(
         name: name,
@@ -57,6 +61,8 @@ class PropertyDTO {
     String? phoneNumber,
     PropertyManagerDTO? manager,
     List<UnitDTO>? propertyUnits,
+    String? typename,
+    String? message,
   }) {
     return PropertyDTO(
       id: id ?? this.id,
@@ -68,6 +74,8 @@ class PropertyDTO {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       manager: manager ?? this.manager,
       propertyUnits: propertyUnits ?? this.propertyUnits,
+      typename: typename ?? this.typename,
+      message: message ?? this.message,
     );
   }
 
