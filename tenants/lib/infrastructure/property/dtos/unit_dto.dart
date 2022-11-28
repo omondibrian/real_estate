@@ -1,0 +1,135 @@
+import 'dart:convert';
+
+import 'package:tenants/domain/property/entity/unit_entity.dart';
+
+class UnitDTO {
+  final String? id;
+  final String room;
+  final String imageUrl;
+  final String contact;
+  final bool state;
+  final String livingSpace;
+  final String ammenities;
+  final String propertyId;
+  final String type;
+  final double baths;
+  final int bedroom;
+
+  UnitDTO({
+    this.id,
+    required this.room,
+    required this.imageUrl,
+    required this.contact,
+    required this.state,
+    required this.livingSpace,
+    required this.ammenities,
+    required this.propertyId,
+    required this.type,
+    required this.baths,
+    required this.bedroom,
+  });
+
+  /// instantiates an empty obj with default values
+  UnitDTO.initial({
+    this.id = '',
+    this.room = '',
+    this.imageUrl = '',
+    this.contact = '',
+    this.state = false,
+    this.livingSpace = '',
+    this.propertyId = '',
+    this.type = '',
+    this.ammenities = '',
+    this.baths = 0,
+    this.bedroom = 0,
+  });
+
+  factory UnitDTO.fromMap(Map<String, dynamic> map) {
+    return UnitDTO(
+      room: map["room"],
+      imageUrl: map["imageUrl"],
+      contact: map["contact"],
+      state: map["state"],
+      livingSpace: map["livingSpace"],
+      ammenities: map["ammenities"],
+      propertyId: map["propertyId"],
+      type: map["type"],
+      baths: map["baths"],
+      bedroom: map["bedroom"],
+    );
+  }
+  Map<String, dynamic> toMap() {
+    final map = <String, dynamic>{};
+    map.addAll({'id': id});
+    map.addAll({'room': room});
+    map.addAll({'imageUrl': imageUrl});
+    map.addAll({'contact': contact});
+    map.addAll({'state': state});
+    map.addAll({'livingSpace': livingSpace});
+    map.addAll({'ammenities': ammenities});
+    map.addAll({'propertyId': propertyId});
+    map.addAll({'type': type});
+    map.addAll({'baths': baths});
+    map.addAll({'bedroom': bedroom});
+    return map;
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory UnitDTO.fromJson(String source) {
+    return UnitDTO.fromMap(json.decode(source) as Map<String, dynamic>);
+  }
+
+  UnitEntity toEntity() => UnitEntity(
+        room: room,
+        imageUrl: imageUrl,
+        contact: contact,
+        state: state,
+        livingSpace: livingSpace,
+        ammenities: ammenities,
+        propertyId: propertyId,
+        type: type,
+        baths: baths,
+        bedroom: bedroom,
+      );
+
+  factory UnitDTO.fromEntity(UnitEntity entity) => UnitDTO(
+        room: entity.room,
+        imageUrl: entity.imageUrl,
+        contact: entity.contact,
+        state: entity.state,
+        livingSpace: entity.livingSpace,
+        ammenities: entity.ammenities,
+        propertyId: entity.propertyId,
+        type: entity.type,
+        baths: entity.baths,
+        bedroom: entity.bedroom,
+      );
+  UnitDTO copyWith({
+    String? id,
+    String? room,
+    String? imageUrl,
+    String? contact,
+    bool? state,
+    String? livingSpace,
+    String? ammenities,
+    String? propertyId,
+    String? type,
+    double? baths,
+    int? bedroom,
+  }) {
+    return UnitDTO(
+      id: id ?? this.id,
+      room: room ?? this.room,
+      imageUrl: imageUrl ?? this.imageUrl,
+      contact: contact ?? this.contact,
+      state: state ?? this.state,
+      livingSpace: livingSpace ?? this.livingSpace,
+      ammenities: ammenities ?? this.ammenities,
+      propertyId: propertyId ?? this.propertyId,
+      type: type ?? this.type,
+      baths: baths ?? this.baths,
+      bedroom: bedroom ?? this.bedroom,
+    );
+  }
+}
