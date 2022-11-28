@@ -7,6 +7,6 @@ abstract class PropertyRepository {
   /// retrives property listings from the backend api service
   /// and returns either [PropertyFailure] in case of an error
   /// or [PropertyEntity] to signal a successfull operation
-  Future<Either<PropertyFailure, PropertyEntity>> fetchListings();
+  Future<Either<PropertyFailure, List<PropertyEntity>>> fetchListings();
 
 }
