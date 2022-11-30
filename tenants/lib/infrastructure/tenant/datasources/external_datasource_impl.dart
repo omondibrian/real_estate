@@ -17,7 +17,7 @@ import 'graphql_queries.dart';
 @LazySingleton(as: ExternalDataSource)
 class ExternalDatasourceImpl extends BaseDataSource
     implements ExternalDataSource {
-  ExternalDatasourceImpl(super.token);
+  ExternalDatasourceImpl();
   @override
   Future<Either<TenantFailures, Payload<TenantDTO>>> fetchProfile() async {
     try {
@@ -118,60 +118,63 @@ class ExternalDatasourceImpl extends BaseDataSource
   }
 
   @override
-  Future<Either<TenantFailures, Payload<TenantDTO>>> profileUpdate( Map<String, dynamic> profile) async {
-      try {
-          final client = getClient();
-          final QueryOptions options = QueryOptions(
-            document: gql(updateProfile),
-            variables: profile,
-          );
-          final QueryResult result = await client.query(options);
-          if (result.hasException) {
-            if (kDebugMode) {
-              print(result.exception.toString());
-            }
-            throw Exception(result.exception.toString());
-          }
-          var data = result.data!['updateProfile'] as Map<String, dynamic>;
-          Payload<TenantDTO> user = Payload(
-            typeName: data["__typename"],
-            data: const TenantDTO.initial(),
-          );
-          switch (data["__typename"]) {
-            case "User":
-              user.copyWith(
-                data: TenantDTO(
-                  name: data['name'],
-                  email: data['email'],
-                  role: data['role'],
-                  profileImage: data['profileImage'],
-                  phoneNumber: data['phoneNumber'],
-                  placementDate: data['placementDate'],
-                  accountStatus: data['accountStatus'],
-                ),
-                message: "profile updated successfully",
-                typeName: data["__typename"],
-              );
-              break;
-            case "ApplicationErrors":
-              throw Exception(data['errorMessage']);
-            default:
-              throw Exception("invalid response type");
-          }
-
-          return right(user);
-      } on Exception catch (e) {
+  Future<Either<TenantFailures, Payload<TenantDTO>>> profileUpdate(
+      Map<String, dynamic> profile) async {
+    try {
+      final client = getClient();
+      final QueryOptions options = QueryOptions(
+        document: gql(updateProfile),
+        variables: profile,
+      );
+      final QueryResult result = await client.query(options);
+      if (result.hasException) {
         if (kDebugMode) {
-          print(e);
+          print(result.exception.toString());
         }
-        return left(
-          const TenantFailures.internalServerError(msg: "error updating profile"),
-        );
+        throw Exception(result.exception.toString());
       }
+      var data = result.data!['updateProfile'] as Map<String, dynamic>;
+      Payload<TenantDTO> user = Payload(
+        typeName: data["__typename"],
+        data: const TenantDTO.initial(),
+      );
+      switch (data["__typename"]) {
+        case "User":
+          user.copyWith(
+            data: TenantDTO(
+              name: data['name'],
+              email: data['email'],
+              role: data['role'],
+              profileImage: data['profileImage'],
+              phoneNumber: data['phoneNumber'],
+              placementDate: data['placementDate'],
+              accountStatus: data['accountStatus'],
+            ),
+            message: "profile updated successfully",
+            typeName: data["__typename"],
+          );
+          break;
+        case "ApplicationErrors":
+          throw Exception(data['errorMessage']);
+        default:
+          throw Exception("invalid response type");
+      }
+
+      return right(user);
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return left(
+        const TenantFailures.internalServerError(msg: "error updating profile"),
+      );
+    }
   }
 
   @override
-  Future<Either<TenantFailures, String>> registerNewUser(Map<String, dynamic> newTenant, ) async {
+  Future<Either<TenantFailures, String>> registerNewUser(
+    Map<String, dynamic> newTenant,
+  ) async {
     final client = getClient();
     final QueryOptions options = QueryOptions(
       document: gql(regNewUser),
@@ -202,11 +205,12 @@ class ExternalDatasourceImpl extends BaseDataSource
   }
 
   @override
-  Future<Either<TenantFailures, AuthDTO>> signIn(TenantCredentials creds) async {
+  Future<Either<TenantFailures, AuthDTO>> signIn(
+      TenantCredentials creds) async {
     try {
       final client = getClient();
       final QueryOptions options = QueryOptions(
-        document: gql(regNewUser),
+        document: gql(signInUser),
         variables: creds.toMap(),
       );
 
@@ -218,6 +222,12 @@ class ExternalDatasourceImpl extends BaseDataSource
         throw Exception(result.exception.toString());
       }
       var data = result.data!['signin'] as Map<String, dynamic>;
+      if (data['errors'] != null) {
+        throw Exception(data["errors"]["code"]);
+      }
+      if (kDebugMode) {
+        print(data);
+      }
       AuthDTO resultPayload = AuthDTO.initial();
       switch (data["__typename"]) {
         case "SignInResponse":
@@ -238,11 +248,12 @@ class ExternalDatasourceImpl extends BaseDataSource
           );
           break;
         case "InvalidCredentials":
-          resultPayload.copyWith(
-            message: data['msg'],
-            typeName: data["__typename"],
+          return left(
+            TenantFailures.invalidCredentials(
+              msg: data['msg'],
+            ),
           );
-          break;
+
         default:
           throw Exception("invalid response type");
       }

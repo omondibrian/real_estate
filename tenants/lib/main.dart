@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tenants/application/property/bloc/property_bloc.dart';
 import 'package:tenants/application/tenant/bloc/tenant_bloc.dart';
-import 'package:tenants/presentation/realtors.dart';
+import 'package:tenants/presentation/screens/splash.dart';
 
 import 'injection.dart';
 
-void main() {
-  configureDependencyInjection(Environment.prod);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencyInjection(Environment.prod);
   runApp(const MyApp());
 }
 
@@ -26,18 +27,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Realtors',
         theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
-            primarySwatch: Colors.red,
-            ),
-        home: const Realtors(),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.red,
+        ),
+        home: const SplashScreen(),
       ),
     );
   }

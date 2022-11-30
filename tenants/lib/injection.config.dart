@@ -44,11 +44,11 @@ Future<_i1.GetIt> $initServiceLocator(
   );
   final storageModule = _$StorageModule();
   gh.lazySingleton<_i3.ExternalDataSource>(
-    () => _i4.ExternalDatasourceImpl(get<String>()),
+    () => _i4.ExternalDatasourceImpl(),
     registerFor: {_prod},
   );
   gh.lazySingleton<_i5.ExternalPropertyDataSource>(
-    () => _i6.ExternalPropertyDatasourceImpl(get<String>()),
+    () => _i6.ExternalPropertyDatasourceImpl(),
     registerFor: {_prod},
   );
   await gh.factoryAsync<_i7.SharedPreferences>(

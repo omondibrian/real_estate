@@ -13,7 +13,7 @@ import 'package:tenants/infrastructure/property/dtos/property_dto.dart';
 @LazySingleton(as: ExternalPropertyDataSource)
 class ExternalPropertyDatasourceImpl extends BaseDataSource
     implements ExternalPropertyDataSource {
-  ExternalPropertyDatasourceImpl(super.token);
+  ExternalPropertyDatasourceImpl();
 
   @override
   Future<Either<PropertyFailure, List<PropertyDTO>>>

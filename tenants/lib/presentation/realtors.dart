@@ -5,6 +5,8 @@ import 'package:tenants/presentation/screens/listings.dart';
 import 'package:tenants/presentation/screens/profile.dart';
 import 'package:tenants/presentation/screens/saved.dart';
 import 'package:tenants/presentation/screens/search_screen.dart';
+import 'package:tenants/presentation/screens/splash.dart';
+
 
 class Realtors extends StatefulWidget {
   const Realtors({super.key});

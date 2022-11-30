@@ -10,6 +10,6 @@ final getIt = GetIt.instance;
   preferRelativeImports: true, // default
   asExtension: false, // default
 )
-void configureDependencyInjection(String env) {
-  $initServiceLocator(getIt, environment: env);
+Future<void> configureDependencyInjection(String env) async {
+  await $initServiceLocator(getIt, environment: env);
 }
