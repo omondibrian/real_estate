@@ -5,7 +5,7 @@ abstract class BaseDataSource {
 
   BaseDataSource(String token) {
     _httpLink = HttpLink(
-      'http://localhost:4000/graphql',
+      'https://realtors-api.onrender.com/graphql',
       defaultHeaders: {
         'Authorization': 'Bearer $token',
       },
