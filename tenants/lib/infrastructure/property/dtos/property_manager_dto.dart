@@ -44,7 +44,7 @@ class PropertyManagerDTO {
       result.addAll({'password': password});
     }
     result.addAll({'profileImage': profileImage});
-    result.addAll({'phoneNumber': phoneNumber});
+    result.addAll({'phoneNumber': phoneNumber });
     result.addAll({'placementDate': placementDate});
     result.addAll({'accountStatus': accountStatus});
     return result;
@@ -56,9 +56,9 @@ class PropertyManagerDTO {
       email: map['email'],
       role: map['role'],
       profileImage: map['profileImage'],
-      phoneNumber: map['phoneNumber'],
+      phoneNumber: map['phoneNumber'] ?? "12345566",
       placementDate: map['placementDate'],
-      accountStatus: map['accountStatus'],
+      accountStatus: map['accountState'],
     );
   }
   String toJson() => json.encode(toMap());

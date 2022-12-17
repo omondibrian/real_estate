@@ -9,7 +9,7 @@ class UnitDTO {
   final String contact;
   final bool state;
   final String livingSpace;
-  final String ammenities;
+  final List<String> ammenities;
   final String propertyId;
   final String type;
   final double baths;
@@ -39,7 +39,7 @@ class UnitDTO {
     this.livingSpace = '',
     this.propertyId = '',
     this.type = '',
-    this.ammenities = '',
+    this.ammenities = const [],
     this.baths = 0,
     this.bedroom = 0,
   });
@@ -51,11 +51,11 @@ class UnitDTO {
       contact: map["contact"],
       state: map["state"],
       livingSpace: map["livingSpace"],
-      ammenities: map["ammenities"],
+      ammenities: List<String>.from(map["ammenities"]),
       propertyId: map["propertyId"],
-      type: map["type"],
-      baths: map["baths"],
-      bedroom: map["bedroom"],
+      type: map["type"] ?? "Normal",
+      baths: map["baths"] ?? 1,
+      bedroom: map["bedroom"] ?? 1,
     );
   }
   Map<String, dynamic> toMap() {
@@ -112,7 +112,7 @@ class UnitDTO {
     String? contact,
     bool? state,
     String? livingSpace,
-    String? ammenities,
+    List<String>? ammenities,
     String? propertyId,
     String? type,
     double? baths,

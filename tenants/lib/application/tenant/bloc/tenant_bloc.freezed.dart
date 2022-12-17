@@ -141,15 +141,23 @@ class __$$SignInCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SignIn implements SignIn {
+class _$SignIn with DiagnosticableTreeMixin implements SignIn {
   const _$SignIn(this.credentials);
 
   @override
   final TenantCredentials credentials;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.signIn(credentials: $credentials)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantEvent.signIn'))
+      ..add(DiagnosticsProperty('credentials', credentials));
   }
 
   @override
@@ -334,7 +342,7 @@ class __$$SignUpCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SignUp implements SignUp {
+class _$SignUp with DiagnosticableTreeMixin implements SignUp {
   const _$SignUp(
       {required this.name,
       required this.email,
@@ -354,8 +362,20 @@ class _$SignUp implements SignUp {
   final String role;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.signUp(name: $name, email: $email, phoneNumber: $phoneNumber, password: $password, role: $role)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantEvent.signUp'))
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('password', password))
+      ..add(DiagnosticsProperty('role', role));
   }
 
   @override
@@ -515,12 +535,18 @@ class __$$LogOutCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LogOut implements LogOut {
+class _$LogOut with DiagnosticableTreeMixin implements LogOut {
   const _$LogOut();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.logout()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'TenantEvent.logout'));
   }
 
   @override
@@ -653,12 +679,18 @@ class __$$FetchProfileCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FetchProfile implements FetchProfile {
+class _$FetchProfile with DiagnosticableTreeMixin implements FetchProfile {
   const _$FetchProfile();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.fetchProfile()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'TenantEvent.fetchProfile'));
   }
 
   @override
@@ -806,15 +838,23 @@ class __$$ResetPasswordCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ResetPassword implements ResetPassword {
+class _$ResetPassword with DiagnosticableTreeMixin implements ResetPassword {
   const _$ResetPassword(this.email);
 
   @override
   final String email;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.resetPassword(email: $email)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantEvent.resetPassword'))
+      ..add(DiagnosticsProperty('email', email));
   }
 
   @override
@@ -975,15 +1015,23 @@ class __$$VerifyOtpTokenCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$VerifyOtpToken implements VerifyOtpToken {
+class _$VerifyOtpToken with DiagnosticableTreeMixin implements VerifyOtpToken {
   const _$VerifyOtpToken(this.otp);
 
   @override
   final String otp;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.verifyOtpToken(otp: $otp)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantEvent.verifyOtpToken'))
+      ..add(DiagnosticsProperty('otp', otp));
   }
 
   @override
@@ -1144,7 +1192,7 @@ class __$$UpdateProfileCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UpdateProfile implements UpdateProfile {
+class _$UpdateProfile with DiagnosticableTreeMixin implements UpdateProfile {
   const _$UpdateProfile(final Map<String, dynamic> updates)
       : _updates = updates;
 
@@ -1156,8 +1204,16 @@ class _$UpdateProfile implements UpdateProfile {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantEvent.updateProfile(updates: $updates)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantEvent.updateProfile'))
+      ..add(DiagnosticsProperty('updates', updates));
   }
 
   @override
@@ -1391,7 +1447,7 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial({this.tenant = const TenantEntity.initial()});
 
   @override
@@ -1399,8 +1455,16 @@ class _$_Initial implements _Initial {
   final TenantEntity tenant;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantState.initial(tenant: $tenant)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantState.initial'))
+      ..add(DiagnosticsProperty('tenant', tenant));
   }
 
   @override
@@ -1537,7 +1601,9 @@ class __$$_LoadingInProgressCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadingInProgress implements _LoadingInProgress {
+class _$_LoadingInProgress
+    with DiagnosticableTreeMixin
+    implements _LoadingInProgress {
   _$_LoadingInProgress({this.state = false});
 
   @override
@@ -1545,8 +1611,16 @@ class _$_LoadingInProgress implements _LoadingInProgress {
   final bool state;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantState.loadingInProgress(state: $state)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantState.loadingInProgress'))
+      ..add(DiagnosticsProperty('state', state));
   }
 
   @override
@@ -1684,7 +1758,9 @@ class __$$_ApplicationErrorsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ApplicationErrors implements _ApplicationErrors {
+class _$_ApplicationErrors
+    with DiagnosticableTreeMixin
+    implements _ApplicationErrors {
   const _$_ApplicationErrors({this.msg = ''});
 
   /// contains any exceptions in the bloc if any
@@ -1693,8 +1769,16 @@ class _$_ApplicationErrors implements _ApplicationErrors {
   final String msg;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantState.applicationErrors(msg: $msg)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantState.applicationErrors'))
+      ..add(DiagnosticsProperty('msg', msg));
   }
 
   @override
@@ -1833,7 +1917,7 @@ class __$$_SnackBarMsgsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SnackBarMsgs implements _SnackBarMsgs {
+class _$_SnackBarMsgs with DiagnosticableTreeMixin implements _SnackBarMsgs {
   const _$_SnackBarMsgs({this.msg = ''});
 
   /// contains any user messages  in the bloc to be displayed
@@ -1842,8 +1926,16 @@ class _$_SnackBarMsgs implements _SnackBarMsgs {
   final String msg;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TenantState.snackBarMsgs(msg: $msg)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'TenantState.snackBarMsgs'))
+      ..add(DiagnosticsProperty('msg', msg));
   }
 
   @override

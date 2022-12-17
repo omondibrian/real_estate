@@ -47,9 +47,9 @@ class TenantDTO {
       email: map['email'],
       role: map['role'],
       profileImage: map['profileImage'],
-      phoneNumber: map['phoneNumber'],
+      phoneNumber: map['phoneNumber']??"071234567",
       placementDate: map['placementDate'],
-      accountStatus: map['accountStatus'],
+      accountStatus: map['accountState'],
     );
   }
   String toJson() => json.encode(toMap());

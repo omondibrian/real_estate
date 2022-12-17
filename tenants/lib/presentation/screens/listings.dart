@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tenants/domain/property/entity/unit_entity.dart';
 
 import "../utils.dart";
 
 class Listing extends StatelessWidget {
-  const Listing({super.key});
-
+  const Listing({super.key, required this.unit});
+  final UnitEntity unit;
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -13,6 +14,7 @@ class Listing extends StatelessWidget {
     return SingleChildScrollView(
       child: SizedBox(
         width: double.infinity,
+        
         child: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
@@ -41,24 +43,29 @@ class Listing extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                   SizedBox(
-                    height: 320 * fwidth,
-                   ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                        1 * fwidth,
-                        0 * fwidth,
-                        0 * fwidth,
-                        0 * fwidth,
-                      ),
-                      width: 38 * fwidth,
-                      height: 6 * fwidth,
-                        // 3 dots image
-                      child: Image.asset(
-                        "assets/images/dots.png",
-                        width: 38 * fwidth,
-                        height: 6 * fwidth,
-                      ),
+                    SizedBox(
+                      height: 320 * fwidth,
+                    ),
+                    Stack(
+                      alignment: Alignment.topLeft,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.fromLTRB(
+                            1 * fwidth,
+                            0 * fwidth,
+                            0 * fwidth,
+                            0 * fwidth,
+                          ),
+                          width: 38 * fwidth,
+                          height: 6 * fwidth,
+                          // 3 dots image
+                          child: Image.asset(
+                            "assets/images/dots.png",
+                            width: 38 * fwidth,
+                            height: 6 * fwidth,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -68,9 +75,10 @@ class Listing extends StatelessWidget {
                   20 * fwidth,
                   30 * fwidth,
                   20 * fwidth,
-                  30 * fwidth,
+                  90 * fwidth,
                 ),
                 width: double.infinity,
+
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -128,8 +136,8 @@ class Listing extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            '1,200 sq.ft',
+                                           Text(
+                                            unit.livingSpace,
                                             style: SafeGoogleFont(
                                               'Montserrat',
                                               fontSize: 14 * ffwidth,
@@ -155,7 +163,7 @@ class Listing extends StatelessWidget {
                                             width: 5 * fwidth,
                                           ),
                                           Text(
-                                            '4 Beds',
+                                            '${unit.bedroom} Beds',
                                             style: SafeGoogleFont(
                                               'Montserrat',
                                               fontSize: 14 * ffwidth,
@@ -181,7 +189,7 @@ class Listing extends StatelessWidget {
                                             width: 5 * fwidth,
                                           ),
                                           Text(
-                                            '2 Bath',
+                                            '${unit.baths} Bath',
                                             style: SafeGoogleFont(
                                               'Montserrat',
                                               fontSize: 14 * ffwidth,
@@ -246,10 +254,10 @@ class Listing extends StatelessWidget {
                             margin: EdgeInsets.fromLTRB(
                               0 * fwidth,
                               0 * fwidth,
-                              10 * fwidth,
+                              0 * fwidth,
                               0 * fwidth,
                             ),
-                            width: 24 * fwidth,
+                            width: 25 * fwidth,
                             height: 24 * fwidth,
                             child: const Icon(
                               Icons.info_outline_rounded,
@@ -259,7 +267,7 @@ class Listing extends StatelessWidget {
                           ),
                           Container(
                             constraints: BoxConstraints(
-                              maxWidth: 294 * fwidth,
+                              maxWidth: 280 * fwidth,
                             ),
                             child: Text(
                               'Exclusive apartments near your Area. With over 200+ Amenities, this is one to die for!',
@@ -279,7 +287,7 @@ class Listing extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(
                         0 * fwidth,
                         0 * fwidth,
-                        190 * fwidth,
+                        170 * fwidth,
                         20 * fwidth,
                       ),
                       width: double.infinity,
@@ -290,7 +298,7 @@ class Listing extends StatelessWidget {
                             margin: EdgeInsets.fromLTRB(
                               0 * fwidth,
                               0 * fwidth,
-                              10 * fwidth,
+                              0 * fwidth,
                               0 * fwidth,
                             ),
                             width: 24 * fwidth,
@@ -301,7 +309,7 @@ class Listing extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Contact: John Doe',
+                            'Contact: ${unit.contact}',
                             style: SafeGoogleFont(
                               'Montserrat',
                               fontSize: 12 * ffwidth,

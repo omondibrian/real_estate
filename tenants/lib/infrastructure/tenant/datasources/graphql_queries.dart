@@ -23,7 +23,7 @@ const String regNewUser = r'''
 }
 ''';
 
-const String signIn = r'''
+const String signInUser = r'''
 mutation SignIn($email: String!, $password: String!) {
   signin(email: $email, password: $password) {
     __typename
@@ -32,11 +32,14 @@ mutation SignIn($email: String!, $password: String!) {
       token
       refreshToken
       user {
+        id
         email
         profileImage
         name
         placementDate
         accountState
+        role
+
       }
     }
     ... on AccountNotActive {

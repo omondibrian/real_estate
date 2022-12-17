@@ -107,9 +107,16 @@ class PropertyDTO {
       contact: map['contact'] ?? '',
       imageUrl: map['imageUrl'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
-      manager: PropertyManagerDTO.fromMap(map['manager']),
+      
+      manager: PropertyManagerDTO.fromMap(map['manager']['user']),
       propertyUnits: List<UnitDTO>.from(
-          map['propertyUnits']?.map((x) => UnitDTO.fromMap(x))),
+        map['propertyUnits']?.map(
+          (x) {
+            // print("unit = $x");
+            return UnitDTO.fromMap(x);
+          },
+        ),
+      ),
     );
   }
 

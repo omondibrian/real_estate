@@ -5,7 +5,7 @@ class UnitEntity {
  final  String contact;
  final  bool state;
  final  String livingSpace;
- final  String ammenities;
+ final  List<String> ammenities;
  final  String propertyId;
  final  String type;
  final  double baths;
@@ -32,7 +32,7 @@ class UnitEntity {
     String? contact,
     bool? state,
     String? livingSpace,
-    String? ammenities,
+    List<String>? ammenities,
     String? propertyId,
     String? type,
     double? baths,

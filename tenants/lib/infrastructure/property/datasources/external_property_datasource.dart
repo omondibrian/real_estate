@@ -13,7 +13,7 @@ import 'package:tenants/infrastructure/property/dtos/property_dto.dart';
 @LazySingleton(as: ExternalPropertyDataSource)
 class ExternalPropertyDatasourceImpl extends BaseDataSource
     implements ExternalPropertyDataSource {
-  ExternalPropertyDatasourceImpl(super.token);
+  ExternalPropertyDatasourceImpl();
 
   @override
   Future<Either<PropertyFailure, List<PropertyDTO>>>
@@ -27,17 +27,19 @@ class ExternalPropertyDatasourceImpl extends BaseDataSource
       final QueryResult result = await client.query(options);
       if (result.hasException) {
         if (kDebugMode) {
-          print(result.exception.toString());
+          print(result.exception);
         }
-        throw Exception(result.exception.toString());
+        throw Exception(result.exception);
       }
       var data = result.data!['fetchPublicListings'] as Map<String, dynamic>;
       List<PropertyDTO> resultPayload = [];
       switch (data["__typename"]) {
         case "ListingsPayload":
-          var properties = data['properties'] as List<String>;
+          var properties = data['properties'] as List<Object?>;
+          //  print("------properties include ------$properties");
+
           var listings =
-              properties.map((p) => PropertyDTO.fromJson(p)).toList();
+              properties.map((p) => PropertyDTO.fromMap(p as dynamic)).toList();
           resultPayload = listings;
           break;
         case "ApplicationErrors":
@@ -47,7 +49,7 @@ class ExternalPropertyDatasourceImpl extends BaseDataSource
             message: data['errorMesssage'],
             typename: data["__typename"],
           );
-          
+
           resultPayload.add(payload);
           break;
 
@@ -56,9 +58,10 @@ class ExternalPropertyDatasourceImpl extends BaseDataSource
       }
 
       return right(resultPayload);
-    } catch (e) {
+    } catch (e, stack) {
       if (kDebugMode) {
         print(e);
+        print(stack);
       }
       return left(
         const PropertyFailure.internalServerError(

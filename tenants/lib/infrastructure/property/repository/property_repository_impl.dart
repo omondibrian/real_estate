@@ -25,6 +25,7 @@ class PropertyRepositoryImpl implements PropertyRepository {
     if (result == true) {
       //device has internet connection
       var res = await _externalPropertyDataSource.fetchCurrentListings();
+      print(res);
       res.fold((l) {
         return left(l);
       }, (r) {

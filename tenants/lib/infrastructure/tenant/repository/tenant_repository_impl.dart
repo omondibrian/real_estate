@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:tenants/domain/Tenant/datasources/external_datasources.dart';
@@ -24,17 +27,20 @@ class TenantRepositoryImpl implements TenantRepository {
       TenantCredentials creds) async {
     var res = await externalDataSource.signIn(creds);
     var msg = "";
+    Completer<Either<TenantFailures, String>> result = Completer();
     res.fold((err) {
+      result.complete(left(err));
       return left(err);
     }, (authDTO) {
+      print(authDTO);
       internalTenantDatasource.saveAuthAndRefreshToken(
         authDTO.token!,
         authDTO.refreshToken!,
       );
       msg = authDTO.message;
+      result.complete(right(msg));
     });
-
-    return right(msg);
+    return result.future;
   }
 
   @override

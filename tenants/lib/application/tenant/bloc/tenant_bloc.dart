@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -28,6 +29,9 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
   Future<void> _handleSignIn(SignIn event, Emitter<TenantState> emit) async {
     emit(TenantState.loadingInProgress(state: true));
     var res = await _repo.emailSignIn(event.credentials);
+     if (kDebugMode) {
+        print("executing left side---- $res");
+      }
     res.fold(
       (l) => emit(TenantState.applicationErrors(msg: l.msg)),
       (r) => emit(TenantState.snackBarMsgs(msg: r)),
