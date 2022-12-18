@@ -9,6 +9,8 @@ import 'package:tenants/infrastructure/core/base_datasource.dart';
 import 'package:tenants/infrastructure/property/datasources/graphql_queries.dart';
 import 'package:tenants/infrastructure/property/dtos/property_dto.dart';
 
+import '../../../domain/property/entity/request_entity.dart';
+
 @prod
 @LazySingleton(as: ExternalPropertyDataSource)
 class ExternalPropertyDatasourceImpl extends BaseDataSource
@@ -69,5 +71,53 @@ class ExternalPropertyDatasourceImpl extends BaseDataSource
         ),
       );
     }
+  }
+
+  @override
+  Future<Either<PropertyFailure, bool>> sendRequest(RequestEntity req) async {
+    try {
+      final client = getClient();
+      final MutationOptions options = MutationOptions(
+          document: gql(createRequestMutation),
+          variables: {
+            "type": req.type,
+            "senderId": req.senderid,
+            "body": req.body
+          });
+
+      final QueryResult result = await client.mutate(options);
+      if (result.hasException) {
+        if (kDebugMode) {
+          print(result.exception);
+        }
+        throw Exception(result.exception);
+      }
+
+      var data = result.data!['sendMessage'] as Map<String, dynamic>;
+
+      switch (data["__typename"]) {
+        case "SentMessagePayLoad":
+          return right(data["isSent"]);
+        case "ApplicationErrors":
+          return left(
+            PropertyFailure.internalServerError(
+              msg: data["errorMessage"],
+            ),
+          );
+        default:
+          throw Exception("invalid response type");
+      }
+    } catch (e, stack) {
+      if (kDebugMode) {
+        print(e);
+        print(stack);
+      }
+      return left(
+        const PropertyFailure.internalServerError(
+          msg: 'error while sending request',
+        ),
+      );
+    }
+    throw UnimplementedError();
   }
 }

@@ -32,8 +32,12 @@ class Explore extends StatelessWidget {
             ) ??
             false;
 
-        var listings =
-            state.mapOrNull(initial: ((value) => value.listings)) ?? [];
+        var listings = groupedUnits(
+          extractUnits(
+            state.mapOrNull(initial: ((value) => value.listings)) ?? [],
+          ),
+        );
+
         if (loading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -116,15 +120,16 @@ class Explore extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: listings[2]
-                                .propertyUnits
+                            children: listings["Normal"]!
                                 .map((unit) => InkWell(
                                       onTap: () {
-                                         Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: ((context) => Listing(unit: unit,)),
-                                             ),
-                                         );
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: ((context) => Listing(
+                                                  unit: unit,
+                                                )),
+                                          ),
+                                        );
                                         print("tapped");
                                       },
                                       child: HorizontalInfoCard(
@@ -207,18 +212,26 @@ class Explore extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CardInfo(
-                                fwidth: fwidth,
-                                imageUrl: "assets/images/livingroom.png",
-                                pricePerUnit: "Ksh. 30,000",
-                              ),
-                              CardInfo(
-                                fwidth: fwidth,
-                                imageUrl: "assets/images/sofa.png",
-                                pricePerUnit: "Ksh. 30,000",
-                              ),
-                            ],
+                            children: listings["Luxurious"]!
+                                .map((unit) => InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: ((context) => Listing(
+                                                  unit: unit,
+                                                )),
+                                          ),
+                                        );
+                                        print("tapped");
+                                      },
+                                      child: CardInfo(
+                                        fwidth: fwidth,
+                                        imageUrl:
+                                            "assets/images/livingroom.png",
+                                        pricePerUnit: "Ksh. 30,000",
+                                      ),
+                                    ))
+                                .toList(),
                           ),
                         ),
                       )
@@ -285,22 +298,28 @@ class Explore extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              HorizontalInfoCard(
-                                fwidth: fwidth,
-                                addr: "252 1st avenue",
-                                description: "1 Baths 2 bedrooms",
-                                imageUrl: "assets/images/livingroom.png",
-                                pricePerUnit: "Ksh. 30,000",
-                              ),
-                              HorizontalInfoCard(
-                                fwidth: fwidth,
-                                addr: "252 1st avenue",
-                                description: "1-4 Baths 2-3 bedrooms",
-                                imageUrl: "assets/images/sofa.png",
-                                pricePerUnit: "Ksh. 30,000",
-                              ),
-                            ],
+                            children: listings["Budget"]!
+                                .map((unit) => InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: ((context) => Listing(
+                                                  unit: unit,
+                                                )),
+                                          ),
+                                        );
+                                        print("tapped");
+                                      },
+                                      child: HorizontalInfoCard(
+                                        fwidth: fwidth,
+                                        addr: unit.contact,
+                                        description:
+                                            "${unit.baths} Baths ${unit.bedroom} bedrooms",
+                                        imageUrl: "assets/images/sofa.png",
+                                        pricePerUnit: "Ksh. 30,000",
+                                      ),
+                                    ))
+                                .toList(),
                           ),
                         ),
                       )

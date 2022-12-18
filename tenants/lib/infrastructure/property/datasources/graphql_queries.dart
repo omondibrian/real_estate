@@ -45,3 +45,18 @@ query FetchListings {
   }
 }
 ''';
+
+const String createRequestMutation = r'''
+      mutation createMessage($type:String,$senderId:String,$body:String){
+        sendMessage(body:$body,senderId:$senderId,type:$type) {
+          __typename
+          ... on SentMessagePayLoad{
+            isSent
+          }
+          ... on ApplicationErrors{
+            errorMessage
+            stack
+          }
+        }
+      }
+ ''';

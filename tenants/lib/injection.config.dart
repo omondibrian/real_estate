@@ -77,8 +77,11 @@ Future<_i1.GetIt> $initServiceLocator(
     ),
     registerFor: {_prod},
   );
-  gh.factory<_i16.PropertyBloc>(
-      () => _i16.PropertyBloc(get<_i12.PropertyRepository>()));
+  gh.factory<_i16.PropertyBloc>(() => _i16.PropertyBloc(
+        get<_i12.PropertyRepository>(),
+        get<_i10.LocalPropertyDataSource>(),
+        get<_i5.ExternalPropertyDataSource>(),
+      ));
   gh.factory<_i17.TenantBloc>(() => _i17.TenantBloc(
         get<_i14.TenantRepository>(),
         get<_i8.InternalDataSource>(),

@@ -105,12 +105,18 @@ class __$$FetchListingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FetchListings implements FetchListings {
+class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
   const _$FetchListings();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'PropertyEvent.fetchListings()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'PropertyEvent.fetchListings'));
   }
 
   @override
@@ -234,15 +240,23 @@ class __$$SaveUnitCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SaveUnit implements SaveUnit {
+class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
   const _$SaveUnit({required this.unit});
 
   @override
   final UnitEntity unit;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'PropertyEvent.saveUnit(unit: $unit)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyEvent.saveUnit'))
+      ..add(DiagnosticsProperty('unit', unit));
   }
 
   @override
@@ -390,7 +404,7 @@ class __$$NewRequestCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$NewRequest implements NewRequest {
+class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
   const _$NewRequest(
       {required this.body, required this.senderId, required this.type});
 
@@ -402,8 +416,18 @@ class _$NewRequest implements NewRequest {
   final String type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'PropertyEvent.addRequest(body: $body, senderId: $senderId, type: $type)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyEvent.addRequest'))
+      ..add(DiagnosticsProperty('body', body))
+      ..add(DiagnosticsProperty('senderId', senderId))
+      ..add(DiagnosticsProperty('type', type));
   }
 
   @override
@@ -549,15 +573,23 @@ class __$$SearchListingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchListings implements SearchListings {
+class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
   const _$SearchListings({required this.query});
 
   @override
   final String query;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'PropertyEvent.search(query: $query)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyEvent.search'))
+      ..add(DiagnosticsProperty('query', query));
   }
 
   @override
@@ -667,21 +699,27 @@ abstract class SearchListings implements PropertyEvent {
 mixin _$PropertyState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+        initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
     required TResult orElse(),
@@ -735,7 +773,7 @@ abstract class _$$_InitialCopyWith<$Res> {
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PropertyEntity> listings});
+  $Res call({List<PropertyEntity> listings, List<UnitEntity> searchResults});
 }
 
 /// @nodoc
@@ -749,21 +787,29 @@ class __$$_InitialCopyWithImpl<$Res>
   @override
   $Res call({
     Object? listings = null,
+    Object? searchResults = null,
   }) {
     return _then(_$_Initial(
       listings: null == listings
           ? _value._listings
           : listings // ignore: cast_nullable_to_non_nullable
               as List<PropertyEntity>,
+      searchResults: null == searchResults
+          ? _value._searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as List<UnitEntity>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial({final List<PropertyEntity> listings = const []})
-      : _listings = listings;
+class _$_Initial with DiagnosticableTreeMixin implements _Initial {
+  const _$_Initial(
+      {final List<PropertyEntity> listings = const [],
+      final List<UnitEntity> searchResults = const []})
+      : _listings = listings,
+        _searchResults = searchResults;
 
   final List<PropertyEntity> _listings;
   @override
@@ -773,9 +819,26 @@ class _$_Initial implements _Initial {
     return EqualUnmodifiableListView(_listings);
   }
 
+  final List<UnitEntity> _searchResults;
   @override
-  String toString() {
-    return 'PropertyState.initial(listings: $listings)';
+  @JsonKey()
+  List<UnitEntity> get searchResults {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchResults);
+  }
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PropertyState.initial(listings: $listings, searchResults: $searchResults)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyState.initial'))
+      ..add(DiagnosticsProperty('listings', listings))
+      ..add(DiagnosticsProperty('searchResults', searchResults));
   }
 
   @override
@@ -783,12 +846,16 @@ class _$_Initial implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Initial &&
-            const DeepCollectionEquality().equals(other._listings, _listings));
+            const DeepCollectionEquality().equals(other._listings, _listings) &&
+            const DeepCollectionEquality()
+                .equals(other._searchResults, _searchResults));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_listings));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_listings),
+      const DeepCollectionEquality().hash(_searchResults));
 
   @JsonKey(ignore: true)
   @override
@@ -799,33 +866,39 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+        initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
   }) {
-    return initial(listings);
+    return initial(listings, searchResults);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
   }) {
-    return initial?.call(listings);
+    return initial?.call(listings, searchResults);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(listings);
+      return initial(listings, searchResults);
     }
     return orElse();
   }
@@ -866,9 +939,12 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements PropertyState {
-  const factory _Initial({final List<PropertyEntity> listings}) = _$_Initial;
+  const factory _Initial(
+      {final List<PropertyEntity> listings,
+      final List<UnitEntity> searchResults}) = _$_Initial;
 
   List<PropertyEntity> get listings;
+  List<UnitEntity> get searchResults;
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
       throw _privateConstructorUsedError;
@@ -907,7 +983,7 @@ class __$$LoadingStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingState implements LoadingState {
+class _$LoadingState with DiagnosticableTreeMixin implements LoadingState {
   const _$LoadingState({this.state = false});
 
   @override
@@ -915,8 +991,16 @@ class _$LoadingState implements LoadingState {
   final bool state;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'PropertyState.loadingState(state: $state)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyState.loadingState'))
+      ..add(DiagnosticsProperty('state', state));
   }
 
   @override
@@ -939,7 +1023,9 @@ class _$LoadingState implements LoadingState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+        initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
   }) {
@@ -949,7 +1035,9 @@ class _$LoadingState implements LoadingState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
   }) {
@@ -959,7 +1047,9 @@ class _$LoadingState implements LoadingState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
     required TResult orElse(),
@@ -1047,7 +1137,9 @@ class __$$ApplicationErrorsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ApplicationErrors implements ApplicationErrors {
+class _$ApplicationErrors
+    with DiagnosticableTreeMixin
+    implements ApplicationErrors {
   const _$ApplicationErrors({this.msg = ''});
 
   @override
@@ -1055,8 +1147,16 @@ class _$ApplicationErrors implements ApplicationErrors {
   final String msg;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'PropertyState.applicationErrors(msg: $msg)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'PropertyState.applicationErrors'))
+      ..add(DiagnosticsProperty('msg', msg));
   }
 
   @override
@@ -1079,7 +1179,9 @@ class _$ApplicationErrors implements ApplicationErrors {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PropertyEntity> listings) initial,
+    required TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+        initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
   }) {
@@ -1089,7 +1191,9 @@ class _$ApplicationErrors implements ApplicationErrors {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PropertyEntity> listings)? initial,
+    TResult? Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
   }) {
@@ -1099,7 +1203,9 @@ class _$ApplicationErrors implements ApplicationErrors {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PropertyEntity> listings)? initial,
+    TResult Function(
+            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+        initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
     required TResult orElse(),

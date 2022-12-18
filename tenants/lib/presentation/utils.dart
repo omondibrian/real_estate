@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tenants/domain/property/entity/unit_entity.dart';
+
+import '../domain/property/entity/property_entity.dart';
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
@@ -133,4 +136,35 @@ String? emailValidator(String? string) {
     return "Enter a valid email address";
   }
   return null;
+}
+
+List<UnitEntity> extractUnits(List<PropertyEntity> listings) {
+  List<UnitEntity> currentUnits = [];
+  for (var property in listings) {
+    for (var i = 0; i < property.propertyUnits.length; i++) {
+      currentUnits.add(property.propertyUnits[i]);
+    }
+  }
+
+  return currentUnits;
+}
+
+Map<String, List<UnitEntity>> groupedUnits(List<UnitEntity> units) {
+  Map<String, List<UnitEntity>> mapRes = <String, List<UnitEntity>>{};
+  for (var unit in units) {
+    if (unit.type == "Normal") {
+      var tempUnits = mapRes["Normal"] ?? [];
+      tempUnits.add(unit);
+      mapRes.addAll({"Normal": tempUnits});
+    } else if (unit.type == "Budget") {
+      var tempUnits = mapRes["Budget"] ?? [];
+      tempUnits.add(unit);
+      mapRes.addAll({"Budget": tempUnits});
+    } else {
+      var tempUnits = mapRes["Luxurious"] ?? [];
+      tempUnits.add(unit);
+      mapRes.addAll({"Luxurious": tempUnits});
+    }
+  }
+  return mapRes;
 }
