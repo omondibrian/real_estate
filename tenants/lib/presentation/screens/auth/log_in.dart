@@ -15,12 +15,13 @@ class LogIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void login() async {
-     
       if (_formKey.currentState!.validate()) {
         context.read<TenantBloc>().add(
               TenantEvent.signIn(
                 TenantCredentials(
-                    _emailController.text, _passwordController.text,),
+                  _emailController.text,
+                  _passwordController.text,
+                ),
               ),
             );
       }
@@ -53,7 +54,6 @@ class LogIn extends StatelessWidget {
               }
             },
             applicationErrors: (value) {
-              
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
