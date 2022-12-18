@@ -94,6 +94,7 @@ String? requiredValidator(String? value) {
   return null;
 }
 
+
 String? phoneValidator(String? value) {
   if (value == null) {
     return "Required";
@@ -145,12 +146,14 @@ List<UnitEntity> extractUnits(List<PropertyEntity> listings) {
       currentUnits.add(property.propertyUnits[i]);
     }
   }
-
   return currentUnits;
 }
 
 Map<String, List<UnitEntity>> groupedUnits(List<UnitEntity> units) {
   Map<String, List<UnitEntity>> mapRes = <String, List<UnitEntity>>{};
+  mapRes.addAll({"Normal": []});
+  mapRes.addAll({"Budget": []});
+  mapRes.addAll({"Luxurious": []});
   for (var unit in units) {
     if (unit.type == "Normal") {
       var tempUnits = mapRes["Normal"] ?? [];
@@ -166,5 +169,7 @@ Map<String, List<UnitEntity>> groupedUnits(List<UnitEntity> units) {
       mapRes.addAll({"Luxurious": tempUnits});
     }
   }
+  print(mapRes);
+
   return mapRes;
 }

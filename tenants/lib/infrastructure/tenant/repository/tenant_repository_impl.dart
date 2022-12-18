@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tenants/domain/Tenant/datasources/external_datasources.dart';
 import 'package:tenants/domain/Tenant/datasources/internal_datasource.dart';
@@ -18,10 +19,16 @@ import 'package:tenants/infrastructure/tenant/dto/tenant_dto.dart';
 class TenantRepositoryImpl implements TenantRepository {
   final InternalDataSource internalTenantDatasource;
   final ExternalDataSource externalDataSource;
-  TenantRepositoryImpl({
+  final SharedPreferences preferences;
+  TenantRepositoryImpl( {
+    required this.preferences,
     required this.internalTenantDatasource,
     required this.externalDataSource,
-  });
+  }) {
+    externalDataSource.setToken(preferences.getString("token") ?? "");
+  }
+
+
   @override
   Future<Either<TenantFailures, String>> emailSignIn(
       TenantCredentials creds) async {
@@ -48,18 +55,24 @@ class TenantRepositoryImpl implements TenantRepository {
     var profile = const TenantDTO.initial();
     //TODO: check if their isn't stable connection and pass precached data
     var res = await externalDataSource.fetchProfile();
+
     res.fold(
       (err) => left(err),
-      (tenant) => profile.copyWith(
-        name: tenant.data.name,
-        email: tenant.data.email,
-        role: tenant.data.role,
-        profileImage: tenant.data.profileImage,
-        phoneNumber: tenant.data.phoneNumber,
-        placementDate: tenant.data.placementDate,
-        accountStatus: tenant.data.accountStatus,
-      ),
+      (tenant) {
+        print("user name = ${tenant.data.name}");
+
+        profile = TenantDTO(
+          name: tenant.data.name,
+          email: tenant.data.email,
+          role: tenant.data.role,
+          profileImage: tenant.data.profileImage,
+          phoneNumber: tenant.data.phoneNumber,
+          placementDate: tenant.data.placementDate,
+          accountStatus: tenant.data.accountStatus,
+        );
+      },
     );
+
     return right(profile.toEntity());
   }
 

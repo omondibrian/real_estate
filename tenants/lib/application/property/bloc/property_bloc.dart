@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,6 +9,7 @@ import 'package:tenants/domain/property/entity/property_entity.dart';
 import 'package:tenants/domain/property/entity/request_entity.dart';
 import 'package:tenants/domain/property/repository/property_repository.dart';
 
+import '../../../domain/core/property_failure.dart';
 import '../../../domain/property/datasources/local_property_data_source.dart';
 import '../../../domain/property/entity/unit_entity.dart';
 
@@ -29,6 +31,7 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
     on<SaveUnit>(_handleSaveUnit);
     on<NewRequest>(_handleRequest);
     on<SearchListings>(_handleQuerySearch);
+    on<FetchSavedUnits>(_handleRerivalOfSavedUnits);
   }
   Future<void> _handlefetchListing(
       FetchListings event, Emitter<PropertyState> emit) async {
@@ -47,14 +50,17 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
 
   Future<void> _handleSaveUnit(
       SaveUnit event, Emitter<PropertyState> emit) async {
-    var current = await _dataSource.fetchCachedUnits();
+    Either<PropertyFailure, List<UnitEntity>> current;
 
+    current = await _dataSource.fetchCachedUnits();
     current.fold((l) => emit(PropertyState.applicationErrors(msg: l.msg)),
         (ent) async {
       ent.add(event.unit);
       var res = await _dataSource.cacheLikedUnits(ent);
       res.fold(
-        (l) => emit(PropertyState.applicationErrors(msg: l.msg)),
+        (l) async {
+          emit(PropertyState.applicationErrors(msg: l.msg));
+        },
         (r) {
           if (kDebugMode) {
             print('cached response = $r');
@@ -77,9 +83,12 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
       var result = currentUnits
           .where((entity) => entity.room.contains(event.query))
           .toList();
-
       //emit search results
-      emit(PropertyState.initial(searchResults: result));
+      emit(PropertyState.initial(
+        searchResults: result,
+        listings: listings,
+        query: event.query,
+      ));
     }
   }
 
@@ -98,6 +107,22 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
         if (kDebugMode) {
           print('request response = $r');
         }
+      },
+    );
+  }
+
+  Future<void> _handleRerivalOfSavedUnits(
+      FetchSavedUnits event, Emitter<PropertyState> emit) async {
+    var res = await _dataSource.fetchCachedUnits();
+    res.fold(
+      (l) async {
+        emit(PropertyState.applicationErrors(msg: l.msg));
+      },
+      (r) {
+        if (kDebugMode) {
+          print('cached response = $r');
+        }
+        emit(PropertyState.initial(savedUnits: r));
       },
     );
   }

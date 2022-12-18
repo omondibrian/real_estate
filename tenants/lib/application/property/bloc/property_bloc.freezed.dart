@@ -23,6 +23,7 @@ mixin _$PropertyEvent {
     required TResult Function(String body, String senderId, String type)
         addRequest,
     required TResult Function(String query) search,
+    required TResult Function() fetchSavedUnits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +32,7 @@ mixin _$PropertyEvent {
     TResult? Function(UnitEntity unit)? saveUnit,
     TResult? Function(String body, String senderId, String type)? addRequest,
     TResult? Function(String query)? search,
+    TResult? Function()? fetchSavedUnits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +41,7 @@ mixin _$PropertyEvent {
     TResult Function(UnitEntity unit)? saveUnit,
     TResult Function(String body, String senderId, String type)? addRequest,
     TResult Function(String query)? search,
+    TResult Function()? fetchSavedUnits,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +51,7 @@ mixin _$PropertyEvent {
     required TResult Function(SaveUnit value) saveUnit,
     required TResult Function(NewRequest value) addRequest,
     required TResult Function(SearchListings value) search,
+    required TResult Function(FetchSavedUnits value) fetchSavedUnits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +60,7 @@ mixin _$PropertyEvent {
     TResult? Function(SaveUnit value)? saveUnit,
     TResult? Function(NewRequest value)? addRequest,
     TResult? Function(SearchListings value)? search,
+    TResult? Function(FetchSavedUnits value)? fetchSavedUnits,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +69,7 @@ mixin _$PropertyEvent {
     TResult Function(SaveUnit value)? saveUnit,
     TResult Function(NewRequest value)? addRequest,
     TResult Function(SearchListings value)? search,
+    TResult Function(FetchSavedUnits value)? fetchSavedUnits,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -136,6 +142,7 @@ class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
     required TResult Function(String body, String senderId, String type)
         addRequest,
     required TResult Function(String query) search,
+    required TResult Function() fetchSavedUnits,
   }) {
     return fetchListings();
   }
@@ -147,6 +154,7 @@ class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
     TResult? Function(UnitEntity unit)? saveUnit,
     TResult? Function(String body, String senderId, String type)? addRequest,
     TResult? Function(String query)? search,
+    TResult? Function()? fetchSavedUnits,
   }) {
     return fetchListings?.call();
   }
@@ -158,6 +166,7 @@ class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
     TResult Function(UnitEntity unit)? saveUnit,
     TResult Function(String body, String senderId, String type)? addRequest,
     TResult Function(String query)? search,
+    TResult Function()? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (fetchListings != null) {
@@ -173,6 +182,7 @@ class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
     required TResult Function(SaveUnit value) saveUnit,
     required TResult Function(NewRequest value) addRequest,
     required TResult Function(SearchListings value) search,
+    required TResult Function(FetchSavedUnits value) fetchSavedUnits,
   }) {
     return fetchListings(this);
   }
@@ -184,6 +194,7 @@ class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
     TResult? Function(SaveUnit value)? saveUnit,
     TResult? Function(NewRequest value)? addRequest,
     TResult? Function(SearchListings value)? search,
+    TResult? Function(FetchSavedUnits value)? fetchSavedUnits,
   }) {
     return fetchListings?.call(this);
   }
@@ -195,6 +206,7 @@ class _$FetchListings with DiagnosticableTreeMixin implements FetchListings {
     TResult Function(SaveUnit value)? saveUnit,
     TResult Function(NewRequest value)? addRequest,
     TResult Function(SearchListings value)? search,
+    TResult Function(FetchSavedUnits value)? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (fetchListings != null) {
@@ -284,6 +296,7 @@ class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
     required TResult Function(String body, String senderId, String type)
         addRequest,
     required TResult Function(String query) search,
+    required TResult Function() fetchSavedUnits,
   }) {
     return saveUnit(unit);
   }
@@ -295,6 +308,7 @@ class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
     TResult? Function(UnitEntity unit)? saveUnit,
     TResult? Function(String body, String senderId, String type)? addRequest,
     TResult? Function(String query)? search,
+    TResult? Function()? fetchSavedUnits,
   }) {
     return saveUnit?.call(unit);
   }
@@ -306,6 +320,7 @@ class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
     TResult Function(UnitEntity unit)? saveUnit,
     TResult Function(String body, String senderId, String type)? addRequest,
     TResult Function(String query)? search,
+    TResult Function()? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (saveUnit != null) {
@@ -321,6 +336,7 @@ class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
     required TResult Function(SaveUnit value) saveUnit,
     required TResult Function(NewRequest value) addRequest,
     required TResult Function(SearchListings value) search,
+    required TResult Function(FetchSavedUnits value) fetchSavedUnits,
   }) {
     return saveUnit(this);
   }
@@ -332,6 +348,7 @@ class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
     TResult? Function(SaveUnit value)? saveUnit,
     TResult? Function(NewRequest value)? addRequest,
     TResult? Function(SearchListings value)? search,
+    TResult? Function(FetchSavedUnits value)? fetchSavedUnits,
   }) {
     return saveUnit?.call(this);
   }
@@ -343,6 +360,7 @@ class _$SaveUnit with DiagnosticableTreeMixin implements SaveUnit {
     TResult Function(SaveUnit value)? saveUnit,
     TResult Function(NewRequest value)? addRequest,
     TResult Function(SearchListings value)? search,
+    TResult Function(FetchSavedUnits value)? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (saveUnit != null) {
@@ -458,6 +476,7 @@ class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
     required TResult Function(String body, String senderId, String type)
         addRequest,
     required TResult Function(String query) search,
+    required TResult Function() fetchSavedUnits,
   }) {
     return addRequest(body, senderId, type);
   }
@@ -469,6 +488,7 @@ class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
     TResult? Function(UnitEntity unit)? saveUnit,
     TResult? Function(String body, String senderId, String type)? addRequest,
     TResult? Function(String query)? search,
+    TResult? Function()? fetchSavedUnits,
   }) {
     return addRequest?.call(body, senderId, type);
   }
@@ -480,6 +500,7 @@ class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
     TResult Function(UnitEntity unit)? saveUnit,
     TResult Function(String body, String senderId, String type)? addRequest,
     TResult Function(String query)? search,
+    TResult Function()? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (addRequest != null) {
@@ -495,6 +516,7 @@ class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
     required TResult Function(SaveUnit value) saveUnit,
     required TResult Function(NewRequest value) addRequest,
     required TResult Function(SearchListings value) search,
+    required TResult Function(FetchSavedUnits value) fetchSavedUnits,
   }) {
     return addRequest(this);
   }
@@ -506,6 +528,7 @@ class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
     TResult? Function(SaveUnit value)? saveUnit,
     TResult? Function(NewRequest value)? addRequest,
     TResult? Function(SearchListings value)? search,
+    TResult? Function(FetchSavedUnits value)? fetchSavedUnits,
   }) {
     return addRequest?.call(this);
   }
@@ -517,6 +540,7 @@ class _$NewRequest with DiagnosticableTreeMixin implements NewRequest {
     TResult Function(SaveUnit value)? saveUnit,
     TResult Function(NewRequest value)? addRequest,
     TResult Function(SearchListings value)? search,
+    TResult Function(FetchSavedUnits value)? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (addRequest != null) {
@@ -617,6 +641,7 @@ class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
     required TResult Function(String body, String senderId, String type)
         addRequest,
     required TResult Function(String query) search,
+    required TResult Function() fetchSavedUnits,
   }) {
     return search(query);
   }
@@ -628,6 +653,7 @@ class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
     TResult? Function(UnitEntity unit)? saveUnit,
     TResult? Function(String body, String senderId, String type)? addRequest,
     TResult? Function(String query)? search,
+    TResult? Function()? fetchSavedUnits,
   }) {
     return search?.call(query);
   }
@@ -639,6 +665,7 @@ class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
     TResult Function(UnitEntity unit)? saveUnit,
     TResult Function(String body, String senderId, String type)? addRequest,
     TResult Function(String query)? search,
+    TResult Function()? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -654,6 +681,7 @@ class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
     required TResult Function(SaveUnit value) saveUnit,
     required TResult Function(NewRequest value) addRequest,
     required TResult Function(SearchListings value) search,
+    required TResult Function(FetchSavedUnits value) fetchSavedUnits,
   }) {
     return search(this);
   }
@@ -665,6 +693,7 @@ class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
     TResult? Function(SaveUnit value)? saveUnit,
     TResult? Function(NewRequest value)? addRequest,
     TResult? Function(SearchListings value)? search,
+    TResult? Function(FetchSavedUnits value)? fetchSavedUnits,
   }) {
     return search?.call(this);
   }
@@ -676,6 +705,7 @@ class _$SearchListings with DiagnosticableTreeMixin implements SearchListings {
     TResult Function(SaveUnit value)? saveUnit,
     TResult Function(NewRequest value)? addRequest,
     TResult Function(SearchListings value)? search,
+    TResult Function(FetchSavedUnits value)? fetchSavedUnits,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -696,11 +726,144 @@ abstract class SearchListings implements PropertyEvent {
 }
 
 /// @nodoc
+abstract class _$$FetchSavedUnitsCopyWith<$Res> {
+  factory _$$FetchSavedUnitsCopyWith(
+          _$FetchSavedUnits value, $Res Function(_$FetchSavedUnits) then) =
+      __$$FetchSavedUnitsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$FetchSavedUnitsCopyWithImpl<$Res>
+    extends _$PropertyEventCopyWithImpl<$Res, _$FetchSavedUnits>
+    implements _$$FetchSavedUnitsCopyWith<$Res> {
+  __$$FetchSavedUnitsCopyWithImpl(
+      _$FetchSavedUnits _value, $Res Function(_$FetchSavedUnits) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$FetchSavedUnits
+    with DiagnosticableTreeMixin
+    implements FetchSavedUnits {
+  const _$FetchSavedUnits();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'PropertyEvent.fetchSavedUnits()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'PropertyEvent.fetchSavedUnits'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$FetchSavedUnits);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetchListings,
+    required TResult Function(UnitEntity unit) saveUnit,
+    required TResult Function(String body, String senderId, String type)
+        addRequest,
+    required TResult Function(String query) search,
+    required TResult Function() fetchSavedUnits,
+  }) {
+    return fetchSavedUnits();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? fetchListings,
+    TResult? Function(UnitEntity unit)? saveUnit,
+    TResult? Function(String body, String senderId, String type)? addRequest,
+    TResult? Function(String query)? search,
+    TResult? Function()? fetchSavedUnits,
+  }) {
+    return fetchSavedUnits?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetchListings,
+    TResult Function(UnitEntity unit)? saveUnit,
+    TResult Function(String body, String senderId, String type)? addRequest,
+    TResult Function(String query)? search,
+    TResult Function()? fetchSavedUnits,
+    required TResult orElse(),
+  }) {
+    if (fetchSavedUnits != null) {
+      return fetchSavedUnits();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FetchListings value) fetchListings,
+    required TResult Function(SaveUnit value) saveUnit,
+    required TResult Function(NewRequest value) addRequest,
+    required TResult Function(SearchListings value) search,
+    required TResult Function(FetchSavedUnits value) fetchSavedUnits,
+  }) {
+    return fetchSavedUnits(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FetchListings value)? fetchListings,
+    TResult? Function(SaveUnit value)? saveUnit,
+    TResult? Function(NewRequest value)? addRequest,
+    TResult? Function(SearchListings value)? search,
+    TResult? Function(FetchSavedUnits value)? fetchSavedUnits,
+  }) {
+    return fetchSavedUnits?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FetchListings value)? fetchListings,
+    TResult Function(SaveUnit value)? saveUnit,
+    TResult Function(NewRequest value)? addRequest,
+    TResult Function(SearchListings value)? search,
+    TResult Function(FetchSavedUnits value)? fetchSavedUnits,
+    required TResult orElse(),
+  }) {
+    if (fetchSavedUnits != null) {
+      return fetchSavedUnits(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FetchSavedUnits implements PropertyEvent {
+  const factory FetchSavedUnits() = _$FetchSavedUnits;
+}
+
+/// @nodoc
 mixin _$PropertyState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)
         initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
@@ -709,7 +872,10 @@ mixin _$PropertyState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
@@ -718,7 +884,10 @@ mixin _$PropertyState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
@@ -773,7 +942,11 @@ abstract class _$$_InitialCopyWith<$Res> {
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PropertyEntity> listings, List<UnitEntity> searchResults});
+  $Res call(
+      {List<PropertyEntity> listings,
+      List<UnitEntity> searchResults,
+      List<UnitEntity> savedUnits,
+      String query});
 }
 
 /// @nodoc
@@ -788,6 +961,8 @@ class __$$_InitialCopyWithImpl<$Res>
   $Res call({
     Object? listings = null,
     Object? searchResults = null,
+    Object? savedUnits = null,
+    Object? query = null,
   }) {
     return _then(_$_Initial(
       listings: null == listings
@@ -798,6 +973,14 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value._searchResults
           : searchResults // ignore: cast_nullable_to_non_nullable
               as List<UnitEntity>,
+      savedUnits: null == savedUnits
+          ? _value._savedUnits
+          : savedUnits // ignore: cast_nullable_to_non_nullable
+              as List<UnitEntity>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -807,9 +990,12 @@ class __$$_InitialCopyWithImpl<$Res>
 class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   const _$_Initial(
       {final List<PropertyEntity> listings = const [],
-      final List<UnitEntity> searchResults = const []})
+      final List<UnitEntity> searchResults = const [],
+      final List<UnitEntity> savedUnits = const [],
+      this.query = ""})
       : _listings = listings,
-        _searchResults = searchResults;
+        _searchResults = searchResults,
+        _savedUnits = savedUnits;
 
   final List<PropertyEntity> _listings;
   @override
@@ -827,9 +1013,21 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     return EqualUnmodifiableListView(_searchResults);
   }
 
+  final List<UnitEntity> _savedUnits;
+  @override
+  @JsonKey()
+  List<UnitEntity> get savedUnits {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_savedUnits);
+  }
+
+  @override
+  @JsonKey()
+  final String query;
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PropertyState.initial(listings: $listings, searchResults: $searchResults)';
+    return 'PropertyState.initial(listings: $listings, searchResults: $searchResults, savedUnits: $savedUnits, query: $query)';
   }
 
   @override
@@ -838,7 +1036,9 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
     properties
       ..add(DiagnosticsProperty('type', 'PropertyState.initial'))
       ..add(DiagnosticsProperty('listings', listings))
-      ..add(DiagnosticsProperty('searchResults', searchResults));
+      ..add(DiagnosticsProperty('searchResults', searchResults))
+      ..add(DiagnosticsProperty('savedUnits', savedUnits))
+      ..add(DiagnosticsProperty('query', query));
   }
 
   @override
@@ -848,14 +1048,19 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
             other is _$_Initial &&
             const DeepCollectionEquality().equals(other._listings, _listings) &&
             const DeepCollectionEquality()
-                .equals(other._searchResults, _searchResults));
+                .equals(other._searchResults, _searchResults) &&
+            const DeepCollectionEquality()
+                .equals(other._savedUnits, _savedUnits) &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_listings),
-      const DeepCollectionEquality().hash(_searchResults));
+      const DeepCollectionEquality().hash(_searchResults),
+      const DeepCollectionEquality().hash(_savedUnits),
+      query);
 
   @JsonKey(ignore: true)
   @override
@@ -867,38 +1072,47 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)
         initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
   }) {
-    return initial(listings, searchResults);
+    return initial(listings, searchResults, savedUnits, query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
   }) {
-    return initial?.call(listings, searchResults);
+    return initial?.call(listings, searchResults, savedUnits, query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(listings, searchResults);
+      return initial(listings, searchResults, savedUnits, query);
     }
     return orElse();
   }
@@ -941,10 +1155,14 @@ class _$_Initial with DiagnosticableTreeMixin implements _Initial {
 abstract class _Initial implements PropertyState {
   const factory _Initial(
       {final List<PropertyEntity> listings,
-      final List<UnitEntity> searchResults}) = _$_Initial;
+      final List<UnitEntity> searchResults,
+      final List<UnitEntity> savedUnits,
+      final String query}) = _$_Initial;
 
   List<PropertyEntity> get listings;
   List<UnitEntity> get searchResults;
+  List<UnitEntity> get savedUnits;
+  String get query;
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1024,7 +1242,10 @@ class _$LoadingState with DiagnosticableTreeMixin implements LoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)
         initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
@@ -1036,7 +1257,10 @@ class _$LoadingState with DiagnosticableTreeMixin implements LoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
@@ -1048,7 +1272,10 @@ class _$LoadingState with DiagnosticableTreeMixin implements LoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,
@@ -1180,7 +1407,10 @@ class _$ApplicationErrors
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)
         initial,
     required TResult Function(bool state) loadingState,
     required TResult Function(String msg) applicationErrors,
@@ -1192,7 +1422,10 @@ class _$ApplicationErrors
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult? Function(bool state)? loadingState,
     TResult? Function(String msg)? applicationErrors,
@@ -1204,7 +1437,10 @@ class _$ApplicationErrors
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<PropertyEntity> listings, List<UnitEntity> searchResults)?
+            List<PropertyEntity> listings,
+            List<UnitEntity> searchResults,
+            List<UnitEntity> savedUnits,
+            String query)?
         initial,
     TResult Function(bool state)? loadingState,
     TResult Function(String msg)? applicationErrors,

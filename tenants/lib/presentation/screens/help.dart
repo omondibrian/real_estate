@@ -16,6 +16,7 @@ class HelpScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: const Text("Help"),
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,

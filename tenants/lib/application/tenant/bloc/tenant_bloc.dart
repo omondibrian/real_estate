@@ -29,9 +29,9 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
   Future<void> _handleSignIn(SignIn event, Emitter<TenantState> emit) async {
     emit(TenantState.loadingInProgress(state: true));
     var res = await _repo.emailSignIn(event.credentials);
-     if (kDebugMode) {
-        print("executing left side---- $res");
-      }
+    if (kDebugMode) {
+      print("executing left side---- $res");
+    }
     res.fold(
       (l) => emit(TenantState.applicationErrors(msg: l.msg)),
       (r) => emit(TenantState.snackBarMsgs(msg: r)),
@@ -53,7 +53,6 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
       (err) => emit(TenantState.applicationErrors(msg: err.msg)),
       (r) => emit(TenantState.snackBarMsgs(msg: r)),
     );
-    emit(TenantState.loadingInProgress(state: false));
   }
 
   Future<void> _handleLogOut(LogOut event, Emitter<TenantState> emit) async {
@@ -72,9 +71,11 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
     var profile = await _repo.fetchUserProfile();
     profile.fold(
       (err) => emit(TenantState.applicationErrors(msg: err.msg)),
-      (tenant) => emit(TenantState.initial(tenant: tenant)),
+      (tenant) {
+        print("user name from bloc = ${tenant.name}");
+        emit(TenantState.initial(tenant: tenant));
+      },
     );
-    emit(TenantState.loadingInProgress(state: false));
   }
 
   Future<void> _handlePasswordReset(
@@ -85,18 +86,18 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
       (err) => emit(TenantState.applicationErrors(msg: err.msg)),
       (msg) => emit(TenantState.snackBarMsgs(msg: msg)),
     );
-    emit(TenantState.loadingInProgress(state: false));
   }
 
   Future<void> _handleOtpVerification(
       VerifyOtpToken event, Emitter<TenantState> emit) async {
     emit(TenantState.loadingInProgress(state: true));
-    var res = await _repo.verifyOTP(event.otp,);
+    var res = await _repo.verifyOTP(
+      event.otp,
+    );
     res.fold(
       (err) => emit(TenantState.applicationErrors(msg: err.msg)),
       (msg) => emit(TenantState.snackBarMsgs(msg: msg)),
     );
-    emit(TenantState.loadingInProgress(state: false));
   }
 
   Future<void> _handleProfileUpdates(
@@ -116,7 +117,5 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
         (entity) => emit(TenantState.initial(tenant: entity)),
       );
     }
-
-    emit(TenantState.loadingInProgress(state: false));
   }
 }

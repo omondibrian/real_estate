@@ -72,6 +72,7 @@ Future<_i1.GetIt> $initServiceLocator(
   );
   gh.lazySingleton<_i14.TenantRepository>(
     () => _i15.TenantRepositoryImpl(
+      preferences: get<_i7.SharedPreferences>(),
       internalTenantDatasource: get<_i8.InternalDataSource>(),
       externalDataSource: get<_i3.ExternalDataSource>(),
     ),

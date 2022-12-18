@@ -2,12 +2,13 @@ import 'package:graphql/client.dart';
 
 abstract class BaseDataSource {
   late HttpLink _httpLink;
-
+  String token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdhNGZkNWJmOTNhOGY0ODQ4ZjEyMDEiLCJpYXQiOjE2NzEzNzg4ODYsImV4cCI6MTY3MTM4MDY4Nn0.3E0Q-smos6LlVukcobUvF0y2SKoduhG8SSjAqYe3NKg";
   BaseDataSource() {
     _httpLink = HttpLink(
       'https://realtors-api.onrender.com/graphql',
       defaultHeaders: {
-        'Authorization': 'Bearer token',
+        'Authorization': 'Bearer $token',
       },
     );
   }

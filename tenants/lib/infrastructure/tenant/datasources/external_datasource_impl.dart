@@ -17,6 +17,10 @@ import 'graphql_queries.dart';
 @LazySingleton(as: ExternalDataSource)
 class ExternalDatasourceImpl extends BaseDataSource
     implements ExternalDataSource {
+  void setToken(String token) {
+    this.token = token;
+  }
+
   ExternalDatasourceImpl();
   @override
   Future<Either<TenantFailures, Payload<TenantDTO>>> fetchProfile() async {
@@ -33,22 +37,23 @@ class ExternalDatasourceImpl extends BaseDataSource
         throw Exception(result.exception.toString());
       }
       var data = result.data!['fetchProfile'] as Map<String, dynamic>;
-      var message = Payload(
+      var message = Payload<TenantDTO>(
         typeName: data["__typename"],
         data: const TenantDTO.initial(),
       );
       switch (data["__typename"]) {
         case "User":
-          message.copyWith(
-            data: TenantDTO(
-              name: data['name'],
-              email: data['email'],
-              role: data['role'],
-              profileImage: data['profileImage'],
-              phoneNumber: data['phoneNumber'],
-              placementDate: data['placementDate'],
-              accountStatus: data['accountStatus'],
-            ),
+          var tenantData = TenantDTO(
+            name: data['name'],
+            email: data['email'],
+            role: data['role'],
+            profileImage: data['profileImage'],
+            phoneNumber: data['phoneNumber'] ?? "071234567",
+            placementDate: data['placementDate'],
+            accountStatus: data['accountState'],
+          );
+          message = Payload<TenantDTO>(
+            data: tenantData,
             message: data['message'],
             typeName: data["__typename"],
           );
@@ -194,13 +199,26 @@ class ExternalDatasourceImpl extends BaseDataSource
       if (kDebugMode) {
         print(result.exception.toString());
       }
-      throw Exception(result.exception.toString());
+      return left(
+        TenantFailures.internalServerError(
+          msg: result.exception.toString(),
+        ),
+      );
     }
     var data = result.data!['signup'] as Map<String, dynamic>;
-    if (data['error']) {
-      return data['error'];
-    } else {
-      return data['message'];
+    switch (data["__typename"]) {
+      case "DefaultResponse":
+        return right(data['message']);
+
+      case "ApplicationErrors":
+        print(data['errorMessage']);
+        return left(
+          TenantFailures.internalServerError(
+            msg: data['errorMessage'],
+          ),
+        );
+      default:
+        throw Exception("invalid response type");
     }
   }
 

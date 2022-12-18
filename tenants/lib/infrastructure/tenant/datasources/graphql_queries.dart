@@ -1,5 +1,5 @@
 const String regNewUser = r'''
-  mutation RegisterNewUser(
+mutation RegisterNewUser(
   $name: String!
   $email: String!
   $profileImage: Upload!
@@ -17,8 +17,13 @@ const String regNewUser = r'''
     password: $password
     accountState: $state
   ) {
-    message
-    error
+    __typename
+    ... on DefaultResponse{
+      message
+    }
+    ... on ApplicationErrors{
+      errorMessage
+    }
   }
 }
 ''';

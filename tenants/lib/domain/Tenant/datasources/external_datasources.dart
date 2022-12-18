@@ -39,4 +39,6 @@ abstract class ExternalDataSource {
   /// or [Payload] of type [TenantDTO] to signal a successfull operation
   Future<Either<TenantFailures, Payload<TenantDTO>>> profileUpdate(
       Map<String, dynamic> profile);
+
+  void setToken(String token);
 }

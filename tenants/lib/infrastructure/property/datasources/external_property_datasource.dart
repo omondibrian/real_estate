@@ -118,6 +118,5 @@ class ExternalPropertyDatasourceImpl extends BaseDataSource
         ),
       );
     }
-    throw UnimplementedError();
   }
 }

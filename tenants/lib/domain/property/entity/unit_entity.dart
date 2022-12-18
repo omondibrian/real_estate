@@ -1,17 +1,18 @@
 class UnitEntity {
- final  String? id;
- final  String room;
- final  String imageUrl;
- final  String contact;
- final  bool state;
- final  String livingSpace;
- final  List<String> ammenities;
- final  String propertyId;
- final  String type;
- final  double baths;
- final  int bedroom;
-
-  UnitEntity({
+  final String? id;
+  final String room;
+  final String imageUrl;
+  final String contact;
+  final bool state;
+  final String livingSpace;
+  final List<String> ammenities;
+  final String propertyId;
+  final String type;
+  final double baths;
+  final int bedroom;
+  final String pricePerMonth;
+  
+  UnitEntity( {
     this.id,
     required this.room,
     required this.imageUrl,
@@ -23,6 +24,7 @@ class UnitEntity {
     required this.type,
     required this.baths,
     required this.bedroom,
+    required this.pricePerMonth,
   });
 
   UnitEntity copyWith({
@@ -37,6 +39,7 @@ class UnitEntity {
     String? type,
     double? baths,
     int? bedroom,
+    String? pricePerMonth
   }) {
     return UnitEntity(
       id: id ?? this.id,
@@ -50,6 +53,7 @@ class UnitEntity {
       type: type ?? this.type,
       baths: baths ?? this.baths,
       bedroom: bedroom ?? this.bedroom,
+      pricePerMonth: pricePerMonth ?? this.pricePerMonth,
     );
   }
 }

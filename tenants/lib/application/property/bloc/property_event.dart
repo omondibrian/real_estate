@@ -10,4 +10,5 @@ class PropertyEvent with _$PropertyEvent {
     required String type,
   }) = NewRequest;
   const factory PropertyEvent.search({required String query}) = SearchListings;
+  const factory PropertyEvent.fetchSavedUnits() = FetchSavedUnits;
 }

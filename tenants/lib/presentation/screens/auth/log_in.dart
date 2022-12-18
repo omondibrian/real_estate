@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tenants/application/tenant/bloc/tenant_bloc.dart';
 import 'package:tenants/domain/Tenant/entity/tenant_credentials.dart';
 import 'package:tenants/presentation/realtors.dart';
+import 'package:tenants/presentation/screens/auth/registration.dart';
 import 'package:tenants/presentation/utils.dart';
 import 'package:tenants/presentation/widgets/button.dart';
 import 'package:tenants/presentation/widgets/input.dart';
@@ -93,7 +94,7 @@ class LogIn extends StatelessWidget {
                 //   ),
                 // ),
                 const SizedBox(
-                  height: 40,
+                  height: 150,
                 ),
                 const Text(
                   'Welcome Back !',
@@ -127,26 +128,31 @@ class LogIn extends StatelessWidget {
                             child: PasswordField(
                               _passwordController,
                             )),
+
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'forgot password',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          height: 40,
                         ),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * 0.8,
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.end,
+                        //     children: [
+                        //       Padding(
+                        //         padding: const EdgeInsets.all(8.0),
+                        //         child: TextButton(
+                        //           onPressed: () {},
+                        //           child: const Text(
+                        //             'forgot password',
+                        //             style: TextStyle(
+                        //               color: Colors.grey,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: DefaultButton(
@@ -163,8 +169,11 @@ class LogIn extends StatelessWidget {
                                     style: TextStyle(color: Colors.grey)),
                                 InkWell(
                                   onTap: () {
-                                    // Navigator.pushNamed(
-                                    //     context, AppRoutes.signup);
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: ((context) => Register()),
+                                      ),
+                                    );
                                   },
                                   child: const Text('Sign up for a new account',
                                       style: TextStyle(

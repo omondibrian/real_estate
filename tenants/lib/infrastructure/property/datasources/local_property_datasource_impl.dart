@@ -116,18 +116,17 @@ class LocalPropertyDataSourceImpl implements LocalPropertyDataSource {
   Future<Either<PropertyFailure, List<UnitEntity>>> fetchCachedUnits() async {
     try {
       if (_preferences.containsKey("savedUnits")) {
-        final units = _preferences
-            .getStringList("savedUnits")!
-            .map((l) => UnitDTO.fromJson(l).toEntity())
-            .toList();
-
+        final tempUnits = _preferences.getStringList("savedUnits")!;
+        print(tempUnits);
+        final units =
+            tempUnits.map((l) => UnitDTO.fromJson(l).toEntity()).toList();
         return right(units);
       } else {
-        throw Exception('uninitialised storage  parameter');
+        return right(<UnitEntity>[]);
       }
-    } catch (e) {
+    } catch (e, stack) {
       if (kDebugMode) {
-        print(e);
+        print(stack);
       }
       return left(
         const PropertyFailure.storage(msg: 'error retriving cached unit data'),

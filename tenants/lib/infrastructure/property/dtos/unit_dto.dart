@@ -14,6 +14,7 @@ class UnitDTO {
   final String type;
   final double baths;
   final int bedroom;
+  final String pricePerMonth;
 
   UnitDTO({
     this.id,
@@ -27,6 +28,7 @@ class UnitDTO {
     required this.type,
     required this.baths,
     required this.bedroom,
+    required this.pricePerMonth
   });
 
   /// instantiates an empty obj with default values
@@ -42,6 +44,7 @@ class UnitDTO {
     this.ammenities = const [],
     this.baths = 0,
     this.bedroom = 0,
+    this.pricePerMonth = "\$ 0.0"
   });
 
   factory UnitDTO.fromMap(Map<String, dynamic> map) {
@@ -56,6 +59,7 @@ class UnitDTO {
       type: map["type"] ?? "Normal",
       baths: map["baths"] ?? 1,
       bedroom: map["bedroom"] ?? 1,
+      pricePerMonth: map["pricePerMonth"] ??  "\$ 0.0",
     );
   }
   Map<String, dynamic> toMap() {
@@ -71,6 +75,7 @@ class UnitDTO {
     map.addAll({'type': type});
     map.addAll({'baths': baths});
     map.addAll({'bedroom': bedroom});
+    map.addAll({'pricePerMonth': pricePerMonth});
     return map;
   }
 
@@ -91,6 +96,7 @@ class UnitDTO {
         type: type,
         baths: baths,
         bedroom: bedroom,
+        pricePerMonth: pricePerMonth
       );
 
   factory UnitDTO.fromEntity(UnitEntity entity) => UnitDTO(
@@ -104,6 +110,7 @@ class UnitDTO {
         type: entity.type,
         baths: entity.baths,
         bedroom: entity.bedroom,
+        pricePerMonth: entity.pricePerMonth
       );
   UnitDTO copyWith({
     String? id,
@@ -117,6 +124,7 @@ class UnitDTO {
     String? type,
     double? baths,
     int? bedroom,
+    String? pricePerMonth
   }) {
     return UnitDTO(
       id: id ?? this.id,
@@ -130,6 +138,7 @@ class UnitDTO {
       type: type ?? this.type,
       baths: baths ?? this.baths,
       bedroom: bedroom ?? this.bedroom,
+      pricePerMonth: pricePerMonth ?? this.pricePerMonth,
     );
   }
 }

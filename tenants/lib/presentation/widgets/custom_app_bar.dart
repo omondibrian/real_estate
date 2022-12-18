@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tenants/application/tenant/bloc/tenant_bloc.dart';
+import 'package:tenants/presentation/screens/auth/log_in.dart';
+import 'package:tenants/presentation/screens/profile.dart';
 
 import '../utils.dart';
+
+// ignore: constant_identifier_names
+enum FilterOptions { Profile, LogOut }
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -11,100 +18,106 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double ffwidth = fwidth * 0.97;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.fromLTRB(
-            0 * fwidth,
-            0 * fwidth,
-            10 * fwidth,
-            0 * fwidth,
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.fromLTRB(
+              0 * fwidth,
+              0 * fwidth,
+              10 * fwidth,
+              25,
+            ),
+            width: 20 * fwidth,
+            height: 20 * fwidth,
+            child: const Icon(
+              Icons.location_on_outlined,
+              color: Colors.red,
+              size: 24,
+            ),
           ),
-          width: 20 * fwidth,
-          height: 20 * fwidth,
-          child: const Icon(
-            Icons.location_on_outlined,
-            color: Colors.red,
-            size: 24,
-          ),
-        ),
-        SizedBox(
-          width: 304 * fwidth,
-          height: 50,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(
-                  0 * fwidth,
-                  0 * fwidth,
-                  0 * fwidth,
-                  3 * fwidth,
-                ),
-                child: Text(
-                  'Location',
-                  style: SafeGoogleFont(
-                    'Montserrat',
-                    fontSize: 10 * ffwidth,
-                    fontWeight: FontWeight.w500,
-                    height: 1.2175 * ffwidth / fwidth,
-                    color: const Color(0xffb0acac),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                        0 * fwidth,
-                        0 * fwidth,
-                        6 * fwidth,
-                        0 * fwidth,
-                      ),
-                      child: Text(
-                        'Woodbridge',
-                        style: SafeGoogleFont(
-                          'Montserrat',
-                          fontSize: 14 * ffwidth,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2175 * ffwidth / fwidth,
-                          color: const Color(0xff363636),
+          SizedBox(
+            width: 330 * fwidth,
+            height: 65,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(
+                          0 * fwidth,
+                          0 * fwidth,
+                          0 * fwidth,
+                          0 * fwidth,
+                        ),
+                        child: Text(
+                          'Realtors',
+                          style: SafeGoogleFont(
+                            'Montserrat',
+                            fontSize: 14 * ffwidth,
+                            fontWeight: FontWeight.w600,
+                            height: 1.2175 * ffwidth / fwidth,
+                            color: const Color(0xff363636),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                        0 * fwidth,
-                        2.02 * fwidth,
-                        0 * fwidth,
-                        0 * fwidth,
+                      const SizedBox(
+                        width: 200,
                       ),
-                      width: 7 * fwidth,
-                      height: 3.98 * fwidth,
-                      child: const Icon(
-                        Icons.arrow_drop_down,
-                        size: 16,
-                      ),
-                    ),
-                  ],
+                      BlocBuilder<TenantBloc, TenantState>(
+                          builder: (context, state) {
+                        return PopupMenuButton(
+                          icon: const Icon(
+                            Icons.settings,
+                          ),
+                          onSelected: (FilterOptions selectedValue) {
+                            if (selectedValue == FilterOptions.Profile) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: ((context) => const ProfileScreen()),
+                                ),
+                              );
+                            }
+
+                            if (selectedValue == FilterOptions.LogOut) {}
+                          },
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: FilterOptions.Profile,
+                              child: Text('Profile'),
+                            ),
+                            PopupMenuItem(
+                              value: FilterOptions.LogOut,
+                              onTap: () {
+                                context
+                                    .read<TenantBloc>()
+                                    .add(const TenantEvent.logout());
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: ((context) => LogIn()),
+                                  ),
+                                );
+                              },
+                              child: const Text('Logout'),
+                            ),
+                          ],
+                        );
+                      })
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 16 * fwidth,
-                height: 16 * fwidth,
-                child: const Icon(
-                  Icons.settings,
-                  size: 16,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

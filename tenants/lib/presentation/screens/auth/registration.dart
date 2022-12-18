@@ -1,44 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tenants/presentation/screens/auth/log_in.dart';
 import 'package:tenants/presentation/utils.dart';
 import 'package:tenants/presentation/widgets/button.dart';
 import 'package:tenants/presentation/widgets/input.dart';
+
+import '../../../application/tenant/bloc/tenant_bloc.dart';
 
 class Register extends StatelessWidget {
   Register({super.key});
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     void register() async {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-        "Please wait...",
-      )));
       if (_formKey.currentState!.validate()) {
-        // final res = await Auth.loginUser({
-        //   "email": _emailController.text,
-        //   "password": _passwordController.text
-        // });
-        // res.fold((l) {
-        //   Navigator.of(context).popUntil((route) => route.isFirst);
-        //   // Navigator.of(context).pushNamed(AppRoutes.home);
-        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //       content: Text(
-        //     "Login successfuly",
-        //     ),
-        //   ));
-        // }, (error) {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       content: Text(
-        //         error.message,
-        //         style: TextStyle(color: Theme.of(context).errorColor),
-        //       ),
-        //       duration: SNACKBARDURATION,
-        //     ),
-        //   );
-        // });
+        context.read<TenantBloc>().add(
+              TenantEvent.signUp(
+                name: _nameController.text,
+                email: _emailController.text,
+                phoneNumber: _phoneController.text,
+                password: _passwordController.text,
+                role: "Tenant",
+              ),
+            );
       }
     }
 
@@ -56,18 +44,12 @@ class Register extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Center(
-              //   heightFactor: 3,
-              //   child: Image.asset(
-              //     'assets/images/truck.png',
-              //     height: 50,
-              //     width: 195,
-              //   ),
-              // ),
-
+              const SizedBox(
+                height: 70,
+              ),
               const Text('Register to continue using Realtors'),
               const SizedBox(
-                height: 20,
+                height: 70,
               ),
               Form(
                 key: _formKey,
@@ -79,37 +61,45 @@ class Register extends StatelessWidget {
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: DefaultInput(
+                            controller: _nameController,
+                            hintText: 'Name',
+                            validator: requiredValidator,
+                            icon: Icons.verified_user,
+                            keyboardType: TextInputType.emailAddress,
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: DefaultInput(
                             controller: _emailController,
                             hintText: 'email',
                             validator: emailValidator,
                             icon: Icons.email_outlined,
                             keyboardType: TextInputType.emailAddress,
                           )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: DefaultInput(
+                            controller: _phoneController,
+                            hintText: 'phoneNumber',
+                            validator: requiredValidator,
+                            icon: Icons.phone,
+                            keyboardType: TextInputType.emailAddress,
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: PasswordField(
                             _passwordController,
                           )),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'forgot password',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                     
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: DefaultButton(
@@ -123,13 +113,16 @@ class Register extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
-                                'New a User ? ',
+                                'existing  User ? ',
                                 style: TextStyle(color: Colors.grey),
                               ),
                               InkWell(
                                 onTap: () {
-                                  // Navigator.pushNamed(
-                                  //     context, AppRoutes.signup);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: ((context) => LogIn()),
+                                    ),
+                                  );
                                 },
                                 child: const Text(
                                   'Sign in',

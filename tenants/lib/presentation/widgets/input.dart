@@ -70,8 +70,9 @@ class DefaultInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+    return SizedBox(
+      width: 300,
+      // height: 150,
       child: TextFormField(
         focusNode: focusNode,
         obscureText: isPassword,

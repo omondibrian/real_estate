@@ -22,13 +22,12 @@ class PropertyRepositoryImpl implements PropertyRepository {
   Future<Either<PropertyFailure, List<PropertyEntity>>> fetchListings() async {
     List<PropertyEntity> listings = [];
     bool result = await InternetConnectionChecker().hasConnection;
-    if (result == true) {
+    if (result) {
       //device has internet connection
       var res = await _externalPropertyDataSource.fetchCurrentListings();
-      print(res);
       res.fold((l) {
         return left(l);
-      }, (r) {
+      }, (r) async {
         //check for errors
         if (r.first.typename == 'ApplicationErrors') {
           return left(
@@ -37,16 +36,22 @@ class PropertyRepositoryImpl implements PropertyRepository {
             ),
           );
         }
+        print("response online mode = $r");
 
         listings = r.map((d) => d.toEntity()).toList();
+        await _localPropertyDataSource.saveListingsToCache(listings);
       });
     } else {
+      print("offline mode ");
       var res = await _localPropertyDataSource.fetchCurrentListings();
+      print("response offline mode = $res");
       res.fold(
         (l) {
           return left(l);
         },
-        (r) => listings = r,
+        (r) {
+          listings = r;
+        },
       );
     }
     return right(listings);

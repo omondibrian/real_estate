@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tenants/application/property/bloc/property_bloc.dart';
 import 'package:tenants/presentation/screens/listings.dart';
+import 'package:tenants/presentation/screens/search_screen.dart';
 import 'package:tenants/presentation/widgets/cards/card_info.dart';
 import 'package:tenants/presentation/widgets/cards/horizontal_info_card.dart';
 import 'package:tenants/presentation/widgets/custom_app_bar.dart';
@@ -18,13 +20,23 @@ class Explore extends StatelessWidget {
     double fwidth = MediaQuery.of(context).size.width / baseWidth;
     double ffwidth = fwidth * 0.97;
 
-    context.read<PropertyBloc>().add(
-          const PropertyEvent.fetchListings(),
-        );
+    context.read<PropertyBloc>().add(const PropertyEvent.fetchListings());
     return BlocConsumer<PropertyBloc, PropertyState>(
       listener: (context, state) {
-        print(state.runtimeType);
-        print(state);
+        if (kDebugMode) {
+          print(state.runtimeType);
+          print(state);
+        }
+        final results =
+            state.mapOrNull(initial: (value) => value.searchResults);
+        if (results != null && results.isNotEmpty) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: ((context) => const SearchResults()),
+            ),
+          );
+        }
+        
       },
       builder: (context, state) {
         var loading = state.mapOrNull(
@@ -52,6 +64,7 @@ class Explore extends StatelessWidget {
 
         return SingleChildScrollView(
           child: Container(
+            padding: const EdgeInsets.only(top: 10),
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Color(0xffffffff),
@@ -130,7 +143,6 @@ class Explore extends StatelessWidget {
                                                 )),
                                           ),
                                         );
-                                        print("tapped");
                                       },
                                       child: HorizontalInfoCard(
                                         fwidth: fwidth,

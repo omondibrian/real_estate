@@ -6,6 +6,7 @@ import 'package:tenants/domain/Tenant/datasources/internal_datasource.dart';
 import 'package:tenants/injection.dart';
 import 'package:tenants/presentation/realtors.dart';
 import 'package:tenants/presentation/screens/auth/log_in.dart';
+import 'package:tenants/presentation/utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    initializeApp();
+    Future.delayed(const Duration(milliseconds: 15000), initializeApp);
   }
 
   Future<void> initializeApp() async {
@@ -55,11 +56,32 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     // Load a Lottie file from your assets
-    return BlocBuilder<TenantBloc, TenantState>(builder: (context, state) {
-      return Center(
-        // child: Text("Splash")
-        child: Lottie.asset('assets/splash.json'),
-      );
-    });
+    return Scaffold(
+      body: BlocBuilder<TenantBloc, TenantState>(builder: (context, state) {
+        return Container(
+          color: Colors.white,
+          child: Center(
+            // child: Text("Splash")
+            child: Column(
+              children: [
+                const SizedBox(height: 30,),
+                Lottie.asset('assets/splash.json'),
+                const SizedBox(height: 10,),
+                Text(
+                  "initializing application state ...",
+                  style: SafeGoogleFont(
+                    'Montserrat',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    height: 12,
+                    color: const Color(0xff363636),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      }),
+    );
   }
 }

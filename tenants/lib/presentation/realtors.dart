@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tenants/presentation/screens/alerts.dart';
 import 'package:tenants/presentation/screens/explore.dart';
 import 'package:tenants/presentation/screens/help.dart';
-import 'package:tenants/presentation/screens/listings.dart';
 import 'package:tenants/presentation/screens/profile.dart';
 import 'package:tenants/presentation/screens/saved.dart';
-import 'package:tenants/presentation/screens/search_screen.dart';
-import 'package:tenants/presentation/screens/splash.dart';
-
 
 class Realtors extends StatefulWidget {
   const Realtors({super.key});
@@ -36,13 +31,22 @@ class _RealtorsState extends State<Realtors> {
           unselectedItemColor: Colors.black87,
           showUnselectedLabels: true,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Explore"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border), label: "Saved"),
+              icon: Icon(Icons.search),
+              label: "Explore",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications_none_outlined), label: "Alerts"),
+              icon: Icon(Icons.favorite_border),
+              label: "Saved",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline), label: "Profile"),
+              icon: Icon(Icons.notifications_none_outlined),
+              label: "Help",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: "Profile",
+            ),
           ],
         ),
       ),
@@ -50,6 +54,9 @@ class _RealtorsState extends State<Realtors> {
   }
 
   static const List<Widget> _screens = <Widget>[
-    Explore(),SavedScreen(),HelpScreen(),SearchResults()
+    Explore(),
+    SavedScreen(),
+    HelpScreen(),
+    ProfileScreen()
   ];
 }
