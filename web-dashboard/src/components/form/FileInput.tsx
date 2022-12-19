@@ -16,7 +16,7 @@ function FileInput({ control, name, multiple }: FileInputProps) {
       name={name}
       defaultValue={[]}
       render={({ field: { ref, ...rest } }) => (
-        <Uploader {...rest} multiple={multiple || false} />
+        <Uploader {...rest}  multiple={multiple || false} />
       )}
     />
   );

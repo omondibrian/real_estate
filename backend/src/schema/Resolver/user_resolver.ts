@@ -74,7 +74,6 @@ export const UserResolver = {
   Query: {
    
     fetchProfile: async (_: any, args: { id: string }, ctx: MyContext) => {
-      console.log(ctx);
       const profile = await repo.findById(ctx.UserId!);
       if (profile === undefined) {
         return {
@@ -121,6 +120,7 @@ export const UserResolver = {
   Mutation: {
     signUp: async (parent: any, args: SignUpPayload, context: any) => {
       try {
+        console.log(args);
         //find if their exists a user with the same email
         const existingUser = await repo.find({
           field: "email",
@@ -188,7 +188,7 @@ export const UserResolver = {
           errorMessage: "Error occcured while registering user",
           code: process.env.Node_ENV === "development" ? error.code : "🔥🔥",
           stack:
-            process.env.Node_ENV === "development" ? error.stacktrace : "🔥🔥",
+            process.env.Node_ENV === "development" ? error.stack : "🔥🔥",
         };
       }
     },
@@ -202,7 +202,7 @@ export const UserResolver = {
         field: "email",
         value: args.email,
       });
-
+      console.log(existingUser)
       if (existingUser === undefined) {
         return {
           msg: "Error authenticating please try again !",

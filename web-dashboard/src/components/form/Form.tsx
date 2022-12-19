@@ -39,7 +39,9 @@ const Form = <TFormValues extends Record<string, any> = Record<string, any>>({
   });
   useEffect(() => {
     if (serverError) {
+      console.log('----error---',serverError)
       Object.entries(serverError).forEach(([key, value]) => {
+        console.log(value)
         methods.setError(key as Path<TFormValues>, {
           type: "manual",
           message: value,
@@ -57,7 +59,8 @@ const Form = <TFormValues extends Record<string, any> = Record<string, any>>({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(methods.getValues())
+        onSubmit(methods.getValues())
+        // console.log(methods.getValues())
       }}
       noValidate
       {...props}

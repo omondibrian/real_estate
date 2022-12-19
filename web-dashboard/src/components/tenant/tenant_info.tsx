@@ -16,6 +16,8 @@ interface TenantProps {
  * display current tenant information
  */
 export const TenantInfo = (props: TenantProps) => {
+  const placement = new Date(Date.parse(props.placementDate));
+  console.log(`${placement.getDate()}/${placement.getMonth()}/${placement.getFullYear()}`);
   // classNameName="flex items-center justify-center flex-col bg-gray-700 p-4 rounded-lg w-48 space-y-4"
   return (
     <div className="bg-slate-800 text-white rounded-lg  w-[20rem]  h-[20rem] space-y-6 p-10 ">
@@ -57,7 +59,7 @@ export const TenantInfo = (props: TenantProps) => {
           Placement Date
         </div>
         <div className=" text-base text-gray-400 font-normal">
-          {props.placementDate}
+          {`${placement.getDate()}/${placement.getMonth()}/${placement.getFullYear()}`}
         </div>
       </div>
       <div className="flex justify-between text-center">

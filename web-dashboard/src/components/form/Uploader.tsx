@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from "react";
-import { useDropzone, Accept } from "react-dropzone";
-import { useUploads } from "../../state/hooks/useUpload";
-import Image from "next/future/image";
 import { ArrowUpTrayIcon } from "@heroicons/react/20/solid";
+import React, { useCallback, useEffect } from "react";
+import { Accept, useDropzone } from "react-dropzone";
+
+import { useUploads } from "../../state/hooks/useUpload";
 import Spinner from "../spinner/spinner";
 
 interface UploaderProps {
@@ -37,7 +37,7 @@ function Uploader({
   );
 
   const accept: Accept = {
-    'image/*': ['.png', '.gif', '.jpeg', '.jpg'], //or maybe this 'image/*': ['.png', '.gif', '.jpeg', '.jpg']
+    "image/*": [".png", ".gif", ".jpeg", ".jpg"], //or maybe this 'image/*': ['.png', '.gif', '.jpeg', '.jpg']
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -51,17 +51,19 @@ function Uploader({
       className="relative mt-2 inline-flex flex-col overflow-hidden rounded border border-border-100 ltr:mr-2 rtl:ml-2"
       key={idx}
     >
-      <div className="flex h-16 w-16 min-w-0 items-center justify-center overflow-hidden">
-        <Image width="50px" height="50px" src={file.preview} alt={file?.name} />
+      <div className="flex h-32 w-32 min-w-0 items-center justify-center overflow-hidden">
+        <img width="150px" height="150px" src={file.preview} alt={file?.name} />
       </div>
     </div>
   ));
-  console.log(files)
 
   useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
-    files.forEach((file: any) => URL.revokeObjectURL(file.preview));
-  }, [files]);
+    return function cleanUp() {
+      console.log("handling clean up");
+      // Make sure to revoke the data uris to avoid memory leaks
+      files.forEach((file: any) => URL.revokeObjectURL(file.preview));
+    };
+  });
   return (
     <section className="upload">
       <div
@@ -70,12 +72,7 @@ function Uploader({
             "border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none",
         })}
       >
-        <input
-          {...getInputProps({
-            name,
-            onBlur,
-          })}
-        />
+        <input {...getInputProps({ name,onBlur })} />
         <ArrowUpTrayIcon className="text-muted-light" />
         <p className="mt-4 text-center text-sm text-body">
           <span className="font-semibold text-accent mr-1">upload</span>

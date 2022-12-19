@@ -106,7 +106,7 @@ function Icon(props: IconProps) {
 }
 
 export interface ITenantInfo extends Tenant {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export interface Tenant {

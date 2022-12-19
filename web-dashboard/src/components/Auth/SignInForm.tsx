@@ -4,6 +4,7 @@ import FormInput from "../form/FormInput";
 import PasswordInput from "../form/PasswordInput";
 import Form from "../form/Form";
 import * as yup from "yup";
+import Alert from "../Alert";
 import { FocusEventHandler, useContext, useEffect, useState } from "react";
 import { ApplicationStateContext } from "../../state/context";
 import { IAppActionTypes } from "../../state/context/appReducer";
@@ -41,6 +42,7 @@ interface SignInFormProps {
   email?: string;
   password?: string;
   isLoading?: boolean;
+  serverError: any;
 }
 
 export default function SignInForm(props: SignInFormProps) {
@@ -62,14 +64,12 @@ export default function SignInForm(props: SignInFormProps) {
       alignment: Alignment.Center,
     }),
     stateMachines: MACHINE_NAME,
-
   });
   useEffect(() => {
     const email = document.getElementById("email");
     if (email && !inputLookMultiplier) {
       setWidth((email.offsetWidth - 10) / 100);
     }
-
   });
 
   numLookInput = useStateMachineInput(rive, MACHINE_NAME, machineActions.look)!;
@@ -91,12 +91,9 @@ export default function SignInForm(props: SignInFormProps) {
   isHandsUpInput = useStateMachineInput(rive, MACHINE_NAME, machineActions.up)!;
 
   const onPasswordFocus = (e: any) => (isHandsUpInput.value = true);
-  const onPasswordBlur:FocusEventHandler<HTMLInputElement> = (e) => {
+  const onPasswordBlur: FocusEventHandler<HTMLInputElement> = (e) => {
     isHandsUpInput.value = false;
-    console.log("calling blur");
-    
   };
-
   const onEmailChange = (e: any) => {
     const newVal = e.target.value;
     if (isCheckingInput !== null && !isCheckingInput.value) {
@@ -104,11 +101,9 @@ export default function SignInForm(props: SignInFormProps) {
     }
     const numChars = newVal.length;
     numLookInput.value = numChars * inputLookMultiplier;
-    console.log("---email- change ----",numLookInput.value);
   };
   const onEmailFocus = (e: any) => {
     const emailVal = e.target.value;
-    console.log(emailVal);
 
     isCheckingInput.value = true;
     if (
@@ -132,13 +127,18 @@ export default function SignInForm(props: SignInFormProps) {
           },
         }}
         validationSchema={SignInSchema}
+        serverError={props.serverError && props.serverError}
       >
         {({ register, formState: { errors } }) => {
+          console.log(errors);
           return (
             <div className="flex flex-col">
               <div className="flex justify-center font-lg text-black mx-4 font-bold">
                 Sign In
               </div>
+              {(errors as any).msg && (
+                <Alert className="mb-4" message={(errors as any).msg.message} />
+              )}
               <div className="flex  items-center md:min-w-[360px] justify-center">
                 <FormInput
                   labelStr="Email"
@@ -159,7 +159,6 @@ export default function SignInForm(props: SignInFormProps) {
                   shadow={true}
                   onFocus={onPasswordFocus}
                   blur={onPasswordBlur}
-                  
                   forgotPageRouteOnClick={() => {
                     dispatch({
                       type: IAppActionTypes.OPEN_MODAL,

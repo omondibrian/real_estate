@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { Card } from "../card/card";
 import { ItemProps, ListItem } from "../list/list_tab_item";
+import { IUnit } from "../../state/entities/PropertyListings";
+import { ApplicationStateContext } from "../../state/context";
+import { IAppActionTypes } from "../../state/context/appReducer";
 
 type AccordionData = {
-expanded: boolean;
-imageUrl: string;
-noProperties: string;
-noRequest: string;
-noTenants: string;
-propertyTitle: string;
-propertyList: Array<ItemProps>;
-}
+  expanded: boolean;
+  imageUrl: string;
+  noProperties: string;
+  noRequest: string;
+  noTenants: string;
+  propertyTitle: string;
+  propertyList: Array<IUnit>;
+};
 interface AccordionNavProps {
   properties: Array<AccordionData>;
 }
 
 export function AccordionNavMenu(props: AccordionNavProps) {
-
   const data = [...props.properties]; // props may be read only so temp data variable just incase
-
-  console.log(data)
+  const {  dispatch } = useContext(ApplicationStateContext);
 
   return (
     <div className="w-full h-full overflow-auto  ">
@@ -38,7 +39,22 @@ export function AccordionNavMenu(props: AccordionNavProps) {
                 />
               </Disclosure.Button>
               <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                <ListItem propertyList={data[0]!.propertyList} />
+                <ListItem
+                  propertyList={data[0]!.propertyList.map((u): ItemProps => {
+                    return {
+                      customerName: u.info.tenantInfo.name,
+                      livingSpace: u.info.livingSpace,
+                      pill: u.pill,
+                      room: u.info.roomName,
+                      onClick: () => {
+                        dispatch({
+                          type: IAppActionTypes.UPDATE_UNIT,
+                          payload: u,
+                        });
+                      },
+                    };
+                  })}
+                />
               </Disclosure.Panel>
             </>
           )}
@@ -59,7 +75,22 @@ export function AccordionNavMenu(props: AccordionNavProps) {
                       />
                     </Disclosure.Button>
                     <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                      <ListItem propertyList={p.propertyList} />
+                      <ListItem
+                        propertyList={p.propertyList.map((u): ItemProps => {
+                          return {
+                            customerName: u.info.tenantInfo.name,
+                            livingSpace: u.info.livingSpace,
+                            pill: u.pill,
+                            room: u.info.roomName,
+                            onClick: () => {
+                              dispatch({
+                                type: IAppActionTypes.UPDATE_UNIT,
+                                payload: u,
+                              });
+                            },
+                          };
+                        })}
+                      />
                     </Disclosure.Panel>
                   </>
                 )}

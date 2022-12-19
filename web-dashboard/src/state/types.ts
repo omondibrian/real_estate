@@ -1,3 +1,4 @@
+import { IUnit } from "./entities/PropertyListings";
 import { User } from "./entities/user";
 
 export enum StatusLable {
@@ -81,10 +82,10 @@ export interface IMessage {
   tag: TaskLabelTag;
 }
 
-export interface IModalState<V>{
+export interface IModalState<V> {
   view?: V;
-  data?:any;
-  isOpen:boolean
+  data?: any;
+  isOpen: boolean;
 }
 
 export interface IMessageData {
@@ -102,17 +103,18 @@ export interface IMessageData {
 export interface ForgotPasswordUserInput {
   email: string;
 }
-export type FormSteps = 'Email' | 'Token' | 'Password';
-export interface ResetPasswordState{
-  errors: any,
-  loading:boolean,
-  formStep:FormSteps,
-  data:{
-    token:string,
-    email: string,
-    password: string,
-    message:string,
-  }
+export type FormSteps = "Email" | "Token" | "Password";
+export type UnitFormSteps = "base" | "core" | "overview";
+export interface ResetPasswordState {
+  errors: any;
+  loading: boolean;
+  formStep: FormSteps;
+  data: {
+    token: string;
+    email: string;
+    password: string;
+    message: string;
+  };
 }
 export interface ResetPasswordUserInput {
   email: string;
@@ -132,10 +134,16 @@ export interface ChangePasswordUserInput {
 export interface UpdateUserInput extends Partial<User> {
   id: string;
 }
-export type ModalViews = 'success' | 'error' | 'warning' | 'forgotpass' 
+export type ModalViews =
+  | "success"
+  | "error"
+  | "warning"
+  | "forgotpass"
+  | "new_property"
+  | "new_unit";
 export interface AppState {
-  modal:IModalState<ModalViews>;
-  passwordReset:ResetPasswordState;
+  modal: IModalState<ModalViews>;
+  passwordReset: ResetPasswordState;
   user?: User;
   error?: string;
   loading: boolean;
@@ -157,50 +165,16 @@ export interface AppState {
     profileImage: string;
     timestamp: string;
   }>;
-  unit: {
-    expanded: boolean;
-    imageUrl: string;
-    noProperties: string;
-    noRequest: string;
-    noTenants: string;
-    propertyTitle: string;
-    info: {
-      roomName: string;
-      livingSpace: string;
-      noRooms: string;
-      propertyOverview: [string, string, string, string];
-      equipments: Array<string>;
-      tenantInfo: {
-        name: string;
-        contact: string;
-        placementDate: string;
-        pricePerMonth: string;
-        profileUrl: string;
-        status: UnitState;
-        onClick: () => void;
-      };
-      documents: {
-        contractUrl: string;
-        receiptsUrl: string;
-      };
-    };
-  };
+  unit: IUnit;
   properties: Array<{
+    id:string,
     expanded: boolean;
     imageUrl: string;
     noProperties: string;
     noRequest: string;
     noTenants: string;
     propertyTitle: string;
-    propertyList: Array<{
-      room: string;
-      pill: {
-        color: string;
-        label: string;
-      };
-      customerName: string;
-      livingSpace: string;
-    }>;
+    propertyList: Array<IUnit>;
   }>;
   analytics: {
     income: AnalyticalData;
@@ -208,4 +182,20 @@ export interface AppState {
     propertTrend: PropertyTrendsData;
   };
   inbox: Array<IMessageData>;
+  currentSelectedPropertyIndex: number
 }
+
+export type CreateUnit = {
+  room: string;
+  imageUrl: File;
+  contact: string;
+  propertyId: string
+  state:boolean,
+  livingSpace: string;
+  type: string;
+  baths: number;
+  bedrooms: number;
+  ammenities: Array<string>;
+  pricePerMonth: string;
+  propertyOverview: Array<File>;
+};

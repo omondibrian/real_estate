@@ -31,7 +31,10 @@ async function startApolloServer() {
 
   const httpServer = http.createServer(app);
   const server = new ApolloServer<MyContext>({
-    schema: schemaWithPermissions,
+    schema:  makeExecutableSchema({
+      typeDefs,
+      resolvers,
+    }),
     csrfPrevention: false,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });

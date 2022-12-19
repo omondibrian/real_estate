@@ -4,15 +4,16 @@ interface ListProps {
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  onClick?:React.MouseEventHandler<HTMLLIElement>;
   propertyList:Array<ItemProps>
 }
 /**
  * shows filters for the proprty search
  */
 export const ListItem = (props: ListProps) => {
+  console.log(props.propertyList)
   return (
-    <ul className="md:w-96  bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+    <ul className="  bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
       {props.propertyList.map((p) => (
         <Item {...p} />
       ))}
@@ -30,11 +31,12 @@ export interface ItemProps {
   };
   customerName: string;
   livingSpace: string;
+  onClick?: React.MouseEventHandler<HTMLLIElement>
 }
 
 const Item = (props: ItemProps) => {
   return (
-    <li className=" flex flex-col py-2 px-4 w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+    <li onClick={props.onClick} className=" flex flex-col py-2 px-4 w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
       <div className="flex justify-between text-center">
         <div className=" text-sm text-gray-900 font-medium ">{props.room}</div>
         <PillTab

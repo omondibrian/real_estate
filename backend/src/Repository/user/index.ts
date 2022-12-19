@@ -45,7 +45,22 @@ export class UserRepository extends Repository implements IUserRepository {
       },
       select: this._userProjections,
     });
-
+     //check user type
+     if(results.role == "Tenant"){
+         await this.client.tenants.create({
+          data:{
+              lat :0.0,
+              long : 0.0,
+              userId: results.id
+          }
+         })     
+    }else{
+      await this.client.propertyManager.create({
+        data:{
+          userId: results.id
+        }
+      })
+    }
     return {
       ...results,
       placementDate: this.fmtDate(results.placementDate),

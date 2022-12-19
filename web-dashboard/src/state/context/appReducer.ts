@@ -1,4 +1,6 @@
+import { IUnit, PropertyListings } from "../entities/PropertyListings";
 import { User } from "../entities/user";
+import { AppManager } from "../service";
 import {
   ActionMap,
   AppState,
@@ -11,6 +13,7 @@ import {
 
 export const initialState: AppState = {
   loading: false,
+  currentSelectedPropertyIndex: 0,
   modal: {
     isOpen: false,
     view: undefined,
@@ -21,7 +24,7 @@ export const initialState: AppState = {
       email: "",
       token: "",
       password: "",
-      message:""
+      message: "",
     },
     errors: null,
     formStep: "Email",
@@ -69,6 +72,10 @@ export const initialState: AppState = {
   ],
   unit: {
     expanded: true,
+    pill: {
+      color: "#59b73d",
+      label: "Occupied",
+    },
     imageUrl:
       "https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
     noProperties: "32",
@@ -113,6 +120,7 @@ export const initialState: AppState = {
   },
   properties: [
     {
+      id: '1',
       expanded: false,
       imageUrl:
         "https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
@@ -121,47 +129,10 @@ export const initialState: AppState = {
       noTenants: "10",
       propertyTitle:
         "Salama Properties ThornBridge Cir,Syrance,conecticut 3564",
-      propertyList: [
-        {
-          room: "1th Floor,left,room ",
-          pill: {
-            color: "#59b73d",
-            label: "Occupied",
-          },
-          customerName: "John Doe",
-          livingSpace: "112 sq m",
-        },
-        {
-          room: "2th Floor,left,room ",
-          pill: {
-            color: "#463587",
-            label: "Vacant",
-          },
-          customerName: "No tenant",
-          livingSpace: "112 sq m",
-        },
-        {
-          room: "3th Floor,left,room ",
-          pill: {
-            color: "#474861",
-            label: "Request",
-          },
-          customerName: "No tenant",
-
-          livingSpace: "118 sq m",
-        },
-        {
-          room: "4th Floor,left,room ",
-          pill: {
-            color: "#f16a2e",
-            label: "Maintenance",
-          },
-          customerName: "Courtney Henry",
-          livingSpace: "118 sq m",
-        },
-      ],
+      propertyList: Array<IUnit>(),
     },
     {
+      id:'2',
       expanded: false,
       imageUrl:
         "https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
@@ -170,45 +141,7 @@ export const initialState: AppState = {
       noTenants: "10",
       propertyTitle:
         "Salama Properties ThornBridge Cir,Syrance,conecticut 3564",
-      propertyList: [
-        {
-          room: "1th Floor,left,room ",
-          pill: {
-            color: "#59b73d",
-            label: "Occupied",
-          },
-          customerName: "Janie william",
-          livingSpace: "112 sq m",
-        },
-        {
-          room: "2th Floor,left,room ",
-          pill: {
-            color: "#463587",
-            label: "Vacant",
-          },
-          customerName: "No tenant",
-          livingSpace: "112 sq m",
-        },
-        {
-          room: "3th Floor,left,room ",
-          pill: {
-            color: "#474861",
-            label: "Request",
-          },
-          customerName: "No tenant",
-
-          livingSpace: "118 sq m",
-        },
-        {
-          room: "4th Floor,left,room ",
-          pill: {
-            color: "#f16a2e",
-            label: "Maintenance",
-          },
-          customerName: "Courtney Henry",
-          livingSpace: "118 sq m",
-        },
-      ],
+      propertyList: [],
     },
   ],
   analytics: {
@@ -404,16 +337,33 @@ export enum IAppActionTypes {
   FORGOT_PASSWORD = "FORGOT_PASSWORD",
   RESET_PASSWORD = "RESET_PASSWORD",
   UPDATE_STEP = "UPDATE_STEP",
+  UPDATE_UNIT = "UPDATE_UNIT",
+  CURRENT_PROPERTY_INDEX = "CURRENT_PROPERTY_INDEX",
 }
 //TODO: add the type of the payload to be passed based  on the action type
 
 export type AppPayload = {
-  [IAppActionTypes.ADD_LISTING]: {};
-  [IAppActionTypes.FETCH_PROFILE]: {};
-  [IAppActionTypes.FETCH_STATS]: {};
-  [IAppActionTypes.FETCH_lISTINGS]: {
-    userId: string;
+  [IAppActionTypes.CURRENT_PROPERTY_INDEX]: { index: number };
+  [IAppActionTypes.ADD_LISTING]: {
+    contact: string;
+    lat: number;
+    long: number;
+    name: string;
+    phoneNumber: string;
+    imageUrl: File;
   };
+  [IAppActionTypes.UPDATE_UNIT]: IUnit;
+  [IAppActionTypes.FETCH_PROFILE]: {
+    name: string;
+    email: string;
+    imageUrl: string;
+    phoneNumber: string;
+    role: string;
+    placementDate: string;
+    accountState: boolean;
+  };
+  [IAppActionTypes.FETCH_STATS]: {};
+  [IAppActionTypes.FETCH_lISTINGS]: PropertyListings[];
   [IAppActionTypes.FETCH_INBOX]: {};
   [IAppActionTypes.OPEN_MODAL]: {
     view: ModalViews;
@@ -465,18 +415,103 @@ export const appReducer = (state: AppState, action: AppActions): AppState => {
           formStep: action.payload.step,
         },
       };
+    case IAppActionTypes.UPDATE_UNIT:
+      return {
+        ...state,
+        unit: action.payload,
+      };
+    case IAppActionTypes.CURRENT_PROPERTY_INDEX:
+      return {
+        ...state,
+        currentSelectedPropertyIndex: action.payload.index,
+      };
     case IAppActionTypes.ADD_LISTING:
+      console.log("from reducer", action.payload);
+      new AppManager().createPropertyListing(action.payload).then((res) => {
+        console.log(res);
+      });
       //do stuff then
       return state;
     case IAppActionTypes.FETCH_PROFILE:
-      //do stuff then
-      return state;
+      return {
+        ...state,
+        user: new User(
+          action.payload.name,
+          action.payload.email,
+          "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+          action.payload.phoneNumber,
+          action.payload.role,
+          action.payload.placementDate,
+          action.payload.accountState
+        ),
+      };
     case IAppActionTypes.FETCH_STATS:
       //do stuff then
       return state;
     case IAppActionTypes.FETCH_lISTINGS:
-      //do stuff then
-      return state;
+      // console.log(action.payload);
+      const listings = action.payload.map((p) => {
+        let noTenants = 0;
+        let propertyList: Array<IUnit> = [];
+        p.listings.forEach((u) => {
+          const unit: IUnit = {
+            expanded: false,
+            imageUrl:
+              "https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
+            noProperties: p.listings.length + "",
+            noRequest: "8",
+            noTenants: noTenants + "",
+            propertyTitle: p.name,
+
+            pill: {
+              color: "#463587",
+              label: "Vacant",
+            },
+            info: {
+              roomName: u.room,
+              livingSpace: u.livingSpace,
+              propertyOverview: u.propertyOverview,
+              documents: {
+                contractUrl: "",
+                receiptsUrl: "",
+              },
+              equipments: u.ammenities,
+              noRooms: "3",
+              tenantInfo: {
+                ...u.tenant.user,
+                contact: u.tenant.user.phoneNumber,
+                pricePerMonth: u.pricePerMonth,
+                profileUrl: u.tenant.user.profileImage,
+                status: u.tenant.user.accountState
+                  ? UnitState.active
+                  : UnitState.inactive,
+              },
+            },
+          };
+          if (u.state === "Occupied") {
+            noTenants += 1;
+            unit.pill = {
+              color: "#59b73d",
+              label: "Occupied",
+            };
+          }
+          propertyList.push(unit);
+        });
+        return {
+          expanded: false,
+          imageUrl:
+            "https://raw.githubusercontent.com/adrianhajdin/projects_realestate/main/assets/images/house.jpg",
+          noProperties: p.listings.length + "",
+          noRequest: "8",
+          noTenants: noTenants + "",
+          propertyTitle: p.name,
+          propertyList,
+          id: p.id,
+        };
+      });
+
+      console.log("properties", state.properties);
+      return { ...state, properties: listings };
     case IAppActionTypes.FORGOT_PASSWORD:
       //do stuff then
       return state;

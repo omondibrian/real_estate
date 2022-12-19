@@ -20,6 +20,8 @@ const PropertyTypeDefs = `#graphql
         imageUrl:String
         phoneNumber:String
         contact:String
+        lat:Float
+        long:Float
         manager:PropertyManager
         propertyUnits:[Unit]
     }
@@ -34,18 +36,19 @@ const PropertyTypeDefs = `#graphql
         livingSpace:String
         ammenities:[String!]
         propertyId:String
+        propertyOverview: [String]!
+        pricePerMonth:String
     }
 
     type Query {
       books: [Book]
       #fetch unoccupied listings
-      fetchPublicListings:[Property!]!
-      myListings:[Property!]!
+      fetchPublicListings:ListingsResult!
+      myListings:ListingsResult!
     }
 
-    input PropertyInput{
+    type PropertyUpdate{
         name:String!
-        imageUrl:Upload!
         phoneNumber:String!
         contact:String!  
         lat:Float!
@@ -63,6 +66,8 @@ const PropertyTypeDefs = `#graphql
         bedrooms:Int!
         ammenities:[String]!
         propertyId:String!
+        propertyOverview: [String]!
+        pricePerMonth:String
      }
     input UnitUpdates{
         room:String!
@@ -77,21 +82,36 @@ const PropertyTypeDefs = `#graphql
         message:String!
     }
 
+    type PropertiesPayload {
+        property:[Property]!
+        message:String!
+    }
+
+    type ListingsPayload {
+        properties:[Property]!
+        message:String!
+    }
+
+    type PropertyUpdatePayload {
+        property:PropertyUpdate!
+        message:String!
+    } 
+
     type UnitPayload{
         unit:Unit!
         message:String!
     }
-
+    union ListingsResult = ListingsPayload  | ApplicationErrors
     union PropertyResults = PropertyPayload | ApplicationErrors
     union UnitResults = UnitPayload | ApplicationErrors
-
+    union PropertyUpdateResults = PropertyUpdatePayload | ApplicationErrors
     type Mutation{
-        createPropertyListing(input:PropertyInput!):PropertyResults!
-        createUnit(input:UnitInput!):UnitResults!
-        updateUnit(input:UnitUpdates!):UnitResults!
-        updatePropertyListing(input:PropertyInput!):PropertyResults!
-        occupyUnit(input:OccupyRequestInput!):UnitResults!
-        leaveUnit:UnitResults!
+        createPropertyListing(name:String!,phoneNumber:String!,contact:String!,lat:Float!,long:Float!,imageUrl:Upload!):PropertyResults!
+        createUnit(room:String!,imageUrl:Upload!,contact:String!, propertyId:String!, state:Boolean!, livingSpace:String!, type:String!,  baths:Int!, bedrooms:Int!, ammenities:[String]!,pricePerMonth:String!,propertyOverview:[Upload!]!):UnitResults!
+        updateUnit(room:String!,unitId:String!):UnitResults!
+        updatePropertyListing(propertyId:ID!,name:String, phoneNumber:String,contact:String,lat:Float,long:Float):PropertyUpdateResults!
+        occupyUnit(unitId:String!,tenantId:String!):UnitResults!
+        leaveUnit(unitId:String!,tenantId:String!):UnitResults!
         deleteUnit(id:ID!):UnitResults!
         deletePropertyListing(id:ID!):PropertyResults!
     }
